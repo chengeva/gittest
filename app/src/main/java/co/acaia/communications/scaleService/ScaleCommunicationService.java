@@ -1,8 +1,6 @@
 package co.acaia.communications.scaleService;
 
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -22,7 +20,6 @@ import android.os.DeadObjectException;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.communications.CommLogger;
@@ -30,7 +27,6 @@ import co.acaia.communications.events.SendDataEvent;
 import co.acaia.communications.protocol.ProtocolHelper;
 import co.acaia.communications.protocol.ScaleGattAttributes;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
-import co.acaia.communications.reliableQueue.ReliableJob;
 import co.acaia.communications.reliableQueue.ReliableSenderQueue;
 import co.acaia.communications.scale.AcaiaScale;
 import co.acaia.communications.scale.AcaiaScale2;
@@ -43,16 +39,15 @@ import co.acaia.communications.scaleevent.ScaleConnectionEvent;
 
 import com.acaia.scale.communications.AcaiaCommunicationPacketHelper;
 
-import co.acaia.firmwaretool.Events.ChangeISPModeEvent;
-import co.acaia.firmwaretool.Events.ConnectionEvent;
-import co.acaia.firmwaretool.Events.StartFirmwareUpdateEvent;
-import co.acaia.firmwaretool.Events.UpdateErrorEvent;
-import co.acaia.firmwaretool.Events.UpdateStatusEvent;
-import co.acaia.firmwaretool.R;
-import co.acaia.firmwaretool.entity.FirmwareFileEntity;
-import co.acaia.firmwaretool.entity.FirmwareFileEntityHelper;
-import co.acaia.firmwaretool.firmwarelunar.IspHelper;
-import co.acaia.firmwaretool.ui.SelectVersionEvent;
+import co.acaia.acaiaupdater.Events.ChangeISPModeEvent;
+import co.acaia.acaiaupdater.Events.ConnectionEvent;
+import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
+import co.acaia.acaiaupdater.Events.UpdateErrorEvent;
+import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
+import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
+import co.acaia.acaiaupdater.entity.FirmwareFileEntityHelper;
+import co.acaia.acaiaupdater.firmwarelunar.IspHelper;
+import co.acaia.acaiaupdater.ui.SelectVersionEvent;
 import de.greenrobot.event.EventBus;
 
 public class ScaleCommunicationService extends Service {

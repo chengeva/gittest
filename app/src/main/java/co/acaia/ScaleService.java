@@ -11,18 +11,14 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.content.Context;
 
 
-
-import co.acaia.firmwaretool.MainActivity;
+import co.acaia.acaiaupdater.MainActivity;
 
 import com.acaia.scale.communications.AcaiaCommunicationPacketHelper;
 import com.acaia.scale.communications.AcaiaScaleAttributes;
