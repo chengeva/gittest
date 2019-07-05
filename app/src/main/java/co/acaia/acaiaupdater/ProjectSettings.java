@@ -1,4 +1,4 @@
-package co.acaia;
+package co.acaia.acaiaupdater;
 
 /**
  * Created by hanjord on 2015/10/29.

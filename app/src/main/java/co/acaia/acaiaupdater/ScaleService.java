@@ -1,4 +1,4 @@
-package co.acaia;
+package co.acaia.acaiaupdater;
 
 import java.util.UUID;
 
@@ -17,8 +17,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-
-import co.acaia.acaiaupdater.MainActivity;
 
 import com.acaia.scale.communications.AcaiaCommunicationPacketHelper;
 import com.acaia.scale.communications.AcaiaScaleAttributes;

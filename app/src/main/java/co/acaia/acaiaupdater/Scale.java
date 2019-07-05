@@ -1,6 +1,4 @@
-package co.acaia;
-
-import co.acaia.acaiaupdater.MainActivity;
+package co.acaia.acaiaupdater;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,7 +28,7 @@ public class Scale {
 			MainActivity.orangeDebug("Scale initialize, but context=null");
 		}
 		mCtx = context;
-		Intent scalServiceIntent = new Intent(mCtx, co.acaia.ScaleService.class);
+		Intent scalServiceIntent = new Intent(mCtx, ScaleService.class);
 		boolean r=mCtx.bindService(scalServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
 		// MainActivity.orangeDebug("Scale initialize, bind service="+r);
 		return true;

@@ -14,10 +14,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
-import co.acaia.ProjectSettings;
 import co.acaia.acaiaupdater.Events.DownloadFirmwareFailedEvent;
 import co.acaia.acaiaupdater.Events.DownloadedFirmwareEvent;
 import co.acaia.acaiaupdater.MainActivity;
+import co.acaia.acaiaupdater.ProjectSettings;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntityHelper;
 import co.acaia.acaiaupdater.rawfile.RawFileHelper;

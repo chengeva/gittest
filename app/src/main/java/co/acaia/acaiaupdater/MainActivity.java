@@ -33,7 +33,6 @@ import net.hockeyapp.android.UpdateManager;
 
 import java.util.ArrayList;
 
-import co.acaia.ScaleService;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleFoundEvent;
 import co.acaia.ble.events.ScaleListChangeEvent;

@@ -37,7 +37,7 @@
         tools:replace="android:icon" >
         <meta-data
             android:name="DATABASE"
-            android:value="acaia.firmwarelunar.db" />
+            android:value="acaia.firmwareupdater.db" />
         <meta-data
             android:name="VERSION"
             android:value="7" />
@@ -46,7 +46,7 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="co.acaia.firmwaretool.entity" />
+            android:value="co.acaia.acaiaupdater.entity" />
 
         <activity
             android:screenOrientation="portrait"
