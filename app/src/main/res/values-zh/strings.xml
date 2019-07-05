@@ -3,7 +3,7 @@
 <resources>
 
     <!--Application Utils -->
-    <string name="app_name">Lunar Updater</string>
+    <string name="app_name">Acaia Updater</string>
     <string name="ble_not_supported">BLE is not supported</string>
 
     <!--UI main strings -->
@@ -135,7 +135,7 @@
     <string name="title_activity_feedback_init">FeedbackInitActivity</string>
     <string name="_FirmwareVersion">FirmwareVersion</string>
     <!-- Action bar-->
-    <string name="Lunar_Updater">Lunar Updater</string>
+    <string name="Lunar_Updater">Acaia Updater</string>
     <string name="Instruction_Guide">Instruction Guide</string>
     <string name="Check_Firmware_Version">Check Firmware Version</string>
     <string name="Switch_scale_to_update_mode">Switch scale to update mode</string>

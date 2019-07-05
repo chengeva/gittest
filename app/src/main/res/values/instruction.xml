@@ -22,7 +22,7 @@
     <string-array name="arry_instruction_step4">
         <item>If for any reason (including out of battery), the acaia scale shuts down during firmware update, please restart the Firmware Update with the following procedure.</item>
         <item>1. Press and hold the Power Button for 1 second to start the scale. There will be no display at all on the LED display, but the left yellow LED indicator will light on</item>
-        <item>2. In the lunar updater, return to "Select Scale" and reconnect.</item>
+        <item>2. In the Acaia Updater, return to "Select Scale" and reconnect.</item>
         <item>3. Restart Step 3 to continue the firmware update.</item>
     </string-array>
 </resources>
