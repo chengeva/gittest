@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--Application Utils -->
+    <string name="app_name">Lunar Updater</string>
+    <string name="ble_not_supported">BLE is not supported</string>
+
+    <!--UI main strings -->
+    <string name="title_step1">Step. 1</string>
+    <string name="_InstructionGuide">Instruction Guide</string>
+    <string name="title_step2">Step. 2</string>
+    <string name="_select_sacle">Select Scale</string>
+    <string name="weight_0.0_g">Weight 0.0.g</string>
+    <string name="_select_firmware">選擇固件版本</string>
+    <string name="title_step3">Step. 3</string>
+    <string name="_switch_update_mode">Switch Update Mode</string>
+    <string name="_start_firmware_update">Start Firmware Update</string>
+    <string name="_none">None</string>
+    <string name="_done">Done</string>
+    <string name="_progress">Progress</string>
+    <string name="_0.0">0.0%</string>
+    <string name="_downloading_firmware">Downloading Firmware...</string>
+    <string name="_downloading_firmware_failed">Download Firmware Failed</string>
+    <string name="_need_downloading_firmware">Need to download latest firmware.</string>
+    <!--Instruction Guide -->
+    <string name="check_firmware_version">1.Check Firmware Version</string>
+    <string name="switch_to_update_mode">2.Switch scale to update mode</string>
+    <string name="connect_scale_">3.Connect the scale with APP</string>
+    <string name="start_firmware_update">4.Start Firmware Update</string>
+    <string name="trouble_shooting">5.Trouble Shooting</string>
+    <!--Check Firmware Version -->
+    <string name="power_btn_check_firmware_version">Power button</string>
+    <string name="t_btn_check_firmware_version">T button</string>
+    <string name="Press_and_hold_check_firmware_version">1. Press and hold Power button while turning on the scale.</string>
+    <string name="LED_display_check_firmware_version">When the LED display shows</string>
+    <string name="nAcaia_check_firmware_version">nAcaia </string>
+    <string name="and_then_check_firmware_version"> and then </string>
+    <string name="SEt_check_firmware_version"> SEt</string>
+    <string name="comma_check_firmware_version">,</string>
+    <string name="release_power_btn_check_firmware_version">release the Power button.</string>f
+    <string name="for_version_2.5">2. For version 2.5 it shows</string>
+    <string name="show_2.5">- 2.5 -</string>
+    <!--Switch scale to update mode -->
+    <string name="Power_btn_Switch_update_mode">Power button</string>
+    <string name="T_btn_Switch_update_mode">T button</string>
+    <string name="Press_and_hold_Switch_update_mode">1. Press and hold Power button while turning on the scale.</string>
+    <string name="LED_display_Switch_update_mode">When the LED display shows</string>
+    <string name="nAcaia_switch_update_mode">nAcaia </string>
+    <string name="and_then_switch_update_mode">and then</string>
+    <string name="SEt_switch_update_mode">SEt</string>
+    <string name="comma_switch_update_mode">,</string>
+    <string name="press_and_hold_switch_update_mode">press and hold T button for another 1 second without releasing the power button</string>
+    <string name="LED_display_switch_update_mode_2">When the LED display shows</string>
+    <string name="F.0000">F .0000</string>
+    <string name="release_both_keys">,release both keys.</string>
+    <string name="Input_the_password">2. Input the password with T button</string>
+    <string name="short_click_T">2.1 Short click T: change the digit.</string>
+    <string name="move_to_next_digit">2.2 Long press T: move to next digit.</string>
+    <string name="Input_password">Input Password</string>
+    <string name="Switch_update_mode_0415">0415</string>
+    <string name="password_correct">3. If the password is correct,the LED</string>
+    <string name="will_display_switch_update_mode">will display</string>
+    <string name="ISP_switch_update_mode">ISP</string>
+    <string name="or_switch_update_mode">or</string>
+    <string name="UPDAtE">UPDAtE</string>
+    <!--Connect the sacle with App-->
+    <string name="Select_scale_connect_scale">1. Click Select Scale at root menu.</string>
+    <string name="Select_Scale_connect_scale2">Then select a scale to connect</string>
+    <string name="back_to_menu">2. Back to menu, and make sure that</string>
+    <string name="None_has_changed">None has changed to acaia scale.</string>
+    <string name="Make_sure_connect">3. To make sure you have connect the right scale, put something on the scale so that the weight shall be changing on the APP.</string>
+    <!--Start Firmeare Update-->
+    <string name="Click_select_scale">1. Click Select Scale at root menu.</string>
+    <string name="firmware_update_begin">2. The firmware update process will begin</string>
+    <string name="upgrade_is_done">3. When the upgrade process is done, the scale will turn off automatically.</string>
+    <!--TroubleShooting -->
+    <string name="Do_not_plug_in_troubleshooting">1. Do NOT plug in USB cable during the Firmware Update. Which will cause the scale to shutdown.</string>
+    <string name="make_sure_connect_troubleshooting">2. Make sure you have connected the right scale. The best way to do so is to turn on only one scale.</string>
+    <string name="If_for_any_reason">3. If for any reason (including out of battery), the acaia Scale shutdown during Firmware update, please restart the Firmware Update with the following procedure:</string>
+    <string name="Press_power_btn_1_sec">3.1 Press Power button for 1 second to start the scale again. There will be no display at this stage, but the left yellow LED indicator will light on.</string>
+    <string name="reconnect_scale">3.2 APP return to Select Scale and reconnect to the scale.</string>
+    <string name="app_restart_update">3.3 APP restart Firmware Update procedure</string>
+    <string name="For_more_information">4. For more information or questions please email to support@acaia.co or visit www.acaia.co.</string>
+    <!--Select scale -->
+    <string name="menu_connect">Connect</string>
+    <string name="menu_disconnect">Disconnect</string>
+    <string name="_menu_refresh">Refresh</string>
+    <string name="menu_scan">Scan</string>
+    <string name="menu_stop">Stop</string>
+
+    <string name="_EmailIsInvalid">Invalid Email</string>
+    <string name="_EmailNotFound">Oops! Wrong email address, please check and try again.</string>
+
+    <!-- Text that appears when updating -->
+    <string name="firmware_update_done">Firmware update done</string>
+    <string name="Firmware_updating">Firmware Updating...</string>
+    <string name="Updating_Firmware">Updating Firmware...</string>
+    <string name="Erasing_previous_Firmware">Erasing previous Firmware...</string>
+    <string name="Disconnected_while_updating">Disconnected while updating. Please restart the update process</string>
+    <string name="error_while_updating">Error while updating. Please restart the App and try again.</string>
+    <string name="start_firmware_update_when_updating">Start Firmware Update</string>
+    <string name="Firmware_Update_Done_when_updating">Firmware Update Done</string>
+    <string name="connect_scale_first">Please connect to scale first.</string>
+    <!---Feedback -->
+    <string name="Full_Name">Full Name</string>
+    <string name="Email">Email</string>
+    <string name="Next">Next</string>
+    <string name="Invalid_Email">Invalid Email</string>
+
+    <!-- Menu strings -->
+    <string name="_website">acaia.co</string>
+    <string name="_url">http://acaia.co</string>
+    <string name="_Feedback">Feedback</string>
+    <string name="_MailSubject">Feedback from Android Lunar Firmware Tool</string>
+    <string name="_SentDialogTitle">Send feedback to acaia</string>
+    <string name="_About">About</string>
+    <!-- settings -->
+    <string name="Switch_to_update_mode_in_setting">Switch To Update Mode</string>
+    <string name="_settings">Settings</string>
+    <string name="Lunar_2.2">Lunar 2.2</string>
+    <!-- Others -->
+    <string name="_version">Version</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="close">close</string>
+    <string name="title_activity_check_firmware">CheckFirmwareActivity</string>
+    <string name="title_activity_connect_scale_with_app">ConnectScaleWithAppActivity</string>
+    <string name="title_activity_firmware_update">FirmwareUpdateActivity</string>
+    <string name="title_activity_trouble_shooting">TroubleShootingActivity</string>
+    <string name="title_activity_start_firmware_update">StartFirmwareUpdate</string>
+    <string name="title_activity_select_firmware_from_list">SelectFirmwareFromListActivity</string>
+    <string name="title_activity_select_firmware">SelectFirmwareActivity</string>
+    <string name="title_activity_feedback_init">FeedbackInitActivity</string>
+    <string name="_FirmwareVersion">FirmwareVersion</string>
+    <!-- Action bar-->
+    <string name="Lunar_Updater">Lunar Updater</string>
+    <string name="Instruction_Guide">Instruction Guide</string>
+    <string name="Check_Firmware_Version">Check Firmware Version</string>
+    <string name="Switch_scale_to_update_mode">Switch scale to update mode</string>
+    <string name="Connect_the_scale_with_APP">Connect the scale with APP</string>
+    <string name="Start_Firmware_Update">Start Firmware Update</string>
+    <string name="TroubleShooting">Trouble Shooting</string>
+    <string name="Version_Detail">Version Detail</string>
+    <string name="Select_Firmware_Version">Select Firmware Version</string>
+    <string name="Feedback">Feedback</string>
+    <string name="select_scale">Select Scale</string>
+
+
+</resources>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Application Utils -->
+    <string name="app_name">Lunar 固件更新</string>
+    <string name="ble_not_supported">BLE is not supported</string>
+
+    <!--UI main strings -->
+    <string name="title_step1">步骤.1</string>
+    <string name="_InstructionGuide">使用指南</string>
+    <string name="title_step2">步骤.2</string>
+    <string name="_select_sacle">选择智能秤</string>
+    <string name="weight_0.0_g">重量 0.0.g</string>
+    <string name="_select_firmware">选择固件版本</string>
+    <string name="title_step3">步骤.3</string>
+    <string name="_switch_update_mode">切换至更新模式</string>
+    <string name="_start_firmware_update">开始固件更新</string>
+    <string name="_none">未连线</string>
+    <string name="_done">完成</string>
+    <string name="_progress">固件更新进度</string>
+    <string name="_0.0">0.0%</string>
+    <string name="_downloading_firmware">固件下载中...</string>
+    <string name="_downloading_firmware_failed">固件下载失败</string>
+    <string name="_need_downloading_firmware">需要下载最新的固件</string>
+    <!--Instruction Guide -->
+    <string name="check_firmware_version">确认固件版本</string>
+    <string name="switch_to_update_mode">将智能秤切换到更新模式</string>
+    <string name="connect_scale_">将智能秤连接APP</string>
+    <string name="start_firmware_update">开始固件更新</string>
+    <string name="trouble_shooting">故障排除</string>
+    <!--Check Firmware Version -->
+    <string name="power_btn_check_firmware_version">电源鍵</string>
+    <string name="t_btn_check_firmware_version">T鍵</string>
+    <string name="Press_and_hold_check_firmware_version">1.长压电源键不放进行开机.</string>
+    <string name="LED_display_check_firmware_version">萤幕会先显示</string>
+    <string name="nAcaia_check_firmware_version">nAcaia </string>
+    <string name="and_then_check_firmware_version">接着变成</string>
+    <string name="SEt_check_firmware_version"> SEt</string>
+    <string name="comma_check_firmware_version">,</string>
+    <string name="release_power_btn_check_firmware_version">此时松开后即会显示出当前固件版本.</string>
+    <string name="for_version_2.5">2. 2.5版本会显示-</string>
+    <string name="show_2.5">- 2.5 -</string>
+    <!--Switch scale to update mode -->
+    <string name="Power_btn_Switch_update_mode">电源鍵</string>
+    <string name="T_btn_Switch_update_mode">T鍵</string>
+    <string name="Press_and_hold_Switch_update_mode">1.长压电源键不放进行开机</string>
+    <string name="LED_display_Switch_update_mode">萤幕会先显示</string>
+    <string name="nAcaia_switch_update_mode">nAcaia </string>
+    <string name="and_then_switch_update_mode">接着变成</string>
+    <string name="SEt_switch_update_mode">SEt</string>
+    <string name="comma_switch_update_mode">,</string>
+    <string name="press_and_hold_switch_update_mode">此时松开后即会显示出当前版,同时按住Ｔ键</string>
+    <string name="LED_display_switch_update_mode_2">直到显示</string>
+    <string name="F.0000">F .0000</string>
+    <string name="release_both_keys">，即可松开</string>
+    <string name="Input_the_password">2.输入密碼进行更新</string>
+    <string name="short_click_T">2.1 短按T键用来改变当前数值</string>
+    <string name="move_to_next_digit">2.2 长按T键用来跳至下一单位数值</string>
+    <string name="Input_password"> 输入密碼</string>
+    <string name="Switch_update_mode_0415">0415</string>
+    <string name="password_correct">3. 输入密碼进行更新后，</string>
+    <string name="will_display_switch_update_mode">显示屏会显示</string>
+    <string name="ISP_switch_update_mode">ISP</string>
+    <string name="or_switch_update_mode">或是</string>
+    <string name="UPDAtE">UPDAtE</string>
+    <!--Connect the sacle with App-->
+    <string name="Select_scale_connect_scale">1.在菜单中点击选择智能秤,</string>
+    <string name="Select_Scale_connect_scale2">接着选择一台智能秤进行连接</string>
+    <string name="back_to_menu">2.返回设置目录,确认</string>
+    <string name="None_has_changed">None已转变为acaia scale</string>
+    <string name="Make_sure_connect">3.确保您连接的是对应的秤，可以在智能秤上放置物品来进行检测</string>
+    <!--Start Firmeare Update-->
+    <string name="Click_select_scale">1.在设置目录中单点击"开始更新"</string>
+    <string name="firmware_update_begin">2.开始固件更新</string>
+    <string name="upgrade_is_done">3.当更新完成时，智能秤会自动关机</string>
+    <!--TroubleShooting -->
+    <string name="Do_not_plug_in_troubleshooting">1.进行更新时，请勿同时插入USB充电线进行充电，否则会造成强制关机。</string>
+    <string name="make_sure_connect_troubleshooting">2.请确认连接到相对应的智能秤。最稳妥的做法为只开启一台智能秤。</string>
+    <string name="If_for_any_reason">若在更新过程中，由于任何原因造成智能秤关机（包含电池没电）导致更新中断，请重启App，并遵循下方步骤进行：</string>
+    <string name="Press_power_btn_1_sec">3.1 按压电源键约1秒再次开机。此时只有左边的黄色显示灯会亮起，没有其它显示 。</string>
+    <string name="reconnect_scale">3.2 在App中，点击连接智能秤来重新连接。(请确保蓝牙开启) </string>
+    <string name="app_restart_update"> 3.3 连接后，即可使用App重新更新。</string>
+    <string name="For_more_information">4.若仍有问题或需要更多资讯，请来信至support@acaia.co或是来访 www.acaia.co</string>
+    <!--Select scale -->
+    <string name="menu_connect">连线</string>
+    <string name="menu_disconnect">未连线</string>
+    <string name="_menu_refresh">刷新</string>
+    <string name="menu_scan">扫描</string>
+    <string name="menu_stop">停止</string>
+
+    <string name="_EmailIsInvalid">无效的电子邮件</string>
+    <string name="_EmailNotFound">Oops! Wrong email address, please check and try again.</string>
+
+    <!-- Text that appears when updating -->
+    <string name="firmware_update_done">固件更新完成</string>
+    <string name="Firmware_updating">固件更新中...</string>
+    <string name="Updating_Firmware">更新固件中 ...</string>
+    <string name="Erasing_previous_Firmware">清除旧有版本...</string>
+    <string name="Disconnected_while_updating">连接中断。重新连接或重启程式</string>
+    <string name="error_while_updating">连接错误。请重新启动App以及智能秤</string>
+    <string name="start_firmware_update_when_updating">开始固件更新</string>
+    <string name="Firmware_Update_Done_when_updating">固件更新完成</string>
+    <string name="connect_scale_first">请先连接智能秤.</string>
+    <!---Feedback -->
+    <string name="Full_Name">全名</string>
+    <string name="Email">电子邮件</string>
+    <string name="Next">下一步</string>
+    <string name="Invalid_Email">无效的电子邮件"</string>
+
+    <!-- Menu strings -->
+    <string name="_website">acaia.co</string>
+    <string name="_url">http://acaia.co</string>
+    <string name="_Feedback">回报</string>
+    <string name="_MailSubject">Feedback from Android Lunar Firmware Tool</string>
+    <string name="_SentDialogTitle">Send feedback to acaia</string>
+    <string name="_About">关于</string>
+    <!-- settings -->
+    <string name="Switch_to_update_mode_in_setting">切换至更新模式</string>
+    <string name="_settings">设置</string>
+    <string name="Lunar_2.2">Lunar 2.2</string>
+    <!-- Others -->
+    <string name="_version">版本</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">设置</string>
+    <string name="close">关闭</string>
+    <string name="title_activity_check_firmware">CheckFirmwareActivity</string>
+    <string name="title_activity_connect_scale_with_app">ConnectScaleWithAppActivity</string>
+    <string name="title_activity_firmware_update">FirmwareUpdateActivity</string>
+    <string name="title_activity_trouble_shooting">TroubleShootingActivity</string>
+    <string name="title_activity_start_firmware_update">StartFirmwareUpdate</string>
+    <string name="title_activity_select_firmware_from_list">SelectFirmwareFromListActivity</string>
+    <string name="title_activity_select_firmware">SelectFirmwareActivity</string>
+    <string name="title_activity_feedback_init">FeedbackInitActivity</string>
+    <string name="_FirmwareVersion">FirmwareVersion</string>
+    <!-- Action bar-->
+    <string name="Lunar_Updater">Lunar 软件更新</string>
+    <string name="Instruction_Guide">使用指南</string>
+    <string name="Check_Firmware_Version">确认固件版本</string>
+    <string name="Switch_scale_to_update_mode">切换智能秤至更新模式</string>
+    <string name="Connect_the_scale_with_APP">将智能秤与应用程序连接</string>
+    <string name="Start_Firmware_Update">起动固件版本更新</string>
+    <string name="TroubleShooting">故障排除</string>
+    <string name="Version_Detail">版本资料</string>
+    <string name="Select_Firmware_Version">选择固件版本</string>
+    <string name="Feedback">回报</string>
+    <string name="select_scale">选择智能秤</string>
+
+    <!-- instruction_guide_array-->
+    <string-array name="instruction_step_arry">
+        <item>1.确认固件版本</item>
+        <item>2.切换智能秤至更新模式</item>
+        <item>3.将智能秤与应用程序连接</item>
+        <item>4.起动固件版本更新</item>
+        <item>5.故障排除</item>
+    </string-array>
+</resources>

@@ -1,0 +1,223 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="acaia.co.firmwareupdatepearl.Ui.guide.CheckFirmwareVersion">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/guide_item_height">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_next"
+                    android:layout_height="@dimen/icon_next"
+                    android:id="@+id/imageView5"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:src="@drawable/bt_power" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/power_btn_check_firmware_version"
+                    android:textSize="@dimen/font_guide"
+                    android:id="@+id/textView2"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageView5" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/guide_item_height">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_next"
+                    android:layout_height="@dimen/icon_next"
+                    android:id="@+id/imageViewTare"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:src="@drawable/bt_tare" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/t_btn_check_firmware_version"
+                    android:textSize="@dimen/font_guide"
+                    android:id="@+id/textView22"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewTare" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_marginRight="@dimen/margin_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Press_and_hold_check_firmware_version"
+                    android:textSize="@dimen/font_guide"
+                    android:id="@+id/textView3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:textColor="@color/black"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/LED_display_check_firmware_version"
+                    android:textSize="@dimen/font_guide"
+                    android:id="@+id/tv_led"
+                    android:layout_marginTop="4dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nAcaia_check_firmware_version"
+                    android:textSize="@dimen/font_guide_7g"
+                    android:id="@+id/tv_acaia" />
+
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/and_then_check_firmware_version"
+                    android:textSize="@dimen/font_guide"
+                    android:id="@+id/tv_" />
+
+                <TextView
+                    android:textColor="@color/black"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/SEt_check_firmware_version"
+                    android:textSize="@dimen/font_guide_7g"
+                    android:id="@+id/tv_set" />
+
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comma_check_firmware_version"
+                    android:textSize="@dimen/font_guide"
+                    android:id="@+id/tv_com" />
+
+            </LinearLayout>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/margin_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/release_power_btn_check_firmware_version"
+                android:textSize="@dimen/font_guide"
+                android:id="@+id/textView4" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/guide_item_height">
+
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/margin_left"
+
+                    android:textSize="@dimen/font_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/for_version_2.5"
+                    android:id="@+id/textView5"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/tv_25" />
+
+                <TextView
+                    android:textColor="@color/acaia_black"
+                    android:layout_marginRight="@dimen/margin_right"
+                    android:textSize="@dimen/font_guide_7g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_2.5"
+                    android:id="@+id/tv_25"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</RelativeLayout>

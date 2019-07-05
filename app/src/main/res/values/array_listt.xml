@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="about_arry">
+        <!-- About -->
+        <item>Privacy Policy</item>
+        <item>Terms of Service</item>
+    </string-array>
+
+    <string-array name="instruction_step_arry">
+        <item>1. Check firmware version</item>
+        <item>2. Switch scale to update mode</item>
+        <!--<item>3. Connect the scale with App</item>-->
+        <item>3. Connect the scale with App</item>
+        <item>4. Start firmware update</item>
+        <item>5. Trouble Shooting</item>
+    </string-array>
+</resources>

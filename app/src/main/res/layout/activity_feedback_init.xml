@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/signupbg"
+    tools:context="com.acaia.coffeescale.settings.FeedbackInitActivity">
+
+
+    <EditText
+        android:hint="@string/Full_Name"
+        android:background="@drawable/edittext_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/feedback_input_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:hint="@string/Email"
+        android:background="@drawable/edittext_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/feedback_input_email"
+        android:layout_below="@+id/feedback_input_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/feedback_input_name"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:background="@drawable/green_button"
+        android:textColor="@color/white"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="@string/Next"
+        android:id="@+id/feedback_button_next"
+        android:layout_below="@+id/feedback_input_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

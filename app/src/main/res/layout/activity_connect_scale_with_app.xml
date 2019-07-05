@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    tools:context="acaia.co.firmwareupdatepearl.Ui.guide.GuideActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:textColor="@color/acaia_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Select_scale_connect_scale"
+            android:id="@+id/tv_1"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:textColor="@color/acaia_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Select_Scale_connect_scale2"
+            android:id="@+id/tv_12"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:layout_marginLeft="35dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+
+        <TextView
+            android:textColor="@color/acaia_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_to_menu"
+            android:id="@+id/tv_121"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:textColor="@color/acaia_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/None_has_changed"
+            android:id="@+id/tv_13"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:layout_marginLeft="35dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+
+        <TextView
+            android:textColor="@color/acaia_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Make_sure_connect"
+            android:id="@+id/tv_21"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginTop="10dp" />
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

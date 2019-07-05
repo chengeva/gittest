@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="firmware_version_arry">
+		<item>ACAIA-1.72</item>
+		<item>ACAIA-1.62</item>
+		<item>ACAIA-1.5</item>
+		<item>ACAIA-1.3</item>
+    </string-array>
+</resources>

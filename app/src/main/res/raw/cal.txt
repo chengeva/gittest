@@ -1,0 +1,12 @@
+重量校正。(n = 500 or 0) 。 (500  -> 執行重量校正，0  ->強制離開重量校正)。
+
+  回應： Please Empty weighing pan. (校正開始，請清空秤盤)
+  回應： Wait, zero correction   (等待零點校正) 
+  回應： Zero calibration is complete  (零點校正完成) 
+  回應： Place a 500g calibration weight on scale     (將500克校準砝碼放在磅秤上)
+  回應： and wait for the scale to execute calibration procedure.!  (並等待磅秤執行校準程序) 
+  回應： Wait   (等待)
+  回應： calibration is complete  (重量校正完成)
+  回應： You may unload     (你可以卸載)  
+  回應： Er.304        (錯誤碼)
+         Error correction when    (重量校正失敗)

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_instruction_dialog_webview"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"
+        android:layout_above="@+id/layout_instruction_dialog_ll_buttons"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/guide_bg"-->
+        <!--android:layout_above="@+id/layout_instruction_dialog_ll_buttons"/>-->
+    <!--<android.support.v4.view.ViewPager-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/layout_instruction_dialog_viewpager"-->
+        <!--android:layout_above="@+id/layout_instruction_dialog_ll_buttons"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+    <LinearLayout
+        android:id="@+id/layout_instruction_dialog_ll_buttons"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            android:id="@+id/layout_instruction_dialog_btn_close" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

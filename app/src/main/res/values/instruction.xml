@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arry_instruction_step1">
+        <item>1. Press and hold Power button while turning on the scale. When the LED display shows nACAIA and then SEt, release the Power button.</item>
+        <item>2. For version 1.0(some of early bird), the LED will display -1.0-. DO NOT apply firmware update. Please contact acaia for further information.</item>
+    </string-array>
+
+    <string-array name="arry_instruction_step2">
+        <item>1. When the acaia scale is off. Press and hold Power button to turn ON the scale, and  the LED display shows  nACAIA and then SEt, press and hold T button for another 2 seconds without releasing Power  button. When the LED display shows F.0000 with the very left 0 flashing, release both Power and T buttons.</item>
+        <item>2. Please input the password as "0419". Here are the operations: </item>
+        <item>a. Click T button to change the digit number.</item>
+        <item>b. Click Power button for moving to previous digit.</item>
+        <item>c. Long press T button for moving to next digit.</item>
+        <item>3. After you input the password, long press the T button to confirm.</item>
+        <item>4. If the password is correctly input, the LED will display  ISP or UPdAtE. Which means the scale is now in firmware update mode.</item>
+    </string-array>
+
+    <string-array name="arry_instruction_step3">
+        <item>1 If the password is correctly input, the LED will display  ISP or UPdAtE. Which means the scale is now in firmware update mode.</item>
+    </string-array>
+
+    <string-array name="arry_instruction_step4">
+        <item>If for any reason (including out of battery), the acaia scale shuts down during firmware update, please restart the Firmware Update with the following procedure.</item>
+        <item>1. Press and hold the Power Button for 1 second to start the scale. There will be no display at all on the LED display, but the left yellow LED indicator will light on</item>
+        <item>2. In the lunar updater, return to "Select Scale" and reconnect.</item>
+        <item>3. Restart Step 3 to continue the firmware update.</item>
+    </string-array>
+</resources>
