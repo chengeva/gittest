@@ -341,7 +341,7 @@ public class FirmwareUpdateFragment extends Fragment {
     }
 
     private void setupVersion() {
-        FirmwareFileEntity firmwareFileEntity = FirmwareFileEntityHelper.getLatestFirmware();
+        /*FirmwareFileEntity firmwareFileEntity = FirmwareFileEntityHelper.getLatestFirmware();
         if (firmwareFileEntity != null) {
             currentFirmwareFileEntity=firmwareFileEntity;
             // update textview
@@ -353,7 +353,7 @@ public class FirmwareUpdateFragment extends Fragment {
             // Downlaoding
             tv_select_firmware.setText(getActivity().getResources().getString(R.string._downloading_firmware));
             tv_firmware_version.setText("");
-        }
+        }*/
     }
 
     private void init_views(View v) {

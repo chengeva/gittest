@@ -133,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
         // todo: add states
         firmwareFileFactory = new FirmwareFileFactory(getApplicationContext());
         firmwareFileFactory.proceedRetrieveFiles();
-
+        /*
         if (FirmwareFileEntityHelper.getLatestFirmware() != null)
             Log.v(TAG, "test get latest firmware" + String.valueOf(FirmwareFileEntityHelper.getLatestFirmware().detail));
 
@@ -154,7 +154,7 @@ public class MainActivity extends ActionBarActivity {
         }catch (Exception e){
 
         }
-
+        */
         this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
 
     }
