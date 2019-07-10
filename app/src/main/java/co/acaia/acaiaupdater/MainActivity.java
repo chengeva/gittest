@@ -1,6 +1,7 @@
 package co.acaia.acaiaupdater;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -28,11 +29,9 @@ import android.widget.Toast;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
-import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.UpdateManager;
-
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.filehelper.ParseFileRetriever;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleFoundEvent;
 import co.acaia.ble.events.ScaleListChangeEvent;
@@ -80,11 +79,12 @@ public class MainActivity extends ActionBarActivity {
      */
     FirmwareFileFactory firmwareFileFactory;
 
-    public static final String new_app_id="HAR0DucwDu3m6gXA0BlhnI24sYEJMCBqGAIf3bNy";
-    public static final String new_client_key="qbkOtZElUCoaA6bYSwxmlLqbDX0G1vovpBl92CM1";
-    public static final String new_endpoint="https://parseapi.back4app.com/";
+    public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
+    public static final String new_client_key="4Mqo4vvon9yzlcLi7uty9UXLlQW5j4NjUzNIRgaV";
+    public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
 
     //    actionbar;
+    @SuppressLint("InvalidWakeLockTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // MainActivity.orangeDebug("MainActivity onCreate");
@@ -131,30 +131,21 @@ public class MainActivity extends ActionBarActivity {
 
         // retreieve firmware files
         // todo: add states
+
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(MainActivity.new_app_id)
+                .clientKey(MainActivity.new_client_key)
+                .server(MainActivity.new_endpoint)
+                .build()
+        );
+
         firmwareFileFactory = new FirmwareFileFactory(getApplicationContext());
-        firmwareFileFactory.proceedRetrieveFiles();
-        /*
-        if (FirmwareFileEntityHelper.getLatestFirmware() != null)
-            Log.v(TAG, "test get latest firmware" + String.valueOf(FirmwareFileEntityHelper.getLatestFirmware().detail));
 
-        try {
-            Parse.initialize(new Parse.Configuration.Builder(this)
-                    .applicationId(MainActivity.new_app_id)
-                    .clientKey(MainActivity.new_client_key)
-                    .server(MainActivity.new_endpoint)
-                    .build()
-            );
-            String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-            ParseInstallation.getCurrentInstallation().put("deviceID",android_id);
-            ParseInstallation.getCurrentInstallation().put("hardwareDescription",getDeviceName());
-            ParseInstallation.getCurrentInstallation().put("systemVersion","Android"+Build.VERSION.RELEASE.replaceAll("\\s+",""));
-            ParseInstallation.getCurrentInstallation().saveEventually();
 
-        }catch (Exception e){
 
-        }
-        */
+        ParseFileRetriever parseFileRetriever=new ParseFileRetriever();
+        parseFileRetriever.test_parse(getApplicationContext());
+
         this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
 
     }
@@ -233,8 +224,6 @@ public class MainActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        checkForCrashes();
-        checkForUpdates();
         super.onResume();
     }
 
@@ -420,12 +409,4 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
-    private void checkForCrashes() {
-        CrashManager.register(this, "f675023e910b6faf8edd55bfc3399869");
-    }
-
-    private void checkForUpdates() {
-        // Remove this for store builds!
-        UpdateManager.register(this, "f675023e910b6faf8edd55bfc3399869");
-    }
 }

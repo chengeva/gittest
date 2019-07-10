@@ -43,6 +43,30 @@ public class ParseFileRetriever implements  FileRetriever{
         return false;
     }
 
+    public void test_parse(Context context)
+    {
+        try {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusFirmware");
+            //query.whereEqualTo(ProjectSettings.filter_tag, true);
+            query.addDescendingOrder("releaseDate");
+            // hanjord
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> firmwareFileList, ParseException e) {
+                    if (e == null) {
+                        Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
+                        for(int i=0;i!=firmwareFileList.size();i++){
+
+                        }
+                    } else {
+                        Log.v(TAG,"error"+e.getMessage());
+                        EventBus.getDefault().post(new DownloadFirmwareFailedEvent());
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     /**
      * Download files from parse
      * Todo: validate downlaoded files
@@ -59,7 +83,7 @@ public class ParseFileRetriever implements  FileRetriever{
                             .build()
                     );
                     Thread.sleep(500);
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("firmware");
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusFirmware");
                     query.whereEqualTo(ProjectSettings.filter_tag, true);
                     query.addDescendingOrder("releaseDate");
                     // hanjord
