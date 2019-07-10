@@ -14,7 +14,6 @@ import java.util.List;
 
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntityHelper;
 
 public class SelectFirmwareFromListActivity extends ActionBarActivity {
     ListView firmwareListView;
@@ -39,7 +38,8 @@ public class SelectFirmwareFromListActivity extends ActionBarActivity {
 
     private void init_firmware_list() {
         firmwareListView = (ListView) findViewById(R.id.list_firmware);
-        firmwareFileEntities = FirmwareFileEntityHelper.getDownloadedFirmware();
+        // TODO: get download firmware
+        //firmwareFileEntities = FirmwareFileEntityHelper.getDownloadedFirmware();
         final String[] firmwareList = new String[firmwareFileEntities.size()];
         for (int i = 0; i != firmwareFileEntities.size(); i++) {
             FirmwareFileEntity firmwareFileEntity = firmwareFileEntities.get(i);
@@ -52,7 +52,8 @@ public class SelectFirmwareFromListActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
-                intent.putExtra(extra_ver, (long)firmwareFileEntities.get(position).getId());
+                // todo: firmware id
+                //intent.putExtra(extra_ver, (long)firmwareFileEntities.get(position).getId());
                 setResult(RESULT_OK, intent);
                 finish();
             }

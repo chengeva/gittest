@@ -6,10 +6,10 @@ import android.util.Log;
 
 import java.io.File;
 
+import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
 import co.acaia.communications.scaleService.ScaleCommunicationService;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 
 /**
  * Created by hanjord on 15/4/21.
@@ -32,7 +32,7 @@ public class IspHelper {
 
 
 
-        File firmwareFile = new File(context.getFileStreamPath(firmwareFileEntity.filename).getAbsolutePath());
+        File firmwareFile = new File(context.getFileStreamPath(firmwareFileEntity.fileName).getAbsolutePath());
         Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
         cisphandler = new CISP_handler(firmwareFile);
         FileHandler.open_file(context, firmwareFile, cisphandler);

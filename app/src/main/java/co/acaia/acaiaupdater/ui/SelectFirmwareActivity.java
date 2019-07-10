@@ -36,7 +36,9 @@ public class SelectFirmwareActivity extends ActionBarActivity {
             long ver = getIntent().getLongExtra(SelectFirmwareFromListActivity.extra_ver, 0);
             //Log.v("selected version",String.valueOf(ver));
             EventBus.getDefault().post(new SelectVersionEvent(ver));
-            setDetail(FirmwareFileEntity.findById(FirmwareFileEntity.class, ver));
+
+            // TODO: set detail
+            //setDetail(FirmwareFileEntity.findById(FirmwareFileEntity.class, ver));
         }
     }
 
@@ -86,7 +88,8 @@ public class SelectFirmwareActivity extends ActionBarActivity {
                 long ver = data.getLongExtra(SelectFirmwareFromListActivity.extra_ver, 0);
                 //Log.v("selected version",String.valueOf(ver));
                 EventBus.getDefault().post(new SelectVersionEvent(ver));
-                setDetail(FirmwareFileEntity.findById(FirmwareFileEntity.class, ver));
+                // TODO: set detail
+                //setDetail(FirmwareFileEntity.findById(FirmwareFileEntity.class, ver));
             }
         }
     }

@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleDisconnectedEvent;
 import co.acaia.communications.events.ScaleFirmwareVersionEvent;
@@ -47,8 +48,6 @@ import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
 import co.acaia.acaiaupdater.Events.UpdateErrorEvent;
 import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntityHelper;
 import co.acaia.acaiaupdater.ui.SelectFirmwareActivity;
 import co.acaia.acaiaupdater.ui.SelectVersionEvent;
 import co.acaia.acaiaupdater.util.ListActivity;
@@ -410,8 +409,10 @@ public class FirmwareUpdateFragment extends Fragment {
                                     Toast.makeText(getActivity(), "Downloading firmware", Toast.LENGTH_LONG).show();
                         } else {
                             MainActivity.orangeDebug("startFirmware clicked.");
-                            EventBus.getDefault().post(new SelectVersionEvent(currentFirmwareFileEntity.getId()));
-                            EventBus.getDefault().post(new StartFirmwareUpdateEvent());
+
+                            // TODO: Firmware entitiy
+                            //EventBus.getDefault().post(new SelectVersionEvent(currentFirmwareFileEntity.getId()));
+                            //EventBus.getDefault().post(new StartFirmwareUpdateEvent());
 
                         }
 
@@ -474,7 +475,8 @@ public class FirmwareUpdateFragment extends Fragment {
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), SelectFirmwareActivity.class);
                     if(currentFirmwareFileEntity!=null){
-                        intent.putExtra(SelectFirmwareActivity.extra_firmware_ver,currentFirmwareFileEntity.getId());
+                        // TODO: firmware from intent
+                        //intent.putExtra(SelectFirmwareActivity.extra_firmware_ver,currentFirmwareFileEntity.getId());
                     }
                     getActivity().startActivity(intent);
                 }
@@ -488,8 +490,9 @@ public class FirmwareUpdateFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tv_firmware_version.setText(FirmwareFileEntity.findById(FirmwareFileEntity.class, selectVersionEvent.id).title);
-                currentFirmwareFileEntity=FirmwareFileEntity.findById(FirmwareFileEntity.class,selectVersionEvent.id);
+                // TODO: select version
+               // tv_firmware_version.setText(FirmwareFileEntity.findById(FirmwareFileEntity.class, selectVersionEvent.id).title);
+               // currentFirmwareFileEntity=FirmwareFileEntity.findById(FirmwareFileEntity.class,selectVersionEvent.id);
             }
         });
     }

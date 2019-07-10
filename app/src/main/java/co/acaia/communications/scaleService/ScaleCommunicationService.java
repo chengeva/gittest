@@ -3,6 +3,7 @@ package co.acaia.communications.scaleService;
 
 import java.util.UUID;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -44,8 +45,6 @@ import co.acaia.acaiaupdater.Events.ConnectionEvent;
 import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
 import co.acaia.acaiaupdater.Events.UpdateErrorEvent;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntityHelper;
 import co.acaia.acaiaupdater.firmwarelunar.IspHelper;
 import co.acaia.acaiaupdater.ui.SelectVersionEvent;
 import de.greenrobot.event.EventBus;
@@ -146,9 +145,6 @@ public class ScaleCommunicationService extends Service {
         return isISPMode;
     }
 
-
-    public FirmwareFileEntity firmwareFileEntity;
-
     // Parse scale setting command
     public void onEvent(ScaleCommandEvent event) {
 
@@ -191,26 +187,18 @@ public class ScaleCommunicationService extends Service {
     public void onEvent(ChangeISPModeEvent event) {
         CommLogger.logv(TAG, "click change isp");
         if(!isISPMode()) {
-            if (FirmwareFileEntityHelper.getLatestFirmware() != null)
-                if (ispHelper != null) {
-                    Log.v(TAG, "ISP helper OK!");
-                    ispHelper.change_isp_mode();
-                } else {
-                    Log.v(TAG, "ISP helper null!");
-                    if (firmwareFileEntity == null) {
-                        firmwareFileEntity = FirmwareFileEntityHelper.getLatestFirmware();
-                    }
-                    ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
-                    ispHelper.change_isp_mode();
-                }
+
         }else{
             CommLogger.logv(TAG, "ISP MODE!");
         }
     }
 
+    @SuppressLint("LongLogTag")
     public void onEvent(StartFirmwareUpdateEvent event) {
         CommLogger.logv(TAG, "click start isp");
-        if (FirmwareFileEntityHelper.getLatestFirmware() != null)
+
+        // TODO: start firmware update event
+        /*if (FirmwareFileEntityHelper.getLatestFirmware() != null)
             if (ispHelper != null) {
                 CommLogger.logv(TAG, "start isp");
                 ispHelper.startIsp();
@@ -218,11 +206,12 @@ public class ScaleCommunicationService extends Service {
                 setIsISP(true);
             } else {
                 Log.v(TAG, "ISP helper null!");
-                ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
-                ispHelper.startIsp();
+                //TODO: ISP helper
+                //ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
+                //ispHelper.startIsp();
 
                 setIsISP(true);
-            }
+            }*/
     }
 
     public void onEvent(UpdateStatusEvent event) {
@@ -245,12 +234,13 @@ public class ScaleCommunicationService extends Service {
     }
 
     public void onEvent(SelectVersionEvent selectVersionEvent) {
-        firmwareFileEntity = FirmwareFileEntity.findById(FirmwareFileEntity.class, selectVersionEvent.id);
+        //firmwareFileEntity = FirmwareFileEntity.findById(FirmwareFileEntity.class, selectVersionEvent.id);
     }
 
 
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
 
+        @SuppressLint("LongLogTag")
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             try {
@@ -419,9 +409,9 @@ public class ScaleCommunicationService extends Service {
                     }
                     try {
                         if (ispHelper == null) {
-
-                            ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
-                            ispHelper.parseDataPacket(characteristic.getValue());
+                            // TODO ISP helper
+                           // ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
+                            //ispHelper.parseDataPacket(characteristic.getValue());
                         } else {
                             // parse packet
                             ispHelper.parseDataPacket(characteristic.getValue());
@@ -687,6 +677,7 @@ public class ScaleCommunicationService extends Service {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public boolean initialize() {
 
         // For API level 18 and above, get a reference to BluetoothAdapter

@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.provider.Settings;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -27,7 +26,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.parse.Parse;
-import com.parse.ParseInstallation;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,6 @@ import co.acaia.communications.scalecommand.ScaleCommandEvent;
 import co.acaia.communications.scalecommand.ScaleCommandType;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEvent;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEventType;
-import co.acaia.acaiaupdater.entity.FirmwareFileEntityHelper;
 import co.acaia.acaiaupdater.filehelper.FirmwareFileFactory;
 import co.acaia.acaiaupdater.util.Utils;
 import de.greenrobot.event.EventBus;
