@@ -22,7 +22,6 @@ public class MainDeviceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_device);
         setActionBar();
         init_view();
-
     }
 
     private void init_view()
@@ -39,6 +38,8 @@ public class MainDeviceActivity extends AppCompatActivity {
         dataModels.add(deviceModel);
         adapter= new CustomAdaptor(dataModels,getApplicationContext());
         listview_devicelist.setAdapter(adapter);
+
+        
     }
 
     private void setActionBar() {

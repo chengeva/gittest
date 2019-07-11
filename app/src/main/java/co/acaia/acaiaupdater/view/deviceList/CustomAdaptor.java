@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import co.acaia.acaiaupdater.R;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 
 public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnClickListener{
 
@@ -19,6 +21,7 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
     // View lookup cache
     private static class ViewHolder {
         TextView deviceName;
+        ImageView deviceImage;
     }
 
     public CustomAdaptor(ArrayList<DeviceModel> data, Context context) {
@@ -49,6 +52,18 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
             convertView = inflater.inflate(R.layout.row_item, parent, false);
             viewHolder.deviceName=(TextView)convertView.findViewById(R.id.tv_device_name);
             viewHolder.deviceName.setText(dataModel.modelName);
+            if(dataModel.modelName.equals(AcaiaDevice.modelLunar)) {
+                viewHolder.deviceImage.setImageResource(R.drawable.img_lunar_default);
+            }
+            if(dataModel.modelName.equals(AcaiaDevice.modelPearlS)) {
+                viewHolder.deviceImage.setImageResource(R.drawable.img_pearls_default);
+            }
+            if(dataModel.modelName.equals(AcaiaDevice.modelOrion)) {
+                viewHolder.deviceImage.setImageResource(R.drawable.img_orion_default);
+            }
+            if(dataModel.modelName.equals(AcaiaDevice.modelCinco)) {
+                viewHolder.deviceImage.setImageResource(R.drawable.img_cinco_done);
+            }
             result=convertView;
 
             convertView.setTag(viewHolder);
