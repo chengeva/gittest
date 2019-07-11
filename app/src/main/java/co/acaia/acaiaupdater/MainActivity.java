@@ -143,7 +143,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         ParseFileRetriever parseFileRetriever=new ParseFileRetriever();
-        parseFileRetriever.test_parse(getApplicationContext());
+        //parseFileRetriever.test_parse(getApplicationContext());
         //FirmwareUnitTests.testFirmwareEntity();
         FileHelperUnitTests.testRetrieveFirmwareFile(getApplicationContext());
 

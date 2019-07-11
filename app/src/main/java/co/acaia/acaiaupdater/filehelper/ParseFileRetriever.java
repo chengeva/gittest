@@ -18,20 +18,25 @@ import co.acaia.acaiaupdater.Events.DownloadFirmwareFailedEvent;
 import co.acaia.acaiaupdater.Events.DownloadedFirmwareEvent;
 import co.acaia.acaiaupdater.MainActivity;
 import co.acaia.acaiaupdater.ProjectSettings;
+import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import de.greenrobot.event.EventBus;
 
 public class ParseFileRetriever implements  FileRetriever{
-
+    int numData=0;
 
     public static final String TAG="ParseFileRetriever";
 
-    public void retrieveFirmwareFilesByModel(AcaiaDevice acaiaDevice, final OnFileRetrieved onFileRetrieved){
+    public void retrieveFirmwareFilesByModel(AcaiaDevice acaiaDevice, final OnDataRetrieved onDataRetrieved){
         // Call callback if success or fail
         String modelName=acaiaDevice.modelName;
+        numData=0;
         // Query Parse
         try {
+            // Clear database
+            FirmwareEntityHelper.initFirmwareHelper();
+
             ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusFirmware");
             query.whereEqualTo("model", modelName);
             query.addDescendingOrder("releaseDate");
@@ -40,11 +45,24 @@ public class ParseFileRetriever implements  FileRetriever{
                 public void done(List<ParseObject> firmwareFileList, ParseException e) {
                     if (e == null) {
                         Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
-                        for(int i=0;i!=firmwareFileList.size();i++){
+                        numData=firmwareFileList.size();
 
+                        for(int i=0;i!=firmwareFileList.size();i++){
+                            FirmwareEntityHelper.processFirmwareFromParseObject(firmwareFileList.get(i), new OnFileRetrieved() {
+                                @Override
+                                public void doneRetrieved(boolean success, String message) {
+                                    if(success==true){
+                                        numData--;
+                                        if(numData==0){
+                                            Log.v(TAG,"Done retrieve "+String.valueOf(numData));
+                                        }
+                                    }
+                                }
+                            });
                         }
+
                     } else {
-                        onFileRetrieved.doneRetrieved(false,"Parse error "+e.getLocalizedMessage());
+                        onDataRetrieved.doneRetrieved(false,"Parse error "+e.getLocalizedMessage());
                     }
                 }
             });
@@ -68,30 +86,7 @@ public class ParseFileRetriever implements  FileRetriever{
         return false;
     }
 
-    public void test_parse(Context context)
-    {
-        try {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusFirmware");
-            //query.whereEqualTo(ProjectSettings.filter_tag, true);
-            query.addDescendingOrder("releaseDate");
-            // hanjord
-            query.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> firmwareFileList, ParseException e) {
-                    if (e == null) {
-                        Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
-                        for(int i=0;i!=firmwareFileList.size();i++){
 
-                        }
-                    } else {
-                        Log.v(TAG,"error"+e.getMessage());
-                        EventBus.getDefault().post(new DownloadFirmwareFailedEvent());
-                    }
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
     /**
      * Download files from parse
      * Todo: validate downlaoded files

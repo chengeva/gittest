@@ -1,11 +1,44 @@
 package co.acaia.acaiaupdater.entity;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+import co.acaia.acaiaupdater.filehelper.OnFileRetrieved;
 import co.acaia.acaiaupdater.util.RealmUtil;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class FirmwareEntityHelper {
+
+    public static void initFirmwareHelper()
+    {
+        Realm realm= RealmUtil.getRealm();
+        realm.beginTransaction();
+        // Delete all database
+        RealmResults<FirmwareFileEntity> results = realm.where(FirmwareFileEntity.class).findAll();
+        results.deleteAllFromRealm();
+        realm.commitTransaction();
+    }
+    public static void processFirmwareFromParseObject(ParseObject parseObject, final OnFileRetrieved onFileRetrieved){
+        Realm realm= RealmUtil.getRealm();
+        realm.beginTransaction();
+        FirmwareFileEntity firmwareFileEntity=firmwareFileEntityFromParseObject(parseObject);
+        realm.commitTransaction();
+        ParseFile firmwareFile=parseObject.getParseFile("firmwareFile");
+        firmwareFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                if(e==null){
+                    onFileRetrieved.doneRetrieved(true,"Retrieve file success");
+                }else{
+                    onFileRetrieved.doneRetrieved(false,"Retrieve file fail");
+                }
+            }
+        });
+    }
+
     public static void saveFirmwareEntity(FirmwareFileEntity firmwareFileEntity)
     {
         // Need to process file
