@@ -140,6 +140,9 @@ public class MainDeviceActivity extends ActionBarActivity {
                         Log.v("MainDevice",String.valueOf(success)+" "+message);
                         if(dialog!=null){
                             dialog.cancel();
+                            if(currentSelectedDevice!=null){
+                                nextActivity(currentSelectedDevice.modelName);
+                            }
                         }
                     }
                 });
