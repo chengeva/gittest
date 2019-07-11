@@ -18,7 +18,7 @@ public class RawFileHelper {
 
 	private Context m_context;
 	private String m_sdcard;
-	public static final String m_configdir = "/acaia_firmware_tool";
+	public static final String m_configdir = "/acaia_updater_tool";
 
 	public static String get_root_dir(){
 		return Environment.getExternalStorageDirectory().getAbsolutePath()+m_configdir;

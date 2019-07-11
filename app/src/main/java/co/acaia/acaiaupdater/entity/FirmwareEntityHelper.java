@@ -65,7 +65,8 @@ public class FirmwareEntityHelper {
         firmwareFileEntity.subVer=parseObject.getInt("minorVersion");
         firmwareFileEntity.mainVer=parseObject.getInt("majorVersion");
         firmwareFileEntity.customOrdering=parseObject.getInt("customOrdering");
-        firmwareFileEntity.fileName=parseObject.getParseFile("firmwareFile").getUrl();
+
+        firmwareFileEntity.fileName=parseObject.getParseFile("firmwareFile").getUrl().split("/")[parseObject.getParseFile("firmwareFile").getUrl().split("/").length-1];
         realm.commitTransaction();
 
         return firmwareFileEntity;
