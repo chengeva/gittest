@@ -1,11 +1,14 @@
 package co.acaia.acaiaupdater.entity;
 
+import android.content.Context;
+
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import co.acaia.acaiaupdater.filehelper.OnFileRetrieved;
+import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import co.acaia.acaiaupdater.util.RealmUtil;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -21,10 +24,11 @@ public class FirmwareEntityHelper {
         results.deleteAllFromRealm();
         realm.commitTransaction();
     }
-    public static void processFirmwareFromParseObject(ParseObject parseObject, final OnFileRetrieved onFileRetrieved){
+    public static void processFirmwareFromParseObject(Context context, ParseObject parseObject, final OnFileRetrieved onFileRetrieved){
         Realm realm= RealmUtil.getRealm();
         realm.beginTransaction();
-        FirmwareFileEntity firmwareFileEntity=firmwareFileEntityFromParseObject(parseObject);
+        final RawFileHelper rawFileHelper=new RawFileHelper(context);
+        final FirmwareFileEntity firmwareFileEntity=firmwareFileEntityFromParseObject(parseObject);
         realm.commitTransaction();
         ParseFile firmwareFile=parseObject.getParseFile("firmwareFile");
         firmwareFile.getDataInBackground(new GetDataCallback() {
@@ -32,6 +36,7 @@ public class FirmwareEntityHelper {
             public void done(byte[] data, ParseException e) {
                 if(e==null){
                     onFileRetrieved.doneRetrieved(true,"Retrieve file success");
+                    firmwareFileEntity.fileName= rawFileHelper.saveByteToFile(data,firmwareFileEntity.fileName);
                 }else{
                     onFileRetrieved.doneRetrieved(false,"Retrieve file fail");
                 }

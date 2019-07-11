@@ -42,7 +42,7 @@ public class ParseFileRetriever implements  FileRetriever{
             query.addDescendingOrder("releaseDate");
             // hanjord
             query.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> firmwareFileList, ParseException e) {
+                public void done(final List<ParseObject> firmwareFileList, ParseException e) {
                     if (e == null) {
                         Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
                         numData=firmwareFileList.size();
@@ -54,7 +54,7 @@ public class ParseFileRetriever implements  FileRetriever{
                                     if(success==true){
                                         numData--;
                                         if(numData==0){
-                                            Log.v(TAG,"Done retrieve "+String.valueOf(numData));
+                                            Log.v(TAG,"Done retrieve "+String.valueOf(firmwareFileList.size()));
                                         }
                                     }
                                 }

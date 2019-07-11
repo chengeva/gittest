@@ -37,7 +37,6 @@ public class FirmwareUnitTests {
                     Log.v(testName,"Test title:" +firmwareFileEntity.title);
 
                     realm.commitTransaction();
-
                     // Test retrieve object from database
                     realm.beginTransaction();
                     FirmwareFileEntity firmwareFileEntity1 = realm.where(FirmwareFileEntity.class).findFirst();
