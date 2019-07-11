@@ -108,22 +108,9 @@
     </RelativeLayout>
 
     <RelativeLayout
-
         android:layout_width="match_parent"
-
         android:layout_height="0dp"
-
         android:layout_weight="5">
-
-
-
-
-
-
-
-
-
-
 
     </RelativeLayout>
 
@@ -132,7 +119,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.2">
-
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -143,7 +129,7 @@
                 android:id="@+id/btn_next"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/green_button_active"
+                android:background="@drawable/round_button"
                 android:text="@string/Next"
                 android:textColor="@color/white"
                 app:layout_constraintDimensionRatio="200:40"

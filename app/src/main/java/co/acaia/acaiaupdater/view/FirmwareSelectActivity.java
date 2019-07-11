@@ -47,7 +47,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
     }
 
     private void setupViewWithModel(){
-        ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);\
+        ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
         // Improve later
         FirmwareFileEntity firmwareFileEntity=firmwareFileEntities.get(0);
         firmwareLabel.setText(firmwareFileEntity.title);
