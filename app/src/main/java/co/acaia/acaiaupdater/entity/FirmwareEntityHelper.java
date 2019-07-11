@@ -9,7 +9,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import java.io.File;
+import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.filehelper.OnFileRetrieved;
 import co.acaia.acaiaupdater.firmwarelunar.CISP_handler;
 import co.acaia.acaiaupdater.firmwarelunar.FileHandler;
@@ -28,6 +30,21 @@ public class FirmwareEntityHelper {
         RealmResults<FirmwareFileEntity> results = realm.where(FirmwareFileEntity.class).findAll();
         results.deleteAllFromRealm();
         realm.commitTransaction();
+    }
+    public static ArrayList<FirmwareFileEntity> obtainFirmwareWithModelName(AcaiaDevice acaiaDevice){
+        ArrayList<FirmwareFileEntity> firmwareFileEntities=new ArrayList<>();
+        Realm realm= RealmUtil.getRealm();
+        realm.beginTransaction();
+        RealmResults<FirmwareFileEntity> results = realm.where(FirmwareFileEntity.class).findAll();
+        // Improve this later
+        for (int i=0;i!=results.size();i++){
+            FirmwareFileEntity firmwareFileEntity=results.get(i);
+            if(firmwareFileEntity.model.equals(acaiaDevice.modelName)){
+                firmwareFileEntities.add(firmwareFileEntity);
+            }
+        }
+        realm.commitTransaction();
+        return firmwareFileEntities;
     }
     public static void processFirmwareFromParseObject(final Context context, ParseObject parseObject, final OnFileRetrieved onFileRetrieved){
         final Realm realm= RealmUtil.getRealm();
