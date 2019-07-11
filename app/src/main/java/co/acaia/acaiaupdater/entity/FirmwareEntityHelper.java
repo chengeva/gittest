@@ -25,6 +25,8 @@ public class FirmwareEntityHelper {
         firmwareFileEntity.customOrdering=parseObject.getInt("customOrdering");
         firmwareFileEntity.fileName=parseObject.getParseFile("firmwareFile").getUrl();
 
+        
+
         return firmwareFileEntity;
     }
 }
