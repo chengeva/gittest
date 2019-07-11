@@ -145,6 +145,10 @@
     <string name="Select_Firmware_Version">Select Firmware Version</string>
     <string name="Feedback">Feedback</string>
     <string name="select_scale">Select Scale</string>
+    <!-- Combined Updater Select Firmware -->
 
+    <string name="Avaliable_Firmware">Avaliable Firmware</string>
+    <string name="Update_Firmware_to">Update Firmware to :</string>
+    <string name="Release_Notes">Release Note: </string>
 
 </resources>
