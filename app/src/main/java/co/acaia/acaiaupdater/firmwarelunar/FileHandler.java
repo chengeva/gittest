@@ -157,12 +157,6 @@ public class FileHandler {
         return true;
     }
 
-    public static void testReadRawFile(Context context) {
-        String filePath = RawFileHelper.getFilePath(R.raw.acaialunar2220150408, context);
-        File f = new File(filePath);
-         Log.i(TAG, "file size=" + String.valueOf(f.length()));
-    }
-
     public static int unsignedToBytes(byte b) {
         return b & 0xFF;
     }

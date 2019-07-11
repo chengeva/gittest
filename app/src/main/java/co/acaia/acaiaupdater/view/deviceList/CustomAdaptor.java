@@ -22,7 +22,7 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
     }
 
     public CustomAdaptor(ArrayList<DeviceModel> data, Context context) {
-        super(context, R.layout.item_textview, data);
+        super(context, R.layout.row_item, data);
         this.mContext=context;
 
     }
@@ -46,9 +46,9 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            //convertView = inflater.inflate(R.layout.row, parent, false);
-
-
+            convertView = inflater.inflate(R.layout.row_item, parent, false);
+            viewHolder.deviceName=(TextView)convertView.findViewById(R.id.tv_device_name);
+            viewHolder.deviceName.setText(dataModel.modelName);
             result=convertView;
 
             convertView.setTag(viewHolder);

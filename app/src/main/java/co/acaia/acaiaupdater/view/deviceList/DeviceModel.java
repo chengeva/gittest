@@ -1,6 +1,9 @@
 package co.acaia.acaiaupdater.view.deviceList;
 
 public class DeviceModel {
-    String modelName;
-
+    public String modelName;
+    public DeviceModel(String modelName)
+    {
+        this.modelName=modelName;
+    }
 }
