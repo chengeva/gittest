@@ -1,6 +1,8 @@
 package co.acaia.acaiaupdater.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +17,12 @@ import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.view.deviceList.CustomAdaptor;
 import co.acaia.acaiaupdater.view.deviceList.DeviceModel;
 
-public class MainDeviceActivity extends AppCompatActivity {
+public class MainDeviceActivity extends ActionBarActivity {
 
     private ListView listview_devicelist;
     ArrayList<DeviceModel> dataModels;
     private static CustomAdaptor adapter;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +51,17 @@ public class MainDeviceActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DeviceModel dataModel=dataModels.get(i);
                 Log.v("MainDevice",dataModel.modelName);
-                Intent intent = new Intent(getApplicationContext(), FirmwareSelectActivity.class);
-                startActivity(intent);
+                dialog = ProgressDialog.show(MainDeviceActivity.this, "",
+                        "Downloading Firmware...", true);
+                dialog.setCanceledOnTouchOutside(true);
             }
         });
 
+    }
+
+    private void nextActivity(String modelName){
+        Intent intent = new Intent(getApplicationContext(), FirmwareSelectActivity.class);
+        startActivity(intent);
     }
 
     private void setActionBar() {
