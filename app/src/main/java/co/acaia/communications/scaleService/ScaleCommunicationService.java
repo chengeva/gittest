@@ -131,7 +131,7 @@ public class ScaleCommunicationService extends Service {
     // send failed
     private long send_failed_count = 0;
     private static final int send_failed_threshold = 3;
-    private Activity parentActivity;
+    //private Activity parentActivity;
     //private Queue<byte[]> sendingQueue;
 
     private boolean isISPMode = false;
@@ -452,6 +452,7 @@ public class ScaleCommunicationService extends Service {
         //sendCmdwithResponse(sendDataEvent.out_data);
     }
 
+    @SuppressLint("LongLogTag")
     public boolean connect(final String targetBtAddress) {
         // Stop BLE scan before connecting
         stopScan();
@@ -491,6 +492,7 @@ public class ScaleCommunicationService extends Service {
         return true;
     }
 
+    @SuppressLint("LongLogTag")
     public void release() {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
             Log.w(TAG, "BluetoothAdapter not initialized");
@@ -536,6 +538,7 @@ public class ScaleCommunicationService extends Service {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public synchronized void disconnect() {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
             Log.w(TAG, "BluetoothAdapter not initialized");
@@ -667,9 +670,9 @@ public class ScaleCommunicationService extends Service {
         super.onCreate();
     }
 
-    public void setActivity(Activity activity) {
+    /*public void setActivity(Activity activity) {
         parentActivity = activity;
-    }
+    }*/
 
     public class LocalBinder extends Binder {
         public ScaleCommunicationService getService() {
@@ -777,6 +780,7 @@ public class ScaleCommunicationService extends Service {
 
     }
 
+    @SuppressLint("LongLogTag")
     public void sendCmdFromQueue(final byte[] Command) {
         try {
             if (mBluetoothGatt
@@ -846,6 +850,7 @@ public class ScaleCommunicationService extends Service {
         return true;
     }
 
+    @SuppressLint("LongLogTag")
     public void setCharacteristicNotification(
             BluetoothGattCharacteristic characteristic, boolean enabled) {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {

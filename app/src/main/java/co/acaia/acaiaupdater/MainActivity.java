@@ -191,7 +191,7 @@ public class MainActivity extends ActionBarActivity {
             acaiaScaleCommunicationService = new AcaiaScaleService();
             // startScaleCommunicationService();
             acaiaScaleCommunicationService.initialize(this);
-            acaiaScaleCommunicationService.getScaleCommunicationService().setActivity(this);
+            //acaiaScaleCommunicationService.getScaleCommunicationService().setActivity(getApplicationContext());
 
             handler.postDelayed(new Runnable() {
                 @Override
