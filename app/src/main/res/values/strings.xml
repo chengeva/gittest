@@ -153,4 +153,7 @@
     <string name="Connect_to_device">Connect to Device</string>
     <string name="make_sure_BT_Turn_on">Please make sure\nBluetooth is turned on.</string>
     <string name="Connect">Connect</string>
+    <string name="updating_progress">0%</string>
+    <string name="erasing_previous_fw">Erasing Previous Firmware</string>
+    <string name="updating">Updating</string>
 </resources>
