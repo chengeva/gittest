@@ -28,7 +28,7 @@ public class ParseFileRetriever implements  FileRetriever{
 
     public static final String TAG="ParseFileRetriever";
 
-    public void retrieveFirmwareFilesByModel(AcaiaDevice acaiaDevice, final OnDataRetrieved onDataRetrieved){
+    public void retrieveFirmwareFilesByModel(final Context context,AcaiaDevice acaiaDevice, final OnDataRetrieved onDataRetrieved){
         // Call callback if success or fail
         String modelName=acaiaDevice.modelName;
         numData=0;
@@ -48,7 +48,7 @@ public class ParseFileRetriever implements  FileRetriever{
                         numData=firmwareFileList.size();
 
                         for(int i=0;i!=firmwareFileList.size();i++){
-                            FirmwareEntityHelper.processFirmwareFromParseObject(firmwareFileList.get(i), new OnFileRetrieved() {
+                            FirmwareEntityHelper.processFirmwareFromParseObject(context,firmwareFileList.get(i), new OnFileRetrieved() {
                                 @Override
                                 public void doneRetrieved(boolean success, String message) {
                                     if(success==true){

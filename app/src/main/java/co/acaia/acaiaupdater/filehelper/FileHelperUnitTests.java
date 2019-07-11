@@ -14,7 +14,7 @@ public class FileHelperUnitTests {
         final String TAGG="FileHelperUnitTests";
         ParseFileRetriever parseFileRetriever=new ParseFileRetriever();
         Lunar lunar= (Lunar) AcaiaDeviceFactory.acaiaDeviceFromModelName(AcaiaDevice.modelLunar);
-        parseFileRetriever.retrieveFirmwareFilesByModel(lunar, new OnDataRetrieved() {
+        parseFileRetriever.retrieveFirmwareFilesByModel(context,lunar, new OnDataRetrieved() {
             @Override
             public void doneRetrieved(boolean success, String message) {
                 Log.v(TAGG,String.valueOf(success)+" "+message);
