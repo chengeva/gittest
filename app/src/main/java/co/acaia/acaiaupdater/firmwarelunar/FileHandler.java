@@ -90,10 +90,71 @@ public class FileHandler {
         return true;
     }
 
-    public static void testReadRawFile(Context context) {
-        String filePath = RawFileHelper.getFilePath(R.raw.acaialunar2220150408, context);
-        File f = new File(filePath);
-         Log.i(TAG, "file size=" + String.valueOf(f.length()));
+    public static Boolean test_open_file(Context context, File file) {
+        int ln_loop = 0, ln_len = 0, ln_lastpage = 0;
+        Boolean b_last = false;
+
+        if (file == null)
+            return false;
+        long mn_filelen = file.length();
+        long mn_total_page;
+
+        CommLogger.logv(TAG,"mn_filelen1 ="+String.valueOf(mn_filelen));
+        //NSLog(@"mn_filelen1 = %d", mn_filelen);
+        ln_lastpage = (int) (mn_filelen / 256);
+        if ((mn_filelen & 0xff) == 0 && mn_filelen != 0)
+            ln_lastpage--;
+        int count=0;
+        try {
+            Log.v(TAG,"file path"+file.getAbsolutePath());
+            FileInputStream i = new FileInputStream(file);
+            RandomAccessFile rfile = new RandomAccessFile(file, "r");
+            while (true) {
+                //NSLog(@"step = %d", count);
+                CommLogger.logv(TAG,"step ="+String.valueOf(count));
+
+
+                byte[] b = new byte[256];
+                // i.getChannel().position(ln_lastpage << 8);
+
+                rfile.seek( ln_lastpage << 8);
+                CommLogger.logv4(TAG,"seek"+String.valueOf( ln_lastpage << 8));
+                // i.read(b, ln_lastpage << 8, b.length);
+                rfile.read(b);
+                ln_len=(int)rfile.length()-(ln_lastpage << 8);
+                // NSLog(@"ln_len = %d", ln_len);
+                if(ln_len>=256)
+                    ln_len=256;
+                CommLogger.logv4(TAG,"ln_len ="+String.valueOf(ln_len));
+                for (ln_loop = ln_len - 1; ln_loop >= 0; ln_loop--) {
+                    if (b[ln_loop] != 0xff) {
+                        b_last = true;
+                        break;
+                    }
+                }
+                if (b_last == true) {
+                    mn_filelen = ln_loop + (ln_lastpage << 8) + 1;
+                    mn_total_page = ln_lastpage + 1;
+                    break;
+                }
+                ln_lastpage--;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        // NSLog(@"mn_filelen = %d", mn_filelen);
+        //NSLog(@"mn_total_page = %d", mn_total_page);
+        CommLogger.logv4(TAG,"mn_filelen ="+String.valueOf(mn_filelen));
+        CommLogger.logv4(TAG,"mn_total_page = ="+String.valueOf(mn_total_page));
+
+        return true;
     }
 
     public static int unsignedToBytes(byte b) {

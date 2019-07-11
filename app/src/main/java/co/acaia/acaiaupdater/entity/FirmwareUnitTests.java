@@ -31,6 +31,7 @@ public class FirmwareUnitTests {
                     // Delete all database
                     RealmResults<FirmwareFileEntity> results = realm.where(FirmwareFileEntity.class).findAll();
                     results.deleteAllFromRealm();
+                    realm.commitTransaction();
 
                     FirmwareFileEntity firmwareFileEntity=FirmwareEntityHelper.firmwareFileEntityFromParseObject(object);
                     // test fields
@@ -45,7 +46,6 @@ public class FirmwareUnitTests {
 
 
 
-                    realm.commitTransaction();
 
                     // Test retrieve object from database
                     realm.beginTransaction();

@@ -30,6 +30,7 @@ import com.parse.Parse;
 import java.util.ArrayList;
 
 import co.acaia.acaiaupdater.entity.FirmwareUnitTests;
+import co.acaia.acaiaupdater.filehelper.FileHelperUnitTests;
 import co.acaia.acaiaupdater.filehelper.ParseFileRetriever;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleFoundEvent;
@@ -142,8 +143,10 @@ public class MainActivity extends ActionBarActivity {
 
 
         ParseFileRetriever parseFileRetriever=new ParseFileRetriever();
-        parseFileRetriever.test_parse(getApplicationContext());
-        FirmwareUnitTests.testFirmwareEntity();
+        //parseFileRetriever.test_parse(getApplicationContext());
+        //FirmwareUnitTests.testFirmwareEntity();
+        FileHelperUnitTests.testRetrieveFirmwareFile(getApplicationContext());
+
         this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
 
     }
@@ -188,7 +191,7 @@ public class MainActivity extends ActionBarActivity {
             acaiaScaleCommunicationService = new AcaiaScaleService();
             // startScaleCommunicationService();
             acaiaScaleCommunicationService.initialize(this);
-            acaiaScaleCommunicationService.getScaleCommunicationService().setActivity(this);
+            //acaiaScaleCommunicationService.getScaleCommunicationService().setActivity(getApplicationContext());
 
             handler.postDelayed(new Runnable() {
                 @Override

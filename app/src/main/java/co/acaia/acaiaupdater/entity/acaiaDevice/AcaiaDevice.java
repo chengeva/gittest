@@ -2,7 +2,7 @@ package co.acaia.acaiaupdater.entity.acaiaDevice;
 
 // Abstract class
 public class AcaiaDevice {
-    public static String modelName;
+    public String modelName;
 
     // Constants
     public static final String modelLunar="Lunar";
