@@ -9,7 +9,6 @@ public class FirmwareEntityHelper {
     public static void saveFirmwareEntity(FirmwareFileEntity firmwareFileEntity)
     {
         // Need to process file
-
     }
 
     public static FirmwareFileEntity firmwareFileEntityFromParseObject(ParseObject parseObject)

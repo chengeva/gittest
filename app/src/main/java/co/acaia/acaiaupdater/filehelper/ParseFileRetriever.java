@@ -18,6 +18,7 @@ import co.acaia.acaiaupdater.Events.DownloadFirmwareFailedEvent;
 import co.acaia.acaiaupdater.Events.DownloadedFirmwareEvent;
 import co.acaia.acaiaupdater.MainActivity;
 import co.acaia.acaiaupdater.ProjectSettings;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import de.greenrobot.event.EventBus;
 
@@ -26,7 +27,33 @@ public class ParseFileRetriever implements  FileRetriever{
 
     public static final String TAG="ParseFileRetriever";
 
+    public void retrieveFirmwareFilesByModel(AcaiaDevice acaiaDevice, final OnFileRetrieved onFileRetrieved){
+        // Call callback if success or fail
+        String modelName=acaiaDevice.modelName;
+        // Query Parse
+        try {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusFirmware");
+            query.whereEqualTo("model", modelName);
+            query.addDescendingOrder("releaseDate");
+            // hanjord
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> firmwareFileList, ParseException e) {
+                    if (e == null) {
+                        Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
+                        for(int i=0;i!=firmwareFileList.size();i++){
 
+                        }
+                    } else {
+                        onFileRetrieved.doneRetrieved(false,"Parse error "+e.getLocalizedMessage());
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        // Fail
+        //onFileRetrieved.done(false);
+    }
 
     /**
      * Reteieves firmware files from parse
