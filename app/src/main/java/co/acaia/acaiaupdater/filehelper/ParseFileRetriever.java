@@ -55,6 +55,7 @@ public class ParseFileRetriever implements  FileRetriever{
                                         numData--;
                                         if(numData==0){
                                             Log.v(TAG,"Done retrieve "+String.valueOf(firmwareFileList.size()));
+                                            onDataRetrieved.doneRetrieved(true,"Done ");
                                         }
                                     }
                                 }
