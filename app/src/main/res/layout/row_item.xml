@@ -5,15 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="100dp">
 
+    <ImageView
+        android:id="@+id/image_device"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_lunar_default" />
+
     <TextView
         android:id="@+id/tv_device_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_alignParentRight="false"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/image_device"
+        android:text="Pearl S"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/img_pearls_default" />
+        android:id="@+id/imageView2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/icon_next3" />
 </RelativeLayout>
