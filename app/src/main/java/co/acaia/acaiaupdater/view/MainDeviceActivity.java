@@ -1,27 +1,114 @@
 package co.acaia.acaiaupdater.view;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.PowerManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.parse.Parse;
 
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.FirmwareUpdateFragment;
+import co.acaia.acaiaupdater.MainActivity;
 import co.acaia.acaiaupdater.R;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
+import co.acaia.acaiaupdater.entity.acaiaDevice.Lunar;
+import co.acaia.acaiaupdater.filehelper.OnDataRetrieved;
+import co.acaia.acaiaupdater.filehelper.ParseFileRetriever;
 import co.acaia.acaiaupdater.view.deviceList.CustomAdaptor;
 import co.acaia.acaiaupdater.view.deviceList.DeviceModel;
+import co.acaia.communications.scaleService.AcaiaScaleService;
 
-public class MainDeviceActivity extends AppCompatActivity {
+public class MainDeviceActivity extends ActionBarActivity {
 
     private ListView listview_devicelist;
     ArrayList<DeviceModel> dataModels;
     private static CustomAdaptor adapter;
+    private ProgressDialog dialog;
+    private AcaiaDevice currentSelectedDevice;
+
+    // Old settings
+    private BluetoothAdapter mBluetoothAdapter;
+    protected BluetoothManager bluetoothManager;
+
+    // Add wake lock to make app screen alive always
+    protected PowerManager.WakeLock mWakeLock;
+    //public static Scale scale = null;
+    //private BluetoothDevice btDevice = null;
+    public static ArrayList<BluetoothDevice> mLeDeviceList = null;
+    //public static boolean isConnected=false;
+    private static final int REQUEST_ENABLE_BT = 1;
+
+    // New service
+    private AcaiaScaleService acaiaScaleCommunicationService = null;
+    private Handler handler;
+
+    public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
+    public static final String new_client_key="4Mqo4vvon9yzlcLi7uty9UXLlQW5j4NjUzNIRgaV";
+    public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_device);
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(MainActivity.new_app_id)
+                .clientKey(MainActivity.new_client_key)
+                .server(MainActivity.new_endpoint)
+                .build()
+        );
+
         setActionBar();
         init_view();
+        initSettings();
+        currentSelectedDevice=null;
+    }
+
+    @SuppressLint("InvalidWakeLockTag")
+    private void initSettings()
+    {
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
+        handler = new Handler();
+        mLeDeviceList = new ArrayList<>();
+
+        if (!getPackageManager().hasSystemFeature(
+                PackageManager.FEATURE_BLUETOOTH_LE)) {
+            Toast.makeText(this, getResources().getString(R.string.ble_not_supported), Toast.LENGTH_SHORT)
+                    .show();
+            finish();
+        }
+
+        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            // MainActivity.orangeDebug("mBluetoothAdapter.isEnabled=false, enableBtIntent");
+            Intent enableBtIntent = new Intent(
+                    BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+
     }
 
     private void init_view()
@@ -38,11 +125,58 @@ public class MainDeviceActivity extends AppCompatActivity {
         dataModels.add(deviceModel);
         adapter= new CustomAdaptor(dataModels,getApplicationContext());
         listview_devicelist.setAdapter(adapter);
+        listview_devicelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DeviceModel dataModel=dataModels.get(i);
+                Log.v("MainDevice",dataModel.modelName);
+                ParseFileRetriever parseFileRetriever=new ParseFileRetriever();
 
-        
+                AcaiaDevice acaiaDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(dataModel.modelName);
+                currentSelectedDevice=acaiaDevice;
+                parseFileRetriever.retrieveFirmwareFilesByModel(getApplicationContext(),acaiaDevice, new OnDataRetrieved() {
+                    @Override
+                    public void doneRetrieved(boolean success, String message) {
+                        Log.v("MainDevice",String.valueOf(success)+" "+message);
+                        if(dialog!=null){
+                            dialog.cancel();
+                            if(currentSelectedDevice!=null){
+                                nextActivity(currentSelectedDevice.modelName);
+                            }
+                        }
+                    }
+                });
+                dialog = ProgressDialog.show(MainDeviceActivity.this, "",
+                        "Downloading Firmware...", true);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        currentSelectedDevice=null;
+                        // Cancle firmware download...
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void nextActivity(String modelName){
+        Intent intent = new Intent(getApplicationContext(), FirmwareSelectActivity.class);
+        intent.putExtra("modelName",modelName);
+        startActivity(intent);
     }
 
     private void setActionBar() {
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // User chose not to enable Bluetooth.
+        if (requestCode == REQUEST_ENABLE_BT
+                && resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

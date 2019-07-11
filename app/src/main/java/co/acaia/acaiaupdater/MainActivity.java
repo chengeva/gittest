@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         // test NDK file reader
-        // FileHandler.testReadRawFile(getApplication());
+        // FileHandler.tREQUEST_ENABLE_BTestReadRawFile(getApplication());
 
 
         // retreieve firmware files
