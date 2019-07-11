@@ -12,6 +12,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class FirmwareUnitTests {
+
     /**
      *  Test firmware database object
      */

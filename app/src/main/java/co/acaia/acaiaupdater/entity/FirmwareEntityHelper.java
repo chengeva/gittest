@@ -8,6 +8,7 @@ import io.realm.Realm;
 public class FirmwareEntityHelper {
     public static void saveFirmwareEntity(FirmwareFileEntity firmwareFileEntity)
     {
+        // Need to process file
 
     }
 
@@ -25,7 +26,7 @@ public class FirmwareEntityHelper {
         firmwareFileEntity.customOrdering=parseObject.getInt("customOrdering");
         firmwareFileEntity.fileName=parseObject.getParseFile("firmwareFile").getUrl();
 
-        
+
 
         return firmwareFileEntity;
     }
