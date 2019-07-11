@@ -29,6 +29,7 @@ import com.parse.Parse;
 
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.entity.FirmwareUnitTests;
 import co.acaia.acaiaupdater.filehelper.ParseFileRetriever;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleFoundEvent;
@@ -142,7 +143,7 @@ public class MainActivity extends ActionBarActivity {
 
         ParseFileRetriever parseFileRetriever=new ParseFileRetriever();
         parseFileRetriever.test_parse(getApplicationContext());
-
+        FirmwareUnitTests.testFirmwareEntity();
         this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
 
     }

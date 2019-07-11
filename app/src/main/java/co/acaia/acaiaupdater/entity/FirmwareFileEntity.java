@@ -4,6 +4,7 @@ import io.realm.RealmObject;
 
 public class FirmwareFileEntity extends RealmObject {
 
+    public String model;
     public String fileName;
     public String title;
     public String detail;
@@ -11,5 +12,6 @@ public class FirmwareFileEntity extends RealmObject {
     public int mainVer;
     public int subVer;
     public int addVer;
+    public int customOrdering;
 
 }
