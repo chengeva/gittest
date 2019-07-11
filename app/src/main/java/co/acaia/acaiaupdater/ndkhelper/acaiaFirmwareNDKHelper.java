@@ -6,7 +6,7 @@ public class acaiaFirmwareNDKHelper {
 
 	public static void test_hello() {
 		testhelloisp();
-		testfileread(RawFileHelper.get_root_dir()+"/acaia172");
+		
 	}
 	
 	
