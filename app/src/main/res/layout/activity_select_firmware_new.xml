@@ -147,7 +147,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btn_next"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@color/green_button_active"
