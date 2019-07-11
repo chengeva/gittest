@@ -31,12 +31,13 @@ public class FirmwareUnitTests {
                     // Delete all database
                     RealmResults<FirmwareFileEntity> results = realm.where(FirmwareFileEntity.class).findAll();
                     results.deleteAllFromRealm();
+                    realm.commitTransaction();
 
                     FirmwareFileEntity firmwareFileEntity=FirmwareEntityHelper.firmwareFileEntityFromParseObject(object);
                     // test fields
                     Log.v(testName,"Test title:" +firmwareFileEntity.title);
 
-                    realm.commitTransaction();
+
                     // Test retrieve object from database
                     realm.beginTransaction();
                     FirmwareFileEntity firmwareFileEntity1 = realm.where(FirmwareFileEntity.class).findFirst();

@@ -25,21 +25,24 @@ public class FirmwareEntityHelper {
         realm.commitTransaction();
     }
     public static void processFirmwareFromParseObject(Context context, ParseObject parseObject, final OnFileRetrieved onFileRetrieved){
-        Realm realm= RealmUtil.getRealm();
-        realm.beginTransaction();
+        final Realm realm= RealmUtil.getRealm();
+
         final RawFileHelper rawFileHelper=new RawFileHelper(context);
         final FirmwareFileEntity firmwareFileEntity=firmwareFileEntityFromParseObject(parseObject);
-        realm.commitTransaction();
+
         ParseFile firmwareFile=parseObject.getParseFile("firmwareFile");
         firmwareFile.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] data, ParseException e) {
+                realm.beginTransaction();
                 if(e==null){
+
                     onFileRetrieved.doneRetrieved(true,"Retrieve file success");
                     firmwareFileEntity.fileName= rawFileHelper.saveByteToFile(data,firmwareFileEntity.fileName);
                 }else{
                     onFileRetrieved.doneRetrieved(false,"Retrieve file fail");
                 }
+                realm.commitTransaction();
             }
         });
     }
@@ -52,6 +55,7 @@ public class FirmwareEntityHelper {
     public static FirmwareFileEntity firmwareFileEntityFromParseObject(ParseObject parseObject)
     {
         Realm realm= RealmUtil.getRealm();
+        realm.beginTransaction();
         FirmwareFileEntity firmwareFileEntity=realm.createObject(FirmwareFileEntity.class);
         firmwareFileEntity.model=parseObject.getString("model");
         firmwareFileEntity.title=parseObject.getString("title");
@@ -62,8 +66,7 @@ public class FirmwareEntityHelper {
         firmwareFileEntity.mainVer=parseObject.getInt("majorVersion");
         firmwareFileEntity.customOrdering=parseObject.getInt("customOrdering");
         firmwareFileEntity.fileName=parseObject.getParseFile("firmwareFile").getUrl();
-
-
+        realm.commitTransaction();
 
         return firmwareFileEntity;
     }
