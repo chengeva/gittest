@@ -14,6 +14,7 @@ import co.acaia.communications.protocol.ver20.ScaleProtocol;
 import co.acaia.communications.protocol.ver20.SettingEntity;
 import co.acaia.communications.protocol.ver20.SettingFactory;
 import co.acaia.communications.scaleService.ScaleCommunicationService;
+import co.acaia.communications.scaleService.gatt.Log;
 import co.acaia.communications.scaleevent.ProtocolModeEvent;
 import de.greenrobot.event.EventBus;
 
@@ -27,10 +28,12 @@ public class AcaiaScale2 extends  AcaiaScale  {
     private Handler handler;
     private Timer heartBeatTimer;
     private ScaleProtocol.app_prsdata mo_prsdata;
+    private  boolean isCinco;
+    private boolean get_status;
 
     // warning: need a factory method to do this
 
-    public AcaiaScale2(Context ctx,ScaleCommunicationService mScaleCommunicationService_,Handler h){
+    public AcaiaScale2(Context ctx,ScaleCommunicationService mScaleCommunicationService_,Handler h, boolean isCinco){
         init_scale_command();
         context=ctx;
         mScaleCommunicationService=mScaleCommunicationService_;
@@ -39,9 +42,14 @@ public class AcaiaScale2 extends  AcaiaScale  {
         DataPacketParser.init_app_prs_data(mo_prsdata);
         startHeartBeat();
         EventBus.getDefault().post(new ProtocolModeEvent());
-
+        this.isCinco=isCinco;
+        get_status=true;
     }
 
+    @Override
+    public void set_get_status(boolean get_status_)  {
+        this.get_status=get_status_;
+    }
     @Override
     public int getProtocolVersion(){
         return AcaiaScale.protocol_version_20;
@@ -51,8 +59,12 @@ public class AcaiaScale2 extends  AcaiaScale  {
         scaleCommand=new AcaiaScaleCommand() {
             @Override
             public void parseDataPacket(byte[] data) {
-               // DataPacketHelper.test_parse_packet(data);
-                DataPacketParser.ParseData(mo_prsdata,data,context);
+                DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco);
+            }
+            @Override
+            public boolean getFirmwareInfo() {
+                getScaleStatus();
+                return false;
             }
 
             @Override
@@ -77,7 +89,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
 
             @Override
             public boolean getAutoOffTime() {
-               return false;
+                return false;
             }
 
             @Override
@@ -198,10 +210,10 @@ public class AcaiaScale2 extends  AcaiaScale  {
                 SettingEntity settingEntity;
                 if(unit==0){
                     // gram
-                     settingEntity= SettingFactory.getSetting(SettingFactory.set_unit.item, SettingFactory.set_unit.unit.g);
+                    settingEntity= SettingFactory.getSetting(SettingFactory.set_unit.item, SettingFactory.set_unit.unit.g);
                 }else{
                     // oz
-                 settingEntity= SettingFactory.getSetting(SettingFactory.set_unit.item, SettingFactory.set_unit.unit.oz);
+                    settingEntity= SettingFactory.getSetting(SettingFactory.set_unit.item, SettingFactory.set_unit.unit.oz);
                 }
 
                 return mScaleCommunicationService.sendCmdwithResponse(setting_chg(settingEntity.getItem(), settingEntity.getValue()));
@@ -230,6 +242,24 @@ public class AcaiaScale2 extends  AcaiaScale  {
 
             @Override
             public boolean setCapacity(int capacity) {
+                SettingEntity settingEntity;
+                if(capacity == 0){
+                    //1000g
+                    settingEntity= SettingFactory.getSetting(SettingFactory.set_capacity.item, SettingFactory.set_capacity.unit.g_1000);
+                }else {
+                    //2000g
+                    settingEntity= SettingFactory.getSetting(SettingFactory.set_capacity.item, SettingFactory.set_capacity.unit.g_2000);
+                }
+                return mScaleCommunicationService.sendCmdwithResponse(setting_chg(settingEntity.getItem(), settingEntity.getValue()));
+            }
+
+            @Override
+            public boolean setKettleTargetTemp(int temp) {
+                return false;
+            }
+
+            @Override
+            public boolean setKettleOnOff(boolean on) {
                 return false;
             }
         };
@@ -244,8 +274,9 @@ public class AcaiaScale2 extends  AcaiaScale  {
             heartBeatTimer.cancel();;
             heartBeatTimer=null;
         }
+        Log.v("heartbeat","start heartbeat timer");
         heartBeatTimer=new Timer();
-        heartBeatTimer.schedule(new HeartBeatTask(this),2000,3000);
+        heartBeatTimer.schedule(new HeartBeatTask(this),3000,1000);
     }
 
     private void stopHeartHeat(){
@@ -254,8 +285,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
     }
 
     private Boolean getScaleStatus(){
-
-       return mScaleCommunicationService.sendCmdwithResponse(DataOutHelper.app_command((short)ScaleProtocol.ECMD.e_cmd_status_s.ordinal()));
+        return mScaleCommunicationService.sendCmdwithResponse(DataOutHelper.app_command((short)ScaleProtocol.ECMD.e_cmd_status_s.ordinal()));
     }
     /*
         Old protocol needs a get data task
@@ -271,18 +301,23 @@ public class AcaiaScale2 extends  AcaiaScale  {
 
         @Override
         public void run() {
-
+            //Log.v("test heartbeat","running heartbeat ");
             if(scale.mScaleCommunicationService!=null) {
                 //scale.getScaleCommand().getWeight();
-                if(scale.mScaleCommunicationService.isConnected()){
+                if(scale.mScaleCommunicationService.isConnected() && scale.mScaleCommunicationService.scaleGetStatue){
 
                     // warning hanjord
                     CommLogger.logv(TAG,"send heartbeat!");
-                   mScaleCommunicationService.sendHeartBeat();
+                    ///mScaleCommunicationService.sendHeartBeat();
                     try {
-                        Thread.sleep(200);
+                        Thread.sleep(1000);
+                        //Log.v("test heartbeat","heartbeat ");
                         //mScaleCommunicationService.sendCmdFromQueue(DataOutHelper.heartBeat());
-                        //getScaleStatus();
+                        // hanjord debug
+                        if(get_status) {
+                            Log.v(TAG,"get staus!");
+                            getScaleStatus();
+                        }
                     }catch(Exception e){
                         e.printStackTrace();;
                     }

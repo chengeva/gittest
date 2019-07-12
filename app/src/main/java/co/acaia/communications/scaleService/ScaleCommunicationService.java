@@ -1,6 +1,7 @@
 package co.acaia.communications.scaleService;
 
 
+import java.util.List;
 import java.util.UUID;
 
 import android.annotation.SuppressLint;
@@ -31,6 +32,12 @@ import co.acaia.communications.protocol.ver20.DataOutHelper;
 import co.acaia.communications.reliableQueue.ReliableSenderQueue;
 import co.acaia.communications.scale.AcaiaScale;
 import co.acaia.communications.scale.AcaiaScale2;
+import co.acaia.communications.scale.AcaiaScaleFactory;
+import co.acaia.communications.scaleService.gatt.Gatt;
+import co.acaia.communications.scaleService.gatt.GattAdapter;
+import co.acaia.communications.scaleService.gatt.GattCharacteristic;
+import co.acaia.communications.scaleService.gatt.GattDescriptor;
+import co.acaia.communications.scaleService.gatt.GattService;
 import co.acaia.communications.scalecommand.ScaleCommandEvent;
 import co.acaia.communications.scalecommand.ScaleCommandType;
 import co.acaia.communications.scalecommand.ScaleConnectionCommandEvent;
@@ -100,6 +107,18 @@ public class ScaleCommunicationService extends Service {
     public final static String EXTRA_DATA_TYPE =
             "co.acaia.scale.service.DATA_TYPE";
 
+    // Microchip
+    private final static String sPREFIX = "0000";
+    private final static String sPOSTFIX = "-0000-1000-8000-00805f9b34fb";
+    public static UUID SERVICE_ISSC_PROPRIETARY = UUID.fromString("49535343-FE7D-4AE5-8FA9-9FAFD205E455");
+    public static UUID CHR_CONNECTION_PARAMETER = UUID.fromString("49535343-6DAA-4D02-ABF6-19569ACA69FE");
+    public static UUID CHR_ISSC_TRANS_TX = UUID.fromString("49535343-1E4D-4BD9-BA61-23C647249616");
+    public static UUID CHR_ISSC_TRANS_RX = UUID.fromString("49535343-8841-43F4-A8D4-ECBE34729BB3");
+    public final static UUID CHR_ISSC_MP = UUID.fromString("49535343-ACA3-481C-91EC-D85E28A60318");
+    public static UUID CHR_ISSC_TRANS_CTRL = UUID.fromString("49535343-4C8A-39B3-2F49-511CFF073B7E");
+    public final static UUID CHR_AIR_PATCH = UUID.fromString("49535343-ACA3-481C-91EC-D85E28A60318");
+    public final static UUID DES_CLIENT_CHR_CONFIG = uuidFromStr("2902");
+
     public final static int CONNECTION_STATE_DISCONNECTED = 0;
     public final static int CONNECTION_STATE_DISCONNECTING = 1;
     public final static int CONNECTION_STATE_CONNECTED = 2;
@@ -147,7 +166,14 @@ public class ScaleCommunicationService extends Service {
     // Distance connect helper
     DistanceConnectHelper distanceConnectHelper;
 
-
+    // Microchip
+    private Bm71GattListener mBM71Listener;
+    private Gatt mBM71Gatt = null;
+    private GattAdapter mBM71GattAdapter = null;
+    private GattCharacteristic mTransTx;
+    private GattCharacteristic mTransRx;
+    private GattCharacteristic mAirPatch;
+    private GattCharacteristic mTransCtrl;
 
     public synchronized void setIsISP(boolean isIsp) {
         CommLogger.logv(TAG,"set is isp!");
@@ -914,5 +940,171 @@ public class ScaleCommunicationService extends Service {
 
     }
 
+
+
+    class Bm71GattListener extends Gatt.ListenerHelper {
+
+        Bm71GattListener() {
+            super("BM71 GATTListener");
+        }
+
+        public void onMtuChanged(Gatt gatt, int mtu, int newState) {
+            Log.v("", "onMtuChanged called newState: " + newState);
+            Log.v("", "MTU changed MTU " + mtu);
+            mBM71Gatt.discoverServices();
+        }
+
+        @Override
+        public void onConnectionStateChange(Gatt gatt, int status, int newState) {
+
+            //Log.d("onConnectionStateChange: DATA TRANSFER ");
+
+
+            if (newState == BluetoothProfile.STATE_CONNECTED) {
+                onBM71Connected();
+            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                onBM71Disonnected();
+            }
+        }
+
+        @Override
+        public void onServicesDiscovered(Gatt gatt, int status) {
+            onBM71ServiceDiscover();
+            Log.v("CINCODEBUG", "BM71 discovered service");
+        }
+
+        @Override
+        public void onCharacteristicRead(Gatt gatt, GattCharacteristic charac,
+                                         int status) {
+            Log.v("CINCODEBUG", "BM71 onCharacteristicRead");
+        }
+
+        @Override
+        public void onCharacteristicChanged(Gatt gatt, GattCharacteristic chrc) {
+            //Log.v("CINCODEBUG","onCharacteristicChanged");
+//            if (last_received == 0) {
+//                EventBus.getDefault().post(new NewScaleConnectionStateEvent(mCurrentConnectedDeviceAddr));
+//            }
+
+            byte[] input_data = chrc.getValue();
+            for (int i = 0; i != input_data.length; i++) {
+                Log.v("Input data", "[" + String.valueOf(i) + "] " + String.valueOf(input_data[i]));
+            }
+
+            send_failed_count = 0;
+            if (last_received != 0) {
+                last_received = System.nanoTime();
+            }
+
+
+            if (!isISPMode()) {
+                if (acaiaScale == null) {
+                    acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
+                } else {
+                    //Log.v(TAG, "acaia scale not null");
+                    // parse packet
+                    acaiaScale.getScaleCommand().parseDataPacket(chrc.getValue());
+                    //  update connection
+                    incomming_msg_counter++;
+
+                    if (incomming_msg_counter > 15) {
+                        if (last_received == 0) {
+                            last_received = System.nanoTime();
+                            EventBus.getDefault().post(new NewScaleConnectionStateEvent(mCurrentConnectedDeviceAddr));
+                        }
+                        EventBus.getDefault().post(new ScaleConnectionEvent(true, mCurrentConnectedDeviceAddr, acaiaScale.getProtocolVersion(), mBluetoothDevice));
+                        incomming_msg_counter = 0;
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onCharacteristicWrite(Gatt gatt, GattCharacteristic charac,
+                                          int status) {
+
+
+        }
+
+        @Override
+        public void onDescriptorWrite(Gatt gatt, GattDescriptor dsc, int status) {
+            Log.v("CINCODEBUG", "onDescriptorWrite service here");
+            BluetoothGattCharacteristic ch = (BluetoothGattCharacteristic) dsc
+                    .getCharacteristic().getImpl();
+
+        }
+    }
+
+    private void onBM71Connected() {
+        if (mBM71Gatt != null) {
+            if (acaiaScale != null) {
+                acaiaScale = null;
+            }
+            //mBM71Gatt.discoverServices();
+            if (true == mBM71Gatt.requestMtu(247)) {
+                Log.d("MTU", "RequestMTU return TRUE");
+            } else {
+                Log.d("MTU", "RequestMTU return TRUE");
+            }
+        }
+    }
+
+    private void onBM71Disonnected() {
+        if (mBM71Gatt != null) {
+            //mBM71Gatt.disconnect();
+            mConnectionState = CONNECTION_STATE_DISCONNECTED;
+            EventBus.getDefault().post(new ScaleConnectionEvent(false));
+        }
+    }
+
+    private void onBM71ServiceDiscover() {
+        Log.v("CINCODEBUG", "calling mService.setCharacteristicNotification:Activity Transperent");
+
+        if (mBM71Gatt != null) {
+            GattService proprietary = mBM71Gatt.getService(SERVICE_ISSC_PROPRIETARY);
+            List<GattService> services = mBM71Gatt.getServices();
+            for (int i = 0; i != services.size(); i++) {
+                Log.v("CINCODEBUG", "service uuid=" + String.valueOf(services.get(i).getUuid().toString()));
+            }
+            if (services.size() == 0) {
+                Log.v("CINCODEBUG", "no servive");
+                return;
+            }
+
+            mConnectionState = CONNECTION_STATE_CONNECTED;
+
+            mTransTx = proprietary.getCharacteristic(CHR_ISSC_TRANS_TX);
+            mTransRx = proprietary.getCharacteristic(CHR_ISSC_TRANS_RX);
+            mAirPatch = proprietary.getCharacteristic(CHR_AIR_PATCH);
+            mTransCtrl = proprietary.getCharacteristic(CHR_ISSC_TRANS_CTRL);
+
+            Log.v("CINCODEBUG", "calling mService.setCharacteristicNotification:Activity Transperent");
+            boolean set = mBM71Gatt.setCharacteristicNotification(mTransTx, true);
+            Log.v("hanjord", "hanjord mTransTx " + mTransTx.getUuid().toString());
+            Log.v("CINCODEBUG", "set notification:" + set);
+            GattDescriptor dsc = mTransTx
+                    .getDescriptor(DES_CLIENT_CHR_CONFIG);
+            dsc.setValue(dsc
+                    .getConstantBytes(GattDescriptor.ENABLE_NOTIFICATION_VALUE));
+
+            mBM71Gatt.writeDescriptor(dsc);
+            android.util.Log.v("hanjord", "tx descriptor=" + dsc.getUuid().toString());
+
+        } else {
+            Log.v("CINCODEBUG", "mBM71Gatt null");
+        }
+    }
+
+    public static UUID uuidFromStr(String str) {
+        if (!str.matches(".{4}")) {
+            return null;
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append(sPREFIX);
+            sb.append(str);
+            sb.append(sPOSTFIX);
+            return UUID.fromString(sb.toString());
+        }
+    }
 
 }

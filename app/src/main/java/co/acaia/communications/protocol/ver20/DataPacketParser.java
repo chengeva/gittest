@@ -5,6 +5,7 @@ import static co.acaia.communications.protocol.ver20.ScaleProtocol.gn_len;
 import static co.acaia.communications.protocol.ver20.ScaleProtocol.gs_header;
 
 import co.acaia.communications.events.ScaleFirmwareVersionEvent;
+import co.acaia.communications.scaleService.gatt.Log;
 import javolution.io.Struct;
 import android.content.Context;
 import android.content.Intent;
@@ -41,15 +42,15 @@ public class DataPacketParser {
         final Intent intent = new Intent(action);
         context.sendBroadcast(intent);
     }
-    public static void ParseData(app_prsdata o_data,byte[] sdata,Context context){
-        CommLogger.logv(TAG, "Testing parse packet...");
-        CommLogger.logv(TAG, "Testing parse packet length=" + sdata.length);
+    public static void ParseData(app_prsdata o_data,byte[] sdata,Context context, boolean isSette, boolean isCinco){
+//        CommLogger.logv(TAG, "Testing parse packet...");
+//        CommLogger.logv(TAG, "Testing parse packet length=" + sdata.length);
 
 
         for(int i=0;i!=sdata.length;i++){
             // CommLogger.logv(TAG,String.valueOf((int)sdata[i]));
 
-            int parse_result= app_uartin(o_data,sdata[i],sdata,context);
+            int parse_result= app_uartin(o_data,sdata[i],sdata,context, isSette,isCinco);
             if(parse_result==0){
                 break;
             }else if(parse_result== EDATA_RESULT.e_result_error_char.ordinal()){
@@ -62,7 +63,7 @@ public class DataPacketParser {
                 CommLogger.logv(TAG,"Parse current="+String.valueOf(parse_result));
             }*/
         }
-        CommLogger.logv(TAG, "Testing parse packet end...");
+        //CommLogger.logv(TAG, "Testing parse packet end...");
     }
 
     public static void parse_eventmsg(Struct.Unsigned8[] s_param,byte [] orig_data,Context context){
@@ -222,7 +223,7 @@ public class DataPacketParser {
         }
     }
 
-    public static void app_event(app_prsdata o_data,byte n_cbid,int n_event,Struct.Unsigned8[] s_param,byte[] orig_data,Context context){
+    public static void app_event(app_prsdata o_data,byte n_cbid,int n_event,Struct.Unsigned8[] s_param,byte[] orig_data,Context context, boolean isCinco){
 
         // u1 ln_receiverid = -1;
         int ln_loop = 0;
@@ -316,15 +317,19 @@ public class DataPacketParser {
         return s_out;
     }
 
-    public static int app_uartin(app_prsdata o_data,byte s_in,byte[] orig_data,Context context){
+    public static int app_uartin(app_prsdata o_data,byte s_in,byte[] orig_data,Context context, boolean isSette, boolean isCinco){
         int mn_appstep=o_data.mn_appstep.get();
-       //  CommLogger.logv(TAG,"----------------");
-       //  CommLogger.logv(TAG,"mn_appstep="+String.valueOf(mn_appstep)+"val="+String.valueOf(s_in));
-      //  CommLogger.logv(TAG,"mn_appstep="+String.valueOf(mn_appstep)+" o_data.mn_app_datasum val="+String.valueOf( o_data.mn_app_datasum));
+//          CommLogger.logv(TAG,"----------------");
+//          CommLogger.logv(TAG,"mn_appstep = "+String.valueOf(mn_appstep)+", val="+String.valueOf(s_in));
+        // Log.v(TAG,"mn_appstep = "+String.valueOf(mn_appstep)+", o_data.mn_app_datasum val="+String.valueOf( o_data.mn_app_datasum));
 
         if(mn_appstep== ScaleProtocol.EAPP_PROCESS.e_prs_checkheader.ordinal()){
-           //  CommLogger.logv(TAG,"e_prs_checkheader="+String.valueOf(ByteDataHelper.getUnsignedByte(s_in)));
-             //CommLogger.logv(TAG,"gs_header[o_data.mn_app_index.get()]="+String.valueOf(gs_header[o_data.mn_app_index.get()]));
+            //  CommLogger.logv(TAG,"e_prs_checkheader="+String.valueOf(ByteDataHelper.getUnsignedByte(s_in)));
+            //CommLogger.logv(TAG,"gs_header[o_data.mn_app_index.get()]="+String.valueOf(gs_header[o_data.mn_app_index.get()]));
+            if(o_data.mn_app_index.get()>=gs_header.length){
+                o_data.mn_app_index .set((short)0);
+                return ScaleProtocol.EDATA_RESULT.e_result_error_char.ordinal();
+            }
             if (ByteDataHelper.getUnsignedByte(s_in) != gs_header[o_data.mn_app_index.get()])
             {
                 o_data.mn_app_index .set((short)0);
@@ -335,7 +340,21 @@ public class DataPacketParser {
         }else if(mn_appstep==  ScaleProtocol.EAPP_PROCESS.e_prs_cmddata.ordinal()){
             if (o_data.mn_app_index.get()== 0)	// the first time
             {
+                // Hanjord 20180612
+                // Added protection for overflow
+                if(o_data.mn_app_cmdid.get() >= gn_cmd_len.length){
+                    o_data.mn_app_index .set((short)0);
+                    return ScaleProtocol.EDATA_RESULT.e_result_error_char.ordinal();
+                }
                 o_data.mn_app_len .set(gn_cmd_len[o_data.mn_app_cmdid.get()]);
+
+                /*if (o_data.has_init.get() == 0) {
+                    o_data.mn_app_len .set(gn_cmd_len[o_data.mn_app_cmdid.get()]);
+                } else {
+                    o_data.mn_app_len .set(FellowEKG.gn_cmd_len[o_data.mn_app_cmdid.get()]);
+                }*/
+
+
                 if (o_data.mn_app_len.get() == 255)
                     o_data.mn_app_len.set( s_in);
             }
@@ -356,7 +375,7 @@ public class DataPacketParser {
 
         o_data.mn_app_index.set( (short)(o_data.mn_app_index.get()+(short)1));
         // CommLogger.logv(TAG,"o_data.mn_app_index="+String.valueOf(o_data.mn_app_index.get()));
-       //  CommLogger.logv(TAG,"o_data->mn_app_len="+String.valueOf(o_data.mn_app_len.get()));
+        //  CommLogger.logv(TAG,"o_data->mn_app_len="+String.valueOf(o_data.mn_app_len.get()));
         // next step
         if(o_data.mn_app_index.get()==o_data.mn_app_len.get()){
             //CommLogger.logv(TAG,"Next step");
@@ -364,7 +383,7 @@ public class DataPacketParser {
             // last step
             if (o_data.mn_appstep.get() ==  ScaleProtocol.EAPP_PROCESS.e_prs_checksum.ordinal())
             {
-              //  CommLogger.logv(TAG,"Last step");
+                //  CommLogger.logv(TAG,"Last step");
                 o_data.mn_appstep .set((short) ScaleProtocol.EAPP_PROCESS.e_prs_checkheader.ordinal());
 
                 o_data.mn_app_datasum .set(ByteDataHelper.calc_sum(o_data.mn_app_buffer, ByteDataHelper.u_short_to_u_char(o_data.mn_app_datasum)));
@@ -373,10 +392,13 @@ public class DataPacketParser {
                 //o_data.mn_app_buffer[o_data.mn_app_len.get()].set((short)0);
 
                 //CommLogger.logv(TAG,"o_data.mn_app_checksum="+String.valueOf(o_data.mn_app_checksum.get()));
-               // CommLogger.logv(TAG,"o_data.mn_app_datasum="+String.valueOf(o_data.mn_app_datasum.get()));
+                // CommLogger.logv(TAG,"o_data.mn_app_datasum="+String.valueOf(o_data.mn_app_datasum.get()));
                 if (o_data.mn_app_checksum.get() == o_data.mn_app_datasum.get()) {
-                   // CommLogger.logv(TAG,"parse success!");
-                    app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data,context);
+                    // CommLogger.logv(TAG,"parse success!");
+                    app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data,context,isCinco);
+
+                }else{
+                    Log.v("DataPacketParser","Check sum error!");
                 }
                 o_data.mn_app_cmdid .set((short)0);
                 o_data.mn_app_checksum .set((short)0);
