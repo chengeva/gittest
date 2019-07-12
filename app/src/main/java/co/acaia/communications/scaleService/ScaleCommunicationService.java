@@ -787,7 +787,7 @@ public class ScaleCommunicationService extends Service {
     }
 
     private boolean sendCmd(byte[] Command) {
-        
+
         if (mBluetoothGatt == null && mBM71Gatt == null) {
             return false;
         }
