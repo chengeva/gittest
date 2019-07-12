@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -26,7 +25,6 @@ import android.util.Log;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.events.SendDataEvent;
-import co.acaia.communications.protocol.ProtocolHelper;
 import co.acaia.communications.protocol.ScaleGattAttributes;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
 import co.acaia.communications.reliableQueue.ReliableSenderQueue;
@@ -443,11 +441,9 @@ public class ScaleCommunicationService extends Service {
 
                     // need to know if ISP mode...
 
-
                     if (!isISPMode()) {
                         if (acaiaScale == null) {
-
-                            acaiaScale = ProtocolHelper.getAcaiaScaleFromByte(characteristic.getValue(), getApplicationContext(), self, handler);
+                            acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
                         } else {
                             //Log.v(TAG, "acaia scale not null");
                             // parse packet
