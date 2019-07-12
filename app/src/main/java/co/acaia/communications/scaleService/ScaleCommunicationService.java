@@ -31,6 +31,7 @@ import co.acaia.communications.reliableQueue.ReliableSenderQueue;
 import co.acaia.communications.scale.AcaiaScale;
 import co.acaia.communications.scale.AcaiaScale2;
 import co.acaia.communications.scale.AcaiaScaleFactory;
+import co.acaia.communications.scaleService.aosp.AospGattAdapter;
 import co.acaia.communications.scaleService.gatt.Gatt;
 import co.acaia.communications.scaleService.gatt.GattAdapter;
 import co.acaia.communications.scaleService.gatt.GattCharacteristic;
@@ -533,10 +534,17 @@ public class ScaleCommunicationService extends Service {
 
             // We want to directly connect to the device, so we are setting the autoConnect
             // parameter to false.
-            mBluetoothGatt = mBluetoothDevice.connectGatt(this, false, mGattCallback);
-            Log.d(TAG, "Trying to create a new connection.");
-            mBluetoothDeviceAddress = targetBtAddress;
-            mConnectionState = CONNECTION_STATE_CONNECTING;
+            // Connect and check Module type
+            if (mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
+                Log.v(TAG, "Trying to create a new connection. Pearls cinco");
+                mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
+                mBluetoothGatt = null;
+            } else {
+                mBluetoothGatt = mBluetoothDevice.connectGatt(this, false, mGattCallback);
+                //Log.d(TAG, "Trying to create a new connection.");
+                mBluetoothDeviceAddress = targetBtAddress;
+                mConnectionState = CONNECTION_STATE_CONNECTING;
+            }
         }
         return true;
     }
@@ -727,6 +735,10 @@ public class ScaleCommunicationService extends Service {
         // which is the main thread.
         handler = new Handler();
         self = this;
+
+        // Init BM71 listener...
+        mBM71Listener = new Bm71GattListener();
+        mBM71GattAdapter = new AospGattAdapter(getApplicationContext(), mBM71Listener);
 
         super.onCreate();
     }
