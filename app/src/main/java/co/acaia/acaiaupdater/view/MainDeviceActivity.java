@@ -1,5 +1,6 @@
 package co.acaia.acaiaupdater.view;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -85,6 +86,8 @@ public class MainDeviceActivity extends ActionBarActivity {
         initSettings();
         init_new_bt();
         currentSelectedDevice=null;
+        // This is required for later BT version
+        this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
     }
 
     private void init_new_bt() {

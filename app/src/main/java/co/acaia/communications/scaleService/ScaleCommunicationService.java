@@ -236,7 +236,10 @@ public class ScaleCommunicationService extends Service {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public void onEvent(final DistanceConnectEvent distanceConnectEvent) {
+        Log.v(TAG,"Got distance connect event");
+
         if (mConnectionState == CONNECTION_STATE_CONNECTED) {
             disconnect();
         }
@@ -625,11 +628,7 @@ public class ScaleCommunicationService extends Service {
         }
 
         stopScan();
-        CommLogger.logv(TAG, "Scan Mode: " +
-                Integer.toString(mBluetoothAdapter.getScanMode()) + ", " +
-                Boolean.toString(mBluetoothAdapter.isDiscovering()));
-        UUID[] uuids = {UUID.fromString(ScaleGattAttributes.CSR_JB_UART_RX_PRIMARY_SERVICE_UUID)};
-        if (!mBluetoothAdapter.startLeScan(uuids, mLeScanCallback)) {
+        if (!mBluetoothAdapter.startLeScan(mLeScanCallback)) {
             Log.d(TAG, "startLeScan Error");
         }
         return true;

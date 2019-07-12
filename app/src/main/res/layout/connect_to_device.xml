@@ -135,10 +135,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_next"
+                android:id="@+id/btn_connect"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/green_button_active"
+                android:background="@drawable/round_button"
                 android:text="@string/Connect"
                 android:textColor="@color/white"
                 app:layout_constraintDimensionRatio="6:1"
