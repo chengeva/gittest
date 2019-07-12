@@ -166,6 +166,8 @@ public class ScaleCommunicationService extends Service {
     // Distance connect helper
     DistanceConnectHelper distanceConnectHelper;
 
+    public boolean scaleGetStatue = false;
+
     // Microchip
     private Bm71GattListener mBM71Listener;
     private Gatt mBM71Gatt = null;

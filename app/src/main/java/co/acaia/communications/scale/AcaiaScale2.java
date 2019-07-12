@@ -46,10 +46,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
         get_status=true;
     }
 
-    @Override
-    public void set_get_status(boolean get_status_)  {
-        this.get_status=get_status_;
-    }
+
     @Override
     public int getProtocolVersion(){
         return AcaiaScale.protocol_version_20;
@@ -61,11 +58,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
             public void parseDataPacket(byte[] data) {
                 DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco);
             }
-            @Override
-            public boolean getFirmwareInfo() {
-                getScaleStatus();
-                return false;
-            }
+
 
             @Override
             public boolean connect(String addr) {
@@ -242,26 +235,10 @@ public class AcaiaScale2 extends  AcaiaScale  {
 
             @Override
             public boolean setCapacity(int capacity) {
-                SettingEntity settingEntity;
-                if(capacity == 0){
-                    //1000g
-                    settingEntity= SettingFactory.getSetting(SettingFactory.set_capacity.item, SettingFactory.set_capacity.unit.g_1000);
-                }else {
-                    //2000g
-                    settingEntity= SettingFactory.getSetting(SettingFactory.set_capacity.item, SettingFactory.set_capacity.unit.g_2000);
-                }
-                return mScaleCommunicationService.sendCmdwithResponse(setting_chg(settingEntity.getItem(), settingEntity.getValue()));
-            }
-
-            @Override
-            public boolean setKettleTargetTemp(int temp) {
                 return false;
             }
 
-            @Override
-            public boolean setKettleOnOff(boolean on) {
-                return false;
-            }
+
         };
     }
     @Override
