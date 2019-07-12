@@ -1,5 +1,6 @@
 package co.acaia.acaiaupdater.view;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,11 +42,15 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                nextActivity(currentSelectedDevice.modelName);
             }
         });
     }
-
+    private void nextActivity(String modelName){
+        Intent intent = new Intent(getApplicationContext(), ConnectScaleActivity.class);
+        intent.putExtra("modelName",modelName);
+        startActivity(intent);
+    }
     private void setupViewWithModel(){
         ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
         // Improve later
