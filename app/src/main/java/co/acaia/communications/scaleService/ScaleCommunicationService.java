@@ -136,6 +136,19 @@ public class ScaleCommunicationService extends Service {
 
     private boolean isISPMode = false;
 
+    public enum MODE {
+        NORMAL,
+        SETTE,
+        FELLOW,
+        DISTANCE,
+    }
+
+    private MODE mMode = MODE.NORMAL;
+    // Distance connect helper
+    DistanceConnectHelper distanceConnectHelper;
+
+
+
     public synchronized void setIsISP(boolean isIsp) {
         CommLogger.logv(TAG,"set is isp!");
         isISPMode = isIsp;
@@ -223,6 +236,14 @@ public class ScaleCommunicationService extends Service {
         }
     }
 
+    public void onEvent(final DistanceConnectEvent distanceConnectEvent) {
+        if (mConnectionState == CONNECTION_STATE_CONNECTED) {
+            disconnect();
+        }
+        mMode = MODE.DISTANCE;
+        this.distanceConnectHelper = new DistanceConnectHelper();
+        startScan();
+    }
 
     private void releaseISP() {
         try {
@@ -310,6 +331,7 @@ public class ScaleCommunicationService extends Service {
 
         }
 
+        @SuppressLint("LongLogTag")
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             CommLogger.logv(TAG, "onServicesDiscovered received: " + status);
@@ -592,6 +614,7 @@ public class ScaleCommunicationService extends Service {
 
     }
 
+    @SuppressLint("LongLogTag")
     public boolean startScan() {
 
         if (mBluetoothAdapter == null) {
@@ -620,18 +643,33 @@ public class ScaleCommunicationService extends Service {
     // Device scan callback.
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
-
+                @SuppressLint("LongLogTag")
                 @Override
                 public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
                     //  if (device.getAddress().equals("00:1C:97:11:F1:79")) {
-                    CommLogger.logv(TAG, "onLeScan");
+                   /* CommLogger.logv(TAG, "onLeScan");
                     CommLogger.logv(TAG, "address" + device.getAddress() + ",RSSI=" + String.valueOf(rssi));
                     // debug
                     //  }
                     final Intent intent = new Intent(ACTION_DEVICE_FOUND);
                     intent.putExtra(EXTRA_DEVICE, device);
                     intent.putExtra(EXTRA_RSSI, rssi);
-                    sendBroadcast(intent);
+                    sendBroadcast(intent);*/
+
+                    if (mMode == MODE.DISTANCE) {
+                        Log.v(TAG, "scanned device name: " + device.getName() + ", address: " + device.getAddress());
+                        if (distanceConnectHelper.onNewScannedDevice(device, (double) rssi) == true) {
+
+                            stopScan();
+                            if (mConnectionState != CONNECTION_STATE_CONNECTED) {
+                                if (distanceConnectHelper.getTargetBluetoothDevice() != null) {
+                                    Log.v("Distance connect", "Connect to:" + distanceConnectHelper.getTargetBluetoothDevice().getAddress());
+                                    connect(distanceConnectHelper.getTargetBluetoothDevice().getAddress());
+                                }
+                                // Hanjord todo: Work on failure states
+                            }
+                        }
+                    }
                 }
             };
 

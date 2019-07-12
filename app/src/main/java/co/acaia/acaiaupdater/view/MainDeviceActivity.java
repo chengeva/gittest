@@ -36,6 +36,9 @@ import co.acaia.acaiaupdater.filehelper.ParseFileRetriever;
 import co.acaia.acaiaupdater.view.deviceList.CustomAdaptor;
 import co.acaia.acaiaupdater.view.deviceList.DeviceModel;
 import co.acaia.communications.scaleService.AcaiaScaleService;
+import co.acaia.communications.scalecommand.ScaleCommandEvent;
+import co.acaia.communications.scalecommand.ScaleCommandType;
+import de.greenrobot.event.EventBus;
 
 public class MainDeviceActivity extends ActionBarActivity {
 
@@ -80,7 +83,23 @@ public class MainDeviceActivity extends ActionBarActivity {
         setActionBar();
         init_view();
         initSettings();
+        init_new_bt();
         currentSelectedDevice=null;
+    }
+
+    private void init_new_bt() {
+        // Init new acaia service protocol
+        if (acaiaScaleCommunicationService == null) {
+            acaiaScaleCommunicationService = new AcaiaScaleService();
+            acaiaScaleCommunicationService.initialize(this);
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    EventBus.getDefault().post(new ScaleCommandEvent(ScaleCommandType.command_id.GET_CONNECTION_STATE.ordinal()));
+                }
+            }, 3000);
+        }
     }
 
     @SuppressLint("InvalidWakeLockTag")
