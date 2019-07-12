@@ -787,18 +787,49 @@ public class ScaleCommunicationService extends Service {
     }
 
     private boolean sendCmd(byte[] Command) {
+        
+        if (mBluetoothGatt == null && mBM71Gatt == null) {
+            return false;
+        }
+        if (mBluetoothGatt != null) {
+            Log.v("sendCmd", "mBluetoothGatt not null");
+            if (mBluetoothGatt
+                    .getService(
+                            UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_PRIMARY_SERVICE_UUID)) != null) {
 
-        // todo: more robust error handling.
 
-        BluetoothGattCharacteristic TX_SEC = mBluetoothGatt
-                .getService(
-                        UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_PRIMARY_SERVICE_UUID))
-                .getCharacteristic(
-                        UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_SECOND_UUID));
-        if (TX_SEC != null) {
-            TX_SEC.setValue(Command);
-            return mBluetoothGatt.writeCharacteristic(TX_SEC);
+                BluetoothGattCharacteristic TX_SEC = mBluetoothGatt
+                        .getService(
+                                UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_PRIMARY_SERVICE_UUID))
+                        .getCharacteristic(
+                                UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_SECOND_UUID));
+                if (TX_SEC != null) {
+                    TX_SEC.setValue(Command);
+                    return mBluetoothGatt.writeCharacteristic(TX_SEC);
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        if (mTransRx != null && mBM71Gatt != null) {
+
+            mTransRx.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+            mTransRx.setValue(Command);
+            Log.v("CINCODEBUG", "bm71 send command, len=%d" + String.valueOf(Command.length));
+            for (int i = 0; i != Command.length; i++) {
+                Log.v("SENDDATA", String.valueOf(i) + " " + String.valueOf(Command[i]));
+            }
+            return mBM71Gatt.writeCharacteristic(mTransRx);
+            //return false;
         } else {
+            if (mBM71Gatt == null) {
+                Log.v("sendCmd", "mBM71Gatt null");
+            }
+
+            if (mTransRx == null) {
+                Log.v("sendCmd", "mTransRx null");
+            }
             return false;
         }
 
