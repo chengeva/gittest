@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -122,8 +123,15 @@ public class ConnectScaleActivity extends ActionBarActivity {
                         // TODO: change firmware
                         StartFirmwareUpdateEvent startFirmwareUpdateEvent=new StartFirmwareUpdateEvent(currentFirmwareFileEntity);
                         EventBus.getDefault().post(startFirmwareUpdateEvent);
-                        AcaiaUpdater.ispHelper.startIsp();
-                        nextActivity(currentSelectedDevice.modelName);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                AcaiaUpdater.ispHelper.startIsp();
+                                nextActivity(currentSelectedDevice.modelName);
+                            }
+                        }, 500);
+
                         break;
                     case STATE_CONNECTING:
                         break;

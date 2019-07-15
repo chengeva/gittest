@@ -58,6 +58,7 @@ import co.acaia.acaiaupdater.ui.SelectVersionEvent;
 import de.greenrobot.event.EventBus;
 
 import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_APP;
+import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_INIT;
 import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_ISP;
 
 public class ScaleCommunicationService extends Service {
@@ -240,14 +241,15 @@ public class ScaleCommunicationService extends Service {
 
     @SuppressLint("LongLogTag")
     public void onEvent(StartFirmwareUpdateEvent event) {
+        setIsISP(true);
         CommLogger.logv(TAG, "click start isp");
         Log.v(TAG,"got ustart update event");
-        AcaiaUpdater.ispHelper = new IspHelper(getApplicationContext(), self, handler, new AcaiaFirmware(event.firmwareFileEntity));
         if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
+            AcaiaUpdater.ispHelper.isISP=ISP_CHECK_INIT;
             AcaiaUpdater.ispHelper.change_isp_mode();
         }
         //ispHelper.startIsp();
-        setIsISP(true);
+
     }
 
     public void onEvent(UpdateStatusEvent event) {
@@ -1003,6 +1005,9 @@ public class ScaleCommunicationService extends Service {
 
             }else{
                 Log.v(TAG,"ISP Mode!");
+                if(AcaiaUpdater.ispHelper==null){
+                    AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
+                }
                 AcaiaUpdater.ispHelper.parseDataPacket(chrc.getValue());
             }
         }

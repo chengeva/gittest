@@ -2,12 +2,15 @@ package co.acaia.acaiaupdater.firmwarelunar;
 
 import android.content.Context;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
 import co.acaia.communications.scaleService.ScaleCommunicationService;
 import j2me.nio.ByteBuffer;
 import j2me.nio.ByteOrder;
 import javolution.io.Struct;
+
+import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_APP;
 
 /**
  * Created by hanjord on 15/4/14.
@@ -259,6 +262,8 @@ public class Isp {
 
                       FileHandler.net_event(cisp_handler,mScaleCommunicationService,modelName);
 
+                }else{
+                    AcaiaUpdater.ispHelper.isISP=ISP_CHECK_APP;
                 }
 
                 cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
