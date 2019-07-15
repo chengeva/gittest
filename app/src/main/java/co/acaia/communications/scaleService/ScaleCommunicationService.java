@@ -879,8 +879,8 @@ public class ScaleCommunicationService extends Service {
         }
 
 
-        reliableSenderQueue.sendHighPriorityJob(Command, len);
-        //sendCmd(Command);
+        //reliableSenderQueue.sendHighPriorityJob(Command, len);
+        sendCmd(Command);
     }
 
     @SuppressLint("LongLogTag")
