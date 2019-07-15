@@ -33,6 +33,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connect_to_device);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
         init_views();
         current_connection_state=STATE_DISCONNECTED;
@@ -69,4 +70,12 @@ public class ConnectScaleActivity extends AppCompatActivity {
         tv_current_firmware=(TextView)findViewById(R.id.tv_current_firmware);
         tv_disconnect=(TextView) findViewById(R.id.tv_disconnect);
     }
+    
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
+
 }
