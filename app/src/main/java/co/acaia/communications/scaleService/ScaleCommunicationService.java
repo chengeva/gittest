@@ -243,7 +243,9 @@ public class ScaleCommunicationService extends Service {
         CommLogger.logv(TAG, "click start isp");
         Log.v(TAG,"got ustart update event");
         AcaiaUpdater.ispHelper = new IspHelper(getApplicationContext(), self, handler, new AcaiaFirmware(event.firmwareFileEntity));
-        AcaiaUpdater.ispHelper.change_isp_mode();
+        if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
+            AcaiaUpdater.ispHelper.change_isp_mode();
+        }
         //ispHelper.startIsp();
         setIsISP(true);
     }
