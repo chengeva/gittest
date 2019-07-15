@@ -875,59 +875,7 @@ public class ScaleCommunicationService extends Service {
 
     @SuppressLint("LongLogTag")
     public void sendCmdFromQueue(final byte[] Command) {
-        try {
-            if (mBluetoothGatt
-                    .getService(
-                            UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_PRIMARY_SERVICE_UUID)) != null) {
-                try {
-                    BluetoothGattCharacteristic TX_SEC = mBluetoothGatt
-                            .getService(
-                                    UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_PRIMARY_SERVICE_UUID))
-                            .getCharacteristic(
-                                    UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_SECOND_UUID));
-                    if (TX_SEC == null) {
-                        Log.w(TAG, "Found no Characteristic");
-                        // TODO: handle connection failure
-                    } else {
-
-                        TX_SEC.setValue(Command);
-                        TX_SEC.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                        CommLogger.logv4(TAG, "from queuesend command!" + String.valueOf(Command.length));
-                        mBluetoothGatt.writeCharacteristic(TX_SEC);
-                        CommLogger.logv(TAG, "time apart=" + String.valueOf((System.nanoTime() - last_received) / 1000000.0));
-                        if ((System.nanoTime() - last_received) / 1000000.0 > 4000) {
-                            // disconnect();
-                            if (isConnected()) {
-                                CommLogger.logv(TAG, "manual disconnect!");
-                                send_failed_count++;
-                                if (send_failed_count > send_failed_threshold) {
-                                    //disconnect();
-                                    ;
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    send_failed_count++;
-                    if (send_failed_count > send_failed_threshold) {
-                        //disconnect();
-                        ;
-                    }
-                }
-
-
-            } else {
-                // no connection
-                send_failed_count++;
-                if (send_failed_count > send_failed_threshold) {
-                    // disconnect();
-                    ;
-                }
-            }
-        } catch (Exception e) {
-
-        }
-
+        sendCmd(Command);
     }
 
 
