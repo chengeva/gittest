@@ -16,6 +16,8 @@ public class ConnectScaleActivity extends AppCompatActivity {
     private Button connectButton;
     private TextView tv_Updating_progress;
     private TextView tv_Update_status;
+    private  TextView tv_current_firmware;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
         });
         tv_Updating_progress=(TextView)findViewById(R.id.Updating_progress);
         tv_Update_status=(TextView)findViewById(R.id.Update_status);
-
+        tv_current_firmware=(TextView)findViewById(R.id.tv_current_firmware);
+        tv_current_firmware.setVisibility(View.GONE);
     }
 }
