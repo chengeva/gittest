@@ -54,10 +54,17 @@ public class ConnectScaleActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
     }
 
-    public void onEvent(UpdatedStatusEvent updatedStatusEvent){
+
+    public void onEvent(final UpdatedStatusEvent updatedStatusEvent){
         this.current_connection_state=STATE_CONNECTED;
-        tv_current_firmware.setText("Current FW "+String.valueOf(updatedStatusEvent.mainVersion)+"."+String.valueOf(updatedStatusEvent.subVersion)+"."+String.valueOf(updatedStatusEvent.addVersion));
-        tv_current_firmware.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tv_current_firmware.setText("Current FW "+String.valueOf(updatedStatusEvent.mainVersion)+"."+String.valueOf(updatedStatusEvent.subVersion)+"."+String.valueOf(updatedStatusEvent.addVersion));
+                tv_current_firmware.setVisibility(View.VISIBLE);
+            }
+        });
+
         update_view_status();
     }
 
