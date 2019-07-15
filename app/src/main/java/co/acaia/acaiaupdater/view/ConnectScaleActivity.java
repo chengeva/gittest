@@ -97,12 +97,25 @@ public class ConnectScaleActivity extends AppCompatActivity {
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                current_connection_state=STATE_CONNECTING;
-                update_view_status();
-                EventBus.getDefault().post(new DistanceConnectEvent());
 
+                switch (current_connection_state){
+                    case STATE_CONNECTED:
+                        break;
+                    case STATE_CONNECTING:
+                        break;
+                    case STATE_OBTAININGINFO:
+                        break;
+                    case STATE_DISCONNECTED:
+                        current_connection_state=STATE_CONNECTING;
+                        update_view_status();
+                        EventBus.getDefault().post(new DistanceConnectEvent());
+                        break;
+                    default:
+                        break;
+                }
             }
         });
+        
         tv_Updating_progress=(TextView)findViewById(R.id.Updating_progress);
         tv_Update_status=(TextView)findViewById(R.id.Update_status);
         tv_current_firmware=(TextView)findViewById(R.id.tv_current_firmware);
