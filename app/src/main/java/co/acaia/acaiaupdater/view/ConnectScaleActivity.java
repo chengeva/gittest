@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,7 @@ import co.acaia.communications.scaleevent.ScaleSettingUpdateEventType;
 import co.acaia.communications.scaleevent.UpdatedStatusEvent;
 import de.greenrobot.event.EventBus;
 
-public class ConnectScaleActivity extends AppCompatActivity {
+public class ConnectScaleActivity extends ActionBarActivity {
     private Button connectButton;
     private TextView tv_Updating_progress;
     private TextView tv_Update_status;
@@ -62,10 +63,11 @@ public class ConnectScaleActivity extends AppCompatActivity {
             public void run() {
                 tv_current_firmware.setText("Current FW "+String.valueOf(updatedStatusEvent.mainVersion)+"."+String.valueOf(updatedStatusEvent.subVersion)+"."+String.valueOf(updatedStatusEvent.addVersion));
                 tv_current_firmware.setVisibility(View.VISIBLE);
+                update_view_status();
             }
         });
 
-        update_view_status();
+
     }
 
     private void update_view_status(){
@@ -115,7 +117,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
                 }
             }
         });
-        
+
         tv_Updating_progress=(TextView)findViewById(R.id.Updating_progress);
         tv_Update_status=(TextView)findViewById(R.id.Update_status);
         tv_current_firmware=(TextView)findViewById(R.id.tv_current_firmware);
