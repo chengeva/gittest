@@ -132,10 +132,11 @@ public class ConnectScaleActivity extends AppCompatActivity {
                             //Log.v("ConnectScaleActivity",result);
 
                             if(current_connection_state==STATE_CONNECTING){
-                                current_connection_state=STATE_DISCONNECTED;
+                                current_connection_state=STATE_CONNECTED;
                                 update_view_status();
-                                tv_Update_status.setText(result);
                             }
+                            
+                            tv_Update_status.setText(result);
 
                             EventBus.getDefault().post(new WeightEvent(result));
                             break;
