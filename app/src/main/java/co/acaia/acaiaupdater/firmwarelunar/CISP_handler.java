@@ -64,6 +64,6 @@ public class CISP_handler extends Struct {
         mn_app_datasum .set(0);
         mn_total_page = 0;
         mn_disconnect_counter = 0;
-        mb_started = false;
+        //mb_started = false;
     }
 }

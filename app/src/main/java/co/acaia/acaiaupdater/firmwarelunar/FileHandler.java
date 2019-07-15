@@ -188,7 +188,7 @@ public class FileHandler {
             }
             Isp.isp_info isp_info=new Isp.isp_info(ByteDataHelper.getByteArrayFromU1(cisp_handler.mn_app_buffer,0,ISP_INFO_LENGTH));
             //isp_info.memcpy(cisp_handler.mn_app_buffer);
-            Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version));
+
 
             ArrayList<Integer> validISPs= AcaiaDevice.getValidISPFromModelName(modelName);
             boolean checkISP=false;
@@ -198,6 +198,8 @@ public class FileHandler {
                     EventBus.getDefault().post(new DeviceOKEvent());
                 }
             }
+
+            Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version)+" "+String.valueOf(checkISP)+" "+String.valueOf(cisp_handler.mb_started));
             if(checkISP==true && cisp_handler.mb_started==true){
                 Log.v(TAG,"device check ok!=="+String.valueOf(isp_info.n_ISP_version));
                 lo_page.n_firm_main_ver .set((short)1);
@@ -218,7 +220,7 @@ public class FileHandler {
                 // Handle invalid device
             }
 
-        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal()){
+        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal() && cisp_handler.mb_started==true){
             //DataOutHelper.sr_memcpy(lo_page.buffer,(short)0,cisp_handler.mn_app_buffer,(short)4);
            // lo_page.setDataFromBuf();;
             lo_page.memcpy(cisp_handler.mn_app_buffer);
@@ -238,7 +240,7 @@ public class FileHandler {
             EventBus.getDefault().post(new UpdateStatusEvent(UpdateStatusEvent.ISPCompletedState));
             // hanjord: add transfer complete
 
-        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_pageask_a.ordinal()){
+        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_pageask_a.ordinal() && cisp_handler.mb_started==true){
             //DataOutHelper.sr_memcpy(lo_page.buffer,(short)0,cisp_handler.mn_app_buffer,(short)4);
             //lo_page.setDataFromBuf();;
             lo_page.memcpy(cisp_handler.mn_app_buffer);
