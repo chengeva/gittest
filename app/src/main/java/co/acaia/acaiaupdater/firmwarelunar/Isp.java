@@ -202,22 +202,14 @@ public class Isp {
             if(cisp_handler.mn_app_index<2) {
                 if (u_s_in != gs_header[cisp_handler.mn_app_index]) {
                     CommLogger.logv(TAG, "gs_header[" + String.valueOf(cisp_handler.mn_app_index) + "] " + String.valueOf(gs_header[cisp_handler.mn_app_index]));
-                    cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
-                    cisp_handler.mn_app_cmdid= 0;
-                    cisp_handler.mn_app_checksum .set(0);
-                    cisp_handler.mn_app_datasum .set(0);
-                    cisp_handler.mn_app_index = 0;
+                    cisp_handler.reset();
                     CommLogger.logv(TAG, "------------------------------ ");
                     return false;
                 } else {
                     CommLogger.logv(TAG, "header ok "+String.valueOf(u_s_in));
                 }
             }else{
-                cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
-                cisp_handler.mn_app_cmdid= 0;
-                cisp_handler.mn_app_checksum .set(0);
-                cisp_handler.mn_app_datasum .set(0);
-                cisp_handler.mn_app_index = 0;
+                cisp_handler.reset();
                 return false;
             }
         } else if ( cisp_handler.mn_appstep == EPARSER_PROCESS.e_prs_cmdid.ordinal()) {
@@ -230,11 +222,7 @@ public class Isp {
                     if (cisp_handler.mn_app_len == 255)
                         cisp_handler.mn_app_len = u_s_in;
                 }else{
-                    cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
-                    cisp_handler.mn_app_cmdid= 0;
-                    cisp_handler.mn_app_checksum .set(0);
-                    cisp_handler.mn_app_datasum .set(0);
-                    cisp_handler.mn_app_index = 0;
+                    cisp_handler.reset();
                     return false;
                 }
             }
@@ -266,10 +254,7 @@ public class Isp {
                     AcaiaUpdater.ispHelper.isISP=ISP_CHECK_APP;
                 }
 
-                cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
-                cisp_handler.mn_app_cmdid= 0;
-                cisp_handler.mn_app_checksum .set(0);
-                cisp_handler.mn_app_datasum .set(0);
+                cisp_handler.reset();
             }
             else
             {

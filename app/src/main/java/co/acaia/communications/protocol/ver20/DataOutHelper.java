@@ -101,6 +101,7 @@ public class DataOutHelper {
         output_struct out=new output_struct();
         ls_data_struct ls_data=new ls_data_struct();
         short ln_count=1,ln_len=0;
+        int ccount=0;
         ln_count+=pack_event(ls_data.ls_data,ln_count, (short)(ScaleProtocol.EEVENT.e_scalevent_weight.ordinal()),(short)1);
         ln_count+=pack_event(ls_data.ls_data,ln_count, (short)(ScaleProtocol.EEVENT.e_scalevent_battery.ordinal()),(short)2);
         ln_count+=pack_event(ls_data.ls_data,ln_count, (short)(ScaleProtocol.EEVENT.e_scalevent_timer.ordinal()),(short)5);
@@ -111,8 +112,8 @@ public class DataOutHelper {
         sr_len_struct srLenStruct=new sr_len_struct();
         srLenStruct.sr_len.set(ln_count);
 
-        pack_data(out.ls_out,  (short)(ScaleProtocol.ECMD.e_cmd_event_sa.ordinal()), ls_data.ls_data, srLenStruct.sr_len);
-        EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,ln_count)));
+        ccount=pack_data(out.ls_out,  (short)(ScaleProtocol.ECMD.e_cmd_event_sa.ordinal()), ls_data.ls_data, srLenStruct.sr_len);
+        EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,ccount)));
 
 
     }
@@ -135,8 +136,8 @@ public class DataOutHelper {
         }
         sr_len_struct sr_len=new sr_len_struct();
         sr_len.sr_len.set((short) sr_strlen(s_id, 15));
-        pack_data(out.ls_out, (short) ScaleProtocol.ECMD.e_cmd_identify_s.ordinal(), s_out.ls_out, sr_len.sr_len);
-        EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,15)));
+        int ln_out=pack_data(out.ls_out, (short) ScaleProtocol.ECMD.e_cmd_identify_s.ordinal(), s_out.ls_out, sr_len.sr_len);
+        EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,ln_out)));
         return true;
     }
 
@@ -154,9 +155,9 @@ public class DataOutHelper {
             }
         }
         sr_len.sr_len.set((short) 15);
-        pack_data(out.ls_out, (short) ScaleProtocol.ECMD.e_cmd_isp_s.ordinal(), s_out.ls_out, sr_len.sr_len);
+        int ln_out=pack_data(out.ls_out, (short) ScaleProtocol.ECMD.e_cmd_isp_s.ordinal(), s_out.ls_out, sr_len.sr_len);
 
-        EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,15)));
+        EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,ln_out)));
     }
     public static byte[] u1_array_to_byte_array_withlen(Struct.Unsigned8[] s_in,int len){
         byte[] out=new byte[len];

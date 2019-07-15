@@ -60,6 +60,7 @@ import de.greenrobot.event.EventBus;
 import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_APP;
 import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_INIT;
 import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_ISP;
+import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_SET_ISP;
 
 public class ScaleCommunicationService extends Service {
     private BluetoothManager mBluetoothManager;
@@ -245,7 +246,7 @@ public class ScaleCommunicationService extends Service {
         CommLogger.logv(TAG, "click start isp");
         Log.v(TAG,"got ustart update event");
         if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
-            AcaiaUpdater.ispHelper.isISP=ISP_CHECK_INIT;
+            AcaiaUpdater.ispHelper.isISP=ISP_SET_ISP;
             AcaiaUpdater.ispHelper.change_isp_mode();
         }
         //ispHelper.startIsp();
@@ -878,8 +879,8 @@ public class ScaleCommunicationService extends Service {
         }
 
 
-        //reliableSenderQueue.sendHighPriorityJob(Command, len);
-        sendCmd(Command);
+        reliableSenderQueue.sendHighPriorityJob(Command, len);
+        //sendCmd(Command);
     }
 
     @SuppressLint("LongLogTag")

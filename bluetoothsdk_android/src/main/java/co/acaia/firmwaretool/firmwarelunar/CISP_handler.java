@@ -53,4 +53,17 @@ public class CISP_handler extends Struct {
         mn_disconnect_counter = 0;
         mb_started = false;
     }
+
+    public void reset() {
+        mn_ticker = 0;
+        mn_appstep = Isp.EPARSER_PROCESS.e_prs_checkheader.ordinal();
+        mn_app_cmdid = 0;
+        mn_app_index = 0;
+        mn_app_len = 2;
+        mn_app_checksum .set(0);
+        mn_app_datasum .set(0);
+        mn_total_page = 0;
+        mn_disconnect_counter = 0;
+        mb_started = false;
+    }
 }
