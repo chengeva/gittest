@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.ScaleService;
@@ -109,6 +110,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
                         // TODO: change firmware
                         StartFirmwareUpdateEvent startFirmwareUpdateEvent=new StartFirmwareUpdateEvent(currentFirmwareFileEntity);
                         EventBus.getDefault().post(startFirmwareUpdateEvent);
+                        AcaiaUpdater.ispHelper.startIsp();
                         nextActivity(currentSelectedDevice.modelName);
                         break;
                     case STATE_CONNECTING:
@@ -143,6 +145,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
         Intent intent = new Intent(getApplicationContext(), FirmwareUpdateActivity.class);
         intent.putExtra("modelName",modelName);
         startActivity(intent);
+
     }
 
     @Override

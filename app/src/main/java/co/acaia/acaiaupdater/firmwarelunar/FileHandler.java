@@ -193,7 +193,7 @@ public class FileHandler {
                     checkISP=true;
                 }
             }
-            if(checkISP==true){
+            if(checkISP==true && cisp_handler.mb_started==true){
                 Log.v(TAG,"device check ok!=="+String.valueOf(isp_info.n_ISP_version));
                 lo_page.n_firm_main_ver .set((short)1);
                 lo_page.n_firm_sub_ver .set((short)1);

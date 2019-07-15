@@ -68,7 +68,7 @@ public class ScaleCommunicationService extends Service {
     // new structure
 
     //private AcaiaScale acaiaScale = null;
-    private IspHelper ispHelper = null;
+    //private IspHelper ispHelper = null;
     private AcaiaScale acaiaScale = null;
 
     // Reliable
@@ -239,9 +239,9 @@ public class ScaleCommunicationService extends Service {
     public void onEvent(StartFirmwareUpdateEvent event) {
         CommLogger.logv(TAG, "click start isp");
         Log.v(TAG,"got ustart update event");
-        ispHelper = new IspHelper(getApplicationContext(), self, handler, new AcaiaFirmware(event.firmwareFileEntity));
-        ispHelper.change_isp_mode();
-        ispHelper.startIsp();
+        AcaiaUpdater.ispHelper = new IspHelper(getApplicationContext(), self, handler, new AcaiaFirmware(event.firmwareFileEntity));
+        AcaiaUpdater.ispHelper.change_isp_mode();
+        //ispHelper.startIsp();
         setIsISP(true);
     }
 
@@ -268,8 +268,8 @@ public class ScaleCommunicationService extends Service {
 
     private void releaseISP() {
         try {
-            ispHelper.release();
-            ispHelper = null;
+            AcaiaUpdater.ispHelper.release();
+            AcaiaUpdater. ispHelper = null;
         } catch (Exception e) {
 
         }
@@ -314,10 +314,10 @@ public class ScaleCommunicationService extends Service {
                         }
                         mBluetoothGatt = null;
                         // Release current acaia scale
-                        if (ispHelper != null) {
+                        if (AcaiaUpdater.ispHelper != null) {
                             EventBus.getDefault().post(new UpdateErrorEvent(UpdateErrorEvent.error_disconnected));
-                            ispHelper.release();
-                            ispHelper = null;
+                            AcaiaUpdater.ispHelper.release();
+                            AcaiaUpdater.ispHelper = null;
                         }
                         EventBus.getDefault().post(new ConnectionEvent(false));
                         last_received = 0;
@@ -449,13 +449,13 @@ public class ScaleCommunicationService extends Service {
                         }
                     }
                     try {
-                        if (ispHelper == null) {
+                        if (AcaiaUpdater.ispHelper == null) {
                             // TODO ISP helper
                            // ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
                             //ispHelper.parseDataPacket(characteristic.getValue());
                         } else {
                             // parse packet
-                            ispHelper.parseDataPacket(characteristic.getValue());
+                            AcaiaUpdater. ispHelper.parseDataPacket(characteristic.getValue());
                             //  update connection
                             incomming_msg_counter++;
                             if (incomming_msg_counter > 15) {
@@ -575,9 +575,9 @@ public class ScaleCommunicationService extends Service {
 
 
         try {
-            if (ispHelper != null) {
-                ispHelper.release();
-                ispHelper = null;
+            if (AcaiaUpdater.ispHelper != null) {
+                AcaiaUpdater.ispHelper.release();
+                AcaiaUpdater. ispHelper = null;
             }
             //mBluetoothGatt.close();
         } catch (Exception e) {
@@ -621,9 +621,9 @@ public class ScaleCommunicationService extends Service {
 
 
         try {
-            if (ispHelper != null) {
-                ispHelper.release();
-                ispHelper = null;
+            if (AcaiaUpdater.ispHelper != null) {
+                AcaiaUpdater. ispHelper.release();
+                AcaiaUpdater.ispHelper = null;
             }
             //mBluetoothGatt.close();
         } catch (Exception e) {
@@ -982,17 +982,17 @@ public class ScaleCommunicationService extends Service {
                     // parse packet
                     acaiaScale.getScaleCommand().parseDataPacket(chrc.getValue());
 
-                    if(ispHelper==null){
-                        ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
+                    if(AcaiaUpdater.ispHelper==null){
+                        AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
                     }
 
-                    ispHelper.parseDataPacket(chrc.getValue());
+                    AcaiaUpdater.ispHelper.parseDataPacket(chrc.getValue());
                     //  update connection
                 }
 
             }else{
                 Log.v(TAG,"ISP Mode!");
-                ispHelper.parseDataPacket(chrc.getValue());
+                AcaiaUpdater.ispHelper.parseDataPacket(chrc.getValue());
             }
         }
 
