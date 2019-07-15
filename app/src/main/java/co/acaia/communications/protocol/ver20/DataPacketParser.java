@@ -240,52 +240,21 @@ public class DataPacketParser {
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
-           /* byte[]debug=getByteArrayFromU1(s_param,0,scale_status.getSize());
-            for(int i=0;i!=scale_status.getSize();i++){
-                CommLogger.logv("status","status["+String.valueOf(i)+"]"+String.valueOf(debug[i]));
-            }*/
             String deb="";
-            for(int i=0;i!=orig_data.length*8;i++){
-                deb+=String.valueOf(ByteDataHelper.getBit(orig_data, i));
-                if((i+1)%8==0){
-                    deb+=" ";
-                }
-            }
             CommLogger.logv("packet_status_raw", deb);
-            byte[]debug = ByteDataHelper.getByteArrayFromU1(s_param, 0, co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status.getSize());
-            deb="";
-            for(int i=0;i!=debug.length*8;i++){
-                deb+=String.valueOf(ByteDataHelper.getBit(debug, i));
-                if((i+1)%8==0){
-                    deb+=" ";
-                }
-            }
-            CommLogger.logv("packet_status_spa", deb);
-            // weird: s_param != orig_data
-            // bug
             co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status scaleStatus=new co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status(ByteDataHelper.getByteArrayFromU1(s_param, 0, co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status.getSize()));
             // PROCESS STATUS HERE
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_BEEP,(float)scaleStatus.n_setting_sound.get());
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_KEY_DISABLED_ELAPSED_TIME,(float)scaleStatus.n_setting_keydisable.get());
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_AUTO_OFF_TIME,(float)scaleStatus.n_setting_sleep.get());
             sendIntent(context, ScaleCommunicationService.DATA_TYPE_BATTERY, (float) scaleStatus.n_battery.get());
-
-            if( scaleStatus.b_timer_start.get()==0){
-                // timer started
-                EventBus.getDefault().post(new UpdateTimerStartPauseEvent(true));
-            }else{
-                EventBus.getDefault().post(new UpdateTimerStartPauseEvent(false));
-            }
-            //CommLogger.logv("status cd start", String.valueOf(  scaleStatus.b_cd_start));
-
-
+            
             if(sent_default==0) {
                 CommLogger.logv(TAG,"default event!");
                 sent_default=1;
                 DataOutHelper.default_event();
             }
             sent_default++;
-
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_event_sa.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_event_sa");

@@ -135,7 +135,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
                                 current_connection_state=STATE_CONNECTED;
                                 update_view_status();
                             }
-                            
+
                             tv_Update_status.setText(result);
 
                             EventBus.getDefault().post(new WeightEvent(result));
