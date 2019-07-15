@@ -177,8 +177,12 @@ public class FileHandler {
         if(cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_info_a.ordinal()){
 
             // obtain ISP info and check device valid...
+            for(int i=0;i!=7;i++){
+                Log.v(TAG,"ISP data="+String.valueOf(i)+" "+String.valueOf(cisp_handler.mn_app_buffer[i].get()));
+            }
             Isp.isp_info isp_info=new Isp.isp_info(ByteDataHelper.getByteArrayFromU1(cisp_handler.mn_app_buffer,0,ISP_INFO_LENGTH));
-            Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_firm_main_ver.get())+"."+String.valueOf(isp_info.n_firm_sub_ver.get())+"."+String.valueOf(isp_info.n_firm_add_ver.get()));
+            //isp_info.memcpy(cisp_handler.mn_app_buffer);
+            Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version));
             lo_page.n_firm_main_ver .set((short)1);
             lo_page.n_firm_sub_ver .set((short)1);
             // TODO: check 'T' char int val

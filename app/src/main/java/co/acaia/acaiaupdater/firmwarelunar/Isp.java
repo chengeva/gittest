@@ -13,7 +13,7 @@ import javolution.io.Struct;
  * Created by hanjord on 15/4/14.
  */
 public class Isp {
-    public static final String TAG="Isp";
+    public static final String TAG="Isp debug";
 
     //typedef unsigned char u1;
 //typedef unsigned short u2;
@@ -69,7 +69,9 @@ public class Isp {
         public Unsigned8 n_firm_sub_ver = new Unsigned8();
         public Unsigned8 n_firm_add_ver = new Unsigned8();
         public Unsigned8 n_firm_page = new Unsigned8();
-
+        public Unsigned8[] buffer = new Unsigned8[]{new Unsigned8(),
+                new Unsigned8(),
+                new Unsigned8(), new Unsigned8(),new Unsigned8(),new Unsigned8(),new Unsigned8()};
         @Override
         public ByteOrder byteOrder() {
             return ByteOrder.LITTLE_ENDIAN;
@@ -77,6 +79,18 @@ public class Isp {
 
         public isp_info(byte [] b){
             this.setByteBuffer(ByteBuffer.wrap(b).order(j2me.nio.ByteOrder.LITTLE_ENDIAN), 0);
+        }
+        public void memcpy(Struct.Unsigned8[] src) {
+
+            n_ispinfo_length.set(src[0].get());
+            n_ispinfo_version.set(src[1].get());
+            n_ISP_version.set(src[2].get());
+            /*n_firm_page.set(src[3].get());
+            CommLogger.logv2("page_info",String.valueOf(n_firm_main_ver.get()));
+            CommLogger.logv2("page_info",String.valueOf(n_firm_sub_ver.get()));
+            CommLogger.logv2("page_info",String.valueOf(  n_firm_add_ver.get()));
+            CommLogger.logv2("page_info",String.valueOf( n_firm_page.get()));*/
+
         }
     }
 
@@ -185,11 +199,15 @@ public class Isp {
             if(cisp_handler.mn_app_index<2) {
                 if (u_s_in != gs_header[cisp_handler.mn_app_index]) {
                     CommLogger.logv(TAG, "gs_header[" + String.valueOf(cisp_handler.mn_app_index) + "] " + String.valueOf(gs_header[cisp_handler.mn_app_index]));
+                    cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
+                    cisp_handler.mn_app_cmdid= 0;
+                    cisp_handler.mn_app_checksum .set(0);
+                    cisp_handler.mn_app_datasum .set(0);
                     cisp_handler.mn_app_index = 0;
                     CommLogger.logv(TAG, "------------------------------ ");
                     return false;
                 } else {
-                    CommLogger.logv(TAG, "header ok");
+                    CommLogger.logv(TAG, "header ok "+String.valueOf(u_s_in));
                 }
             }else{
                 cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
