@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
@@ -191,6 +192,7 @@ public class FileHandler {
             for (int i=0;i!=validISPs.size();i++){
                 if(validISPs.get(i)==isp_info.n_ISP_version.get()){
                     checkISP=true;
+                    EventBus.getDefault().post(new DeviceOKEvent());
                 }
             }
             if(checkISP==true && cisp_handler.mb_started==true){

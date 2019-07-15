@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
+import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.ScaleService;
@@ -62,6 +63,17 @@ public class ConnectScaleActivity extends ActionBarActivity {
         Log.v("ConnectScaleActivity","Updating to: "+currentFirmwareFileEntity.detail);
     }
 
+    public void onEvent(final DeviceOKEvent deviceOKEvent){
+        this.current_connection_state=STATE_CONNECTED;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tv_current_firmware.setText("Device in update mode");
+                tv_current_firmware.setVisibility(View.VISIBLE);
+                update_view_status();
+            }
+        });
+    }
 
     public void onEvent(final UpdatedStatusEvent updatedStatusEvent){
         this.current_connection_state=STATE_CONNECTED;
