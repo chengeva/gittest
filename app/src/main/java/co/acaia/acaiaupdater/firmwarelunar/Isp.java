@@ -182,7 +182,7 @@ public class Isp {
         return b & 0xFF;
     }
 
-    public static boolean parse_input( CISP_handler cisp_handler,byte s_in, Context context,final  ScaleCommunicationService mScaleCommunicationService) {
+    public static boolean parse_input( CISP_handler cisp_handler,byte s_in, Context context,final  ScaleCommunicationService mScaleCommunicationService,String modelName) {
         int u_s_in=unsignedToBytes(s_in);
 
         /*if (!cisp_handler.mb_started) {
@@ -257,7 +257,7 @@ public class Isp {
                 CommLogger.logv(TAG,"cisp_handler.mn_app_checksum ="+String.valueOf(cisp_handler.mn_app_checksum ));
                 if (cisp_handler.mn_app_checksum.get() == cisp_handler.mn_app_datasum.get()) {
 
-                      FileHandler.net_event(cisp_handler,mScaleCommunicationService);
+                      FileHandler.net_event(cisp_handler,mScaleCommunicationService,modelName);
 
                 }
 

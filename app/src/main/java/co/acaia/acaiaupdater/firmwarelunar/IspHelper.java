@@ -20,12 +20,13 @@ public class IspHelper {
     private Context context = null;
     private Handler handler;
     private CISP_handler cisphandler;
-
+    private int targetISPVersion;
+    private String currentModelName;
     public IspHelper(Context ctx, ScaleCommunicationService mScaleCommunicationService_, Handler h, FirmwareFileEntity firmwareFileEntity) {
         context = ctx;
         mScaleCommunicationService = mScaleCommunicationService_;
         handler = h;
-
+        currentModelName=firmwareFileEntity.model;
         File firmwareFile = new File(context.getFileStreamPath(firmwareFileEntity.fileName).getAbsolutePath());
         Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
         cisphandler = new CISP_handler(firmwareFile);
@@ -35,7 +36,7 @@ public class IspHelper {
 
     public void parseDataPacket(byte[] data) {
         for (int i = 0; i != data.length; i++) {
-            Isp.parse_input(cisphandler, data[i], context, mScaleCommunicationService);
+            Isp.parse_input(cisphandler, data[i], context, mScaleCommunicationService,currentModelName);
         }
     }
 

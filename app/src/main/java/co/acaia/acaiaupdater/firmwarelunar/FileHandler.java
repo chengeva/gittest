@@ -8,7 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
@@ -165,7 +167,7 @@ public class FileHandler {
     }
 
 
-    public static void net_event(CISP_handler cisp_handler, ScaleCommunicationService mScaleCommunicationService){
+    public static void net_event(CISP_handler cisp_handler, ScaleCommunicationService mScaleCommunicationService, String modelName){
         CommLogger.logv2(TAG, "net event!  cisp_handler.mn_app_cmdid=" + String.valueOf(cisp_handler.mn_app_cmdid));
         int ln_len;
         DataOutHelper.sr_len_struct srLenStruct = new DataOutHelper.sr_len_struct();
@@ -183,22 +185,34 @@ public class FileHandler {
             Isp.isp_info isp_info=new Isp.isp_info(ByteDataHelper.getByteArrayFromU1(cisp_handler.mn_app_buffer,0,ISP_INFO_LENGTH));
             //isp_info.memcpy(cisp_handler.mn_app_buffer);
             Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version));
-            lo_page.n_firm_main_ver .set((short)1);
-            lo_page.n_firm_sub_ver .set((short)1);
-            // TODO: check 'T' char int val
-            lo_page.n_firm_add_ver .set((short)84);
-            lo_page.n_firm_page .set((short)cisp_handler.mn_total_page);
 
-            ln_len = DataOutHelper.pack_data(output_struct_.ls_out,(short)Isp.EISPCMD.e_ispcmd_start_s.ordinal(),lo_page.getConvertedByteArray(),srLenStruct.sr_len);
-            byte[] outt=DataOutHelper.u1_array_to_byte_array_withlen(output_struct_.ls_out,ln_len);
-            // send
+            ArrayList<Integer> validISPs= AcaiaDevice.getValidISPFromModelName(modelName);
+            boolean checkISP=false;
+            for (int i=0;i!=validISPs.size();i++){
+                if(validISPs.get(i)==isp_info.n_ISP_version.get()){
+                    checkISP=true;
+                }
+            }
+            if(checkISP==true){
+                Log.v(TAG,"device check ok!=="+String.valueOf(isp_info.n_ISP_version));
+                lo_page.n_firm_main_ver .set((short)1);
+                lo_page.n_firm_sub_ver .set((short)1);
+                // TODO: check 'T' char int val
+                lo_page.n_firm_add_ver .set((short)84);
+                lo_page.n_firm_page .set((short)cisp_handler.mn_total_page);
 
-            byte[] out=new byte[ln_len];
-            for(int i=0;i!=out.length;i++){
-                out[i]=outt[i];
+                ln_len = DataOutHelper.pack_data(output_struct_.ls_out,(short)Isp.EISPCMD.e_ispcmd_start_s.ordinal(),lo_page.getConvertedByteArray(),srLenStruct.sr_len);
+                byte[] outt=DataOutHelper.u1_array_to_byte_array_withlen(output_struct_.ls_out,ln_len);
+
+                byte[] out=new byte[ln_len];
+                for(int i=0;i!=out.length;i++){
+                    out[i]=outt[i];
+                }
+                mScaleCommunicationService.sendCmdFromQueue(out);
+            }else{
+                // Handle invalid device
             }
 
-            mScaleCommunicationService.sendCmdFromQueue(out);
         }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal()){
             //DataOutHelper.sr_memcpy(lo_page.buffer,(short)0,cisp_handler.mn_app_buffer,(short)4);
            // lo_page.setDataFromBuf();;
