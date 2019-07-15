@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.ScaleService;
+import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
+import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
 import co.acaia.communications.events.WeightEvent;
@@ -41,6 +44,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
     private static final int STATE_CONNECTED=3;
 
     private int current_connection_state;
+    private FirmwareFileEntity currentFirmwareFileEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class ConnectScaleActivity extends ActionBarActivity {
         update_view_status();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         EventBus.getDefault().register(this);
+        currentFirmwareFileEntity= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice).get(0);
+        Log.v("ConnectScaleActivity","Updating to: "+currentFirmwareFileEntity.detail);
     }
 
 
@@ -66,8 +72,6 @@ public class ConnectScaleActivity extends ActionBarActivity {
                 update_view_status();
             }
         });
-
-
     }
 
     private void update_view_status(){
@@ -102,6 +106,10 @@ public class ConnectScaleActivity extends ActionBarActivity {
 
                 switch (current_connection_state){
                     case STATE_CONNECTED:
+                        // TODO: change firmware
+                        StartFirmwareUpdateEvent startFirmwareUpdateEvent=new StartFirmwareUpdateEvent(currentFirmwareFileEntity);
+                        EventBus.getDefault().post(startFirmwareUpdateEvent);
+                        nextActivity(currentSelectedDevice.modelName);
                         break;
                     case STATE_CONNECTING:
                         break;
@@ -129,6 +137,12 @@ public class ConnectScaleActivity extends ActionBarActivity {
 
             }
         });
+    }
+
+    private void nextActivity(String modelName){
+        Intent intent = new Intent(getApplicationContext(), FirmwareUpdateActivity.class);
+        intent.putExtra("modelName",modelName);
+        startActivity(intent);
     }
 
     @Override

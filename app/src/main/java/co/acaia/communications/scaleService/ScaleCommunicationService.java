@@ -236,22 +236,11 @@ public class ScaleCommunicationService extends Service {
     @SuppressLint("LongLogTag")
     public void onEvent(StartFirmwareUpdateEvent event) {
         CommLogger.logv(TAG, "click start isp");
-
-        // TODO: start firmware update event
-        /*if (FirmwareFileEntityHelper.getLatestFirmware() != null)
-            if (ispHelper != null) {
-                CommLogger.logv(TAG, "start isp");
-                ispHelper.startIsp();
-                ;
-                setIsISP(true);
-            } else {
-                Log.v(TAG, "ISP helper null!");
-                //TODO: ISP helper
-                //ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
-                //ispHelper.startIsp();
-
-                setIsISP(true);
-            }*/
+        Log.v(TAG,"got ustart update event");
+        ispHelper = new IspHelper(getApplicationContext(), self, handler, event.firmwareFileEntity);
+        ispHelper.change_isp_mode();
+        ispHelper.startIsp();
+        setIsISP(true);
     }
 
     public void onEvent(UpdateStatusEvent event) {

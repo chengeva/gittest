@@ -26,12 +26,6 @@ public class IspHelper {
         mScaleCommunicationService = mScaleCommunicationService_;
         handler = h;
 
-        // Old code, not used anymore
-        // RawFileHelper rawFileHelper=new RawFileHelper(context);
-        // rawFileHelper.copy_to_external(R.raw.acaialunar2220150408);
-
-
-
         File firmwareFile = new File(context.getFileStreamPath(firmwareFileEntity.fileName).getAbsolutePath());
         Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
         cisphandler = new CISP_handler(firmwareFile);
