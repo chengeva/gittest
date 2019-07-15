@@ -221,7 +221,7 @@ public class FileHandler {
                 // Handle invalid device
             }
 
-        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal() && cisp_handler.mb_started==true){
+        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal() ){
             //DataOutHelper.sr_memcpy(lo_page.buffer,(short)0,cisp_handler.mn_app_buffer,(short)4);
            // lo_page.setDataFromBuf();;
             lo_page.memcpy(cisp_handler.mn_app_buffer);
@@ -241,7 +241,7 @@ public class FileHandler {
             EventBus.getDefault().post(new UpdateStatusEvent(UpdateStatusEvent.ISPCompletedState));
             // hanjord: add transfer complete
 
-        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_pageask_a.ordinal() && cisp_handler.mb_started==true){
+        }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_pageask_a.ordinal() ){
             //DataOutHelper.sr_memcpy(lo_page.buffer,(short)0,cisp_handler.mn_app_buffer,(short)4);
             //lo_page.setDataFromBuf();;
             lo_page.memcpy(cisp_handler.mn_app_buffer);
