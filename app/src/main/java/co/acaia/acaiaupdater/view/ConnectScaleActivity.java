@@ -22,6 +22,7 @@ import co.acaia.communications.scaleService.ScaleCommunicationService;
 import co.acaia.communications.scaleService.gatt.Log;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEvent;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEventType;
+import co.acaia.communications.scaleevent.UpdatedStatusEvent;
 import de.greenrobot.event.EventBus;
 
 public class ConnectScaleActivity extends AppCompatActivity {
@@ -34,8 +35,9 @@ public class ConnectScaleActivity extends AppCompatActivity {
     private AcaiaDevice currentSelectedDevice;
 
     private static final int STATE_DISCONNECTED=0;
-    private static final int STATE_CONNECTED=1;
+    private static final int STATE_OBTAININGINFO=1;
     private static final int STATE_CONNECTING=2;
+    private static final int STATE_CONNECTED=3;
 
     private int current_connection_state;
 
@@ -52,6 +54,12 @@ public class ConnectScaleActivity extends AppCompatActivity {
         EventBus.getDefault().registerSticky(this);
     }
 
+    public void onEvent(UpdatedStatusEvent updatedStatusEvent){
+        this.current_connection_state=STATE_CONNECTED;
+        tv_current_firmware.setText("Current FW "+String.valueOf(updatedStatusEvent.mainVersion)+"."+String.valueOf(updatedStatusEvent.subVersion)+"."+String.valueOf(updatedStatusEvent.addVersion));
+        tv_current_firmware.setVisibility(View.VISIBLE);
+    }
+
     private void update_view_status(){
         switch (current_connection_state){
             case STATE_CONNECTED:
@@ -61,6 +69,9 @@ public class ConnectScaleActivity extends AppCompatActivity {
                 break;
             case STATE_CONNECTING:
                 tv_Update_status.setText("Connecting to "+currentSelectedDevice.modelName);
+                break;
+            case STATE_OBTAININGINFO:
+
                 break;
             case STATE_DISCONNECTED:
                 tv_disconnect.setVisibility(View.GONE);
@@ -133,7 +144,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
                             //Log.v("ConnectScaleActivity",result);
 
                             if(current_connection_state==STATE_CONNECTING){
-                                current_connection_state=STATE_CONNECTED;
+                                current_connection_state=STATE_OBTAININGINFO;
                                 update_view_status();
                             }
 
