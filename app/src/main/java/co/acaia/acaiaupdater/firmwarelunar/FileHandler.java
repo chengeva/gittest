@@ -207,6 +207,7 @@ public class FileHandler {
                 // TODO: check 'T' char int val
                 lo_page.n_firm_add_ver .set((short)84);
                 lo_page.n_firm_page .set((short)cisp_handler.mn_total_page);
+                Log.v(TAG,"cisp_handler.mn_total_page="+String.valueOf(cisp_handler.mn_total_page));
 
                 ln_len = DataOutHelper.pack_data(output_struct_.ls_out,(short)Isp.EISPCMD.e_ispcmd_start_s.ordinal(),lo_page.getConvertedByteArray(),srLenStruct.sr_len);
                 byte[] outt=DataOutHelper.u1_array_to_byte_array_withlen(output_struct_.ls_out,ln_len);
