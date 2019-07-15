@@ -57,6 +57,9 @@ import co.acaia.acaiaupdater.firmwarelunar.IspHelper;
 import co.acaia.acaiaupdater.ui.SelectVersionEvent;
 import de.greenrobot.event.EventBus;
 
+import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_APP;
+import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_ISP;
+
 public class ScaleCommunicationService extends Service {
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
@@ -980,13 +983,19 @@ public class ScaleCommunicationService extends Service {
                 } else {
                     //Log.v(TAG, "acaia scale not null");
                     // parse packet
-                    acaiaScale.getScaleCommand().parseDataPacket(chrc.getValue());
+
 
                     if(AcaiaUpdater.ispHelper==null){
                         AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
                     }
 
                     AcaiaUpdater.ispHelper.parseDataPacket(chrc.getValue());
+
+                    if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
+                        acaiaScale.getScaleCommand().parseDataPacket(chrc.getValue());
+                    }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
+                        setIsISP(true);
+                    }
                     //  update connection
                 }
 

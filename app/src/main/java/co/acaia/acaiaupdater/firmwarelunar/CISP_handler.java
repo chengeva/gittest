@@ -33,7 +33,7 @@ public class CISP_handler extends Struct {
     public Unsigned16 mn_app_datasum = new Unsigned16();
 
     short mn_disconnect_counter;
-    Boolean mb_started;
+    public Boolean mb_started;
 
     public CISP_handler(File file) {
         CommLogger.logv("CispHandler","init handler!");

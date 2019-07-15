@@ -20,11 +20,16 @@ public class IspHelper {
     private ScaleCommunicationService mScaleCommunicationService;
     private Context context = null;
     private Handler handler;
-    private CISP_handler cisphandler;
+    public CISP_handler cisphandler;
     private int targetISPVersion;
     private String currentModelName;
+    public int isISP;
+    public static final int ISP_CHECK_INIT=0;
+    public static final int ISP_CHECK_APP=1;
+    public static final int ISP_CHECK_ISP=2;
     public IspHelper(Context ctx, ScaleCommunicationService mScaleCommunicationService_, Handler h, AcaiaFirmware firmwareFileEntity) {
         context = ctx;
+        isISP=0;
         mScaleCommunicationService = mScaleCommunicationService_;
         handler = h;
         currentModelName=firmwareFileEntity.model;
@@ -32,7 +37,6 @@ public class IspHelper {
         Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
         cisphandler = new CISP_handler(firmwareFile);
         FileHandler.open_file(context, firmwareFile, cisphandler);
-
     }
 
     public void parseDataPacket(byte[] data) {

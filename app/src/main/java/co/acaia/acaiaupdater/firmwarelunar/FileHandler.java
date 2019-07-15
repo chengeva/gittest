@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.communications.CommLogger;
@@ -24,6 +25,7 @@ import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import de.greenrobot.event.EventBus;
 
 import static co.acaia.acaiaupdater.firmwarelunar.Isp.ISP_INFO_LENGTH;
+import static co.acaia.acaiaupdater.firmwarelunar.IspHelper.ISP_CHECK_ISP;
 
 /**
  * Created by hanjord on 15/4/14.
@@ -178,6 +180,7 @@ public class FileHandler {
         Isp.page_info lo_page=new Isp.page_info();
 
         if(cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_info_a.ordinal()){
+            AcaiaUpdater.ispHelper.isISP=ISP_CHECK_ISP;
 
             // obtain ISP info and check device valid...
             for(int i=0;i!=7;i++){

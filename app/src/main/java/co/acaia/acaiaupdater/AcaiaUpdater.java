@@ -17,6 +17,7 @@ public class AcaiaUpdater extends Application {
 
     // Improve this into Singleton in the future, but not now...
     public static IspHelper ispHelper;
+
     @Override
     public void onCreate() {
         super.onCreate();
