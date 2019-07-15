@@ -54,6 +54,9 @@ public class ConnectScaleActivity extends AppCompatActivity {
     private void update_view_status(){
         switch (current_connection_state){
             case STATE_CONNECTED:
+                tv_disconnect.setVisibility(View.VISIBLE);
+                tv_Updating_progress.setText("Connected to "+currentSelectedDevice.modelName);
+                connectButton.setText("Next");
                 break;
             case STATE_CONNECTING:
                 tv_Update_status.setText("Connecting to "+currentSelectedDevice.modelName);
@@ -84,6 +87,13 @@ public class ConnectScaleActivity extends AppCompatActivity {
         tv_Update_status=(TextView)findViewById(R.id.Update_status);
         tv_current_firmware=(TextView)findViewById(R.id.tv_current_firmware);
         tv_disconnect=(TextView) findViewById(R.id.tv_disconnect);
+        // Dixconnect device when tapped
+        tv_disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -119,7 +129,13 @@ public class ConnectScaleActivity extends AppCompatActivity {
                             }else{
                                 result=result+"ozWeightEvent";
                             }
-                            Log.v("ConnectScaleActivity",result);
+                            //Log.v("ConnectScaleActivity",result);
+
+                            if(current_connection_state==STATE_CONNECTING){
+                                current_connection_state=STATE_DISCONNECTED;
+                                update_view_status();
+                                tv_Update_status.setText(result);
+                            }
 
                             EventBus.getDefault().post(new WeightEvent(result));
                             break;
