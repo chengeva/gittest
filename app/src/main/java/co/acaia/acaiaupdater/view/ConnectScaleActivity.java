@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import co.acaia.acaiaupdater.R;
 import co.acaia.communications.scaleService.DistanceConnectEvent;
@@ -11,6 +14,8 @@ import de.greenrobot.event.EventBus;
 
 public class ConnectScaleActivity extends AppCompatActivity {
     private Button connectButton;
+    private TextView tv_Updating_progress;
+    private TextView tv_Update_status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,5 +32,8 @@ public class ConnectScaleActivity extends AppCompatActivity {
                 EventBus.getDefault().post(new DistanceConnectEvent());
             }
         });
+        tv_Updating_progress=(TextView)findViewById(R.id.Updating_progress);
+        tv_Update_status=(TextView)findViewById(R.id.Update_status);
+
     }
 }

@@ -120,7 +120,16 @@
 
         android:layout_height="0dp"
 
-        android:layout_weight="5"/>
+        android:layout_weight="5">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="FW 2.0.1" />
+    </RelativeLayout>
 
     <RelativeLayout
 
