@@ -22,6 +22,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
+import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.events.SendDataEvent;
@@ -237,7 +239,7 @@ public class ScaleCommunicationService extends Service {
     public void onEvent(StartFirmwareUpdateEvent event) {
         CommLogger.logv(TAG, "click start isp");
         Log.v(TAG,"got ustart update event");
-        ispHelper = new IspHelper(getApplicationContext(), self, handler, event.firmwareFileEntity);
+        ispHelper = new IspHelper(getApplicationContext(), self, handler, new AcaiaFirmware(event.firmwareFileEntity));
         ispHelper.change_isp_mode();
         ispHelper.startIsp();
         setIsISP(true);
@@ -979,18 +981,15 @@ public class ScaleCommunicationService extends Service {
                     //Log.v(TAG, "acaia scale not null");
                     // parse packet
                     acaiaScale.getScaleCommand().parseDataPacket(chrc.getValue());
-                    //  update connection
-                    incomming_msg_counter++;
 
-                    if (incomming_msg_counter > 15) {
-                        if (last_received == 0) {
-                            last_received = System.nanoTime();
-                            EventBus.getDefault().post(new NewScaleConnectionStateEvent(mCurrentConnectedDeviceAddr));
-                        }
-                        EventBus.getDefault().post(new ScaleConnectionEvent(true, mCurrentConnectedDeviceAddr, acaiaScale.getProtocolVersion(), mBluetoothDevice));
-                        incomming_msg_counter = 0;
+                    if(ispHelper==null){
+                        ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
                     }
+
+                    ispHelper.parseDataPacket(chrc.getValue());
+                    //  update connection
                 }
+
             }else{
                 Log.v(TAG,"ISP Mode!");
                 ispHelper.parseDataPacket(chrc.getValue());

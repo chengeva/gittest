@@ -13,7 +13,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.R;
+import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
@@ -33,6 +35,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
         Log.v("FirmwareSelectActivity","Current device="+currentSelectedDevice.modelName);
         setupViewWithModel();
+        AcaiaUpdater.currentAcaiaDevice=currentSelectedDevice;
     }
 
     private void init_ui(){
@@ -55,6 +58,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
         // Improve later
         FirmwareFileEntity firmwareFileEntity=firmwareFileEntities.get(0);
+        AcaiaUpdater.currentFirmware=new AcaiaFirmware(firmwareFileEntity);
         firmwareLabel.setText(firmwareFileEntity.title);
         firmwareRelease.setText(firmwareFileEntity.detail);
     }

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.File;
 
+import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
@@ -22,7 +23,7 @@ public class IspHelper {
     private CISP_handler cisphandler;
     private int targetISPVersion;
     private String currentModelName;
-    public IspHelper(Context ctx, ScaleCommunicationService mScaleCommunicationService_, Handler h, FirmwareFileEntity firmwareFileEntity) {
+    public IspHelper(Context ctx, ScaleCommunicationService mScaleCommunicationService_, Handler h, AcaiaFirmware firmwareFileEntity) {
         context = ctx;
         mScaleCommunicationService = mScaleCommunicationService_;
         handler = h;

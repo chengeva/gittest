@@ -320,13 +320,6 @@ public class DataPacketParser {
                 }
                 o_data.mn_app_len .set(gn_cmd_len[o_data.mn_app_cmdid.get()]);
 
-                /*if (o_data.has_init.get() == 0) {
-                    o_data.mn_app_len .set(gn_cmd_len[o_data.mn_app_cmdid.get()]);
-                } else {
-                    o_data.mn_app_len .set(FellowEKG.gn_cmd_len[o_data.mn_app_cmdid.get()]);
-                }*/
-
-
                 if (o_data.mn_app_len.get() == 255)
                     o_data.mn_app_len.set( s_in);
             }

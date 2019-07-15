@@ -3,11 +3,16 @@ package co.acaia.acaiaupdater;
 import android.app.Application;
 import android.util.Log;
 
+import co.acaia.acaiaupdater.entity.AcaiaFirmware;
+import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import de.greenrobot.event.EventBus;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class AcaiaUpdater extends Application {
+    public static AcaiaDevice currentAcaiaDevice;
+    public static AcaiaFirmware currentFirmware;
     @Override
     public void onCreate() {
         super.onCreate();
