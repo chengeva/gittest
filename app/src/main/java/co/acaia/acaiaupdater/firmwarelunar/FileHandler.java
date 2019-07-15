@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import co.acaia.communications.CommLogger;
+import co.acaia.communications.protocol.ver20.ByteDataHelper;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
 import co.acaia.communications.scaleService.ScaleCommunicationService;
 import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
@@ -18,6 +19,8 @@ import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import de.greenrobot.event.EventBus;
+
+import static co.acaia.acaiaupdater.firmwarelunar.Isp.ISP_INFO_LENGTH;
 
 /**
  * Created by hanjord on 15/4/14.
@@ -172,6 +175,10 @@ public class FileHandler {
         Isp.page_info lo_page=new Isp.page_info();
 
         if(cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_info_a.ordinal()){
+
+            // obtain ISP info and check device valid...
+            Isp.isp_info isp_info=new Isp.isp_info(ByteDataHelper.getByteArrayFromU1(cisp_handler.mn_app_buffer,0,ISP_INFO_LENGTH));
+            Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_firm_main_ver.get())+"."+String.valueOf(isp_info.n_firm_sub_ver.get())+"."+String.valueOf(isp_info.n_firm_add_ver.get()));
             lo_page.n_firm_main_ver .set((short)1);
             lo_page.n_firm_sub_ver .set((short)1);
             // TODO: check 'T' char int val
@@ -186,9 +193,7 @@ public class FileHandler {
             for(int i=0;i!=out.length;i++){
                 out[i]=outt[i];
             }
-            for(int i=0;i!=out.length;i++){
-                CommLogger.logv(TAG,"send info lsout["+String.valueOf(i)+"]="+String.valueOf(out[i]));
-            }
+
             mScaleCommunicationService.sendCmdFromQueue(out);
         }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal()){
             //DataOutHelper.sr_memcpy(lo_page.buffer,(short)0,cisp_handler.mn_app_buffer,(short)4);

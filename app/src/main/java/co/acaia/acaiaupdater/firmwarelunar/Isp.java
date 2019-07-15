@@ -5,6 +5,7 @@ import android.content.Context;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
 import co.acaia.communications.scaleService.ScaleCommunicationService;
+import j2me.nio.ByteBuffer;
 import j2me.nio.ByteOrder;
 import javolution.io.Struct;
 
@@ -61,22 +62,25 @@ public class Isp {
     }
 
     public static class isp_info extends Struct {
-        // 0
-        private Unsigned8 n_ispinfo_length = new Unsigned8();
-        private Unsigned8 n_ispinfo_version = new Unsigned8();
-        private Unsigned8 n_ISP_version = new Unsigned8();
-        private Unsigned8 n_firm_main_ver = new Unsigned8();
-        private Unsigned8 n_firm_sub_ver = new Unsigned8();
-        // 5
-        private Unsigned8 n_firm_add_ver = new Unsigned8();
-        private Unsigned8 n_firm_page = new Unsigned8();
+        public Unsigned8 n_ispinfo_length = new Unsigned8();
+        public Unsigned8 n_ispinfo_version = new Unsigned8();
+        public Unsigned8 n_ISP_version = new Unsigned8();
+        public Unsigned8 n_firm_main_ver = new Unsigned8();
+        public Unsigned8 n_firm_sub_ver = new Unsigned8();
+        public Unsigned8 n_firm_add_ver = new Unsigned8();
+        public Unsigned8 n_firm_page = new Unsigned8();
 
         @Override
         public ByteOrder byteOrder() {
             return ByteOrder.LITTLE_ENDIAN;
         }
+
+        public isp_info(byte [] b){
+            this.setByteBuffer(ByteBuffer.wrap(b).order(j2me.nio.ByteOrder.LITTLE_ENDIAN), 0);
+        }
     }
 
+    public static final int ISP_INFO_LENGTH = 7;
     public static class page_info extends Struct {
         public Unsigned8 n_firm_main_ver = new Unsigned8();
         public Unsigned8 n_firm_sub_ver = new Unsigned8();
@@ -85,6 +89,9 @@ public class Isp {
         public Unsigned8[] buffer = new Unsigned8[]{new Unsigned8(),
                 new Unsigned8(),
                 new Unsigned8(), new Unsigned8()};
+        /*public page_info(byte [] b){
+                this.setByteBuffer(ByteBuffer.wrap(b).order(j2me.nio.ByteOrder.LITTLE_ENDIAN), 0);
+            }*/
 
         @Override
         public ByteOrder byteOrder() {

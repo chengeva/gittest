@@ -1011,11 +1011,6 @@ public class ScaleCommunicationService extends Service {
 
         @Override
         public void onCharacteristicChanged(Gatt gatt, GattCharacteristic chrc) {
-            //Log.v("CINCODEBUG","onCharacteristicChanged");
-//            if (last_received == 0) {
-//                EventBus.getDefault().post(new NewScaleConnectionStateEvent(mCurrentConnectedDeviceAddr));
-//            }
-
             byte[] input_data = chrc.getValue();
             for (int i = 0; i != input_data.length; i++) {
                 Log.v("Input data", "[" + String.valueOf(i) + "] " + String.valueOf(input_data[i]));
@@ -1046,6 +1041,8 @@ public class ScaleCommunicationService extends Service {
                         incomming_msg_counter = 0;
                     }
                 }
+            }else{
+                ispHelper.parseDataPacket(chrc.getValue());
             }
         }
 
