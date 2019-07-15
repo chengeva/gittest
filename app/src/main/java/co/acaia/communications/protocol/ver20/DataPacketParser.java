@@ -6,6 +6,7 @@ import static co.acaia.communications.protocol.ver20.ScaleProtocol.gs_header;
 
 import co.acaia.communications.events.ScaleFirmwareVersionEvent;
 import co.acaia.communications.scaleService.gatt.Log;
+import co.acaia.communications.scaleevent.UpdatedStatusEvent;
 import javolution.io.Struct;
 import android.content.Context;
 import android.content.Intent;
@@ -237,6 +238,8 @@ public class DataPacketParser {
             co.acaia.communications.protocol.ver20.ScaleProtocol.scale_info scale_info_=new co.acaia.communications.protocol.ver20.ScaleProtocol.scale_info(ByteDataHelper.getByteArrayFromU1(s_param, 0, co.acaia.communications.protocol.ver20.ScaleProtocol.scale_info.getSize()));
             int ver=scale_info_.getVersion();
             EventBus.getDefault().post(new ScaleFirmwareVersionEvent(ver));
+            UpdatedStatusEvent updatedStatusEvent=new UpdatedStatusEvent(scale_info_.getMainVersion(),scale_info_.getSubVersion(),scale_info_.getAddVersion());
+            EventBus.getDefault().post(updatedStatusEvent);
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
@@ -248,7 +251,7 @@ public class DataPacketParser {
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_KEY_DISABLED_ELAPSED_TIME,(float)scaleStatus.n_setting_keydisable.get());
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_AUTO_OFF_TIME,(float)scaleStatus.n_setting_sleep.get());
             sendIntent(context, ScaleCommunicationService.DATA_TYPE_BATTERY, (float) scaleStatus.n_battery.get());
-            
+
             if(sent_default==0) {
                 CommLogger.logv(TAG,"default event!");
                 sent_default=1;

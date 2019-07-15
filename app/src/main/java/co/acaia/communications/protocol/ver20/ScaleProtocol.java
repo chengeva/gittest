@@ -186,7 +186,18 @@ public class ScaleProtocol {
 
         public int getVersion(){
             return 100*n_firm_main_ver.get()+n_firm_sub_ver.get();
+        }
 
+        public int getMainVersion(){
+            return n_firm_main_ver.get();
+        }
+
+        public int getSubVersion(){
+            return n_firm_sub_ver.get();
+        }
+
+        public int getAddVersion(){
+            return n_firm_add_ver.get();
         }
         @Override
         public ByteOrder byteOrder() {

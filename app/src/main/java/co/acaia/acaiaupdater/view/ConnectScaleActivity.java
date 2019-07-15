@@ -49,6 +49,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
         current_connection_state=STATE_DISCONNECTED;
         update_view_status();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+        EventBus.getDefault().registerSticky(this);
     }
 
     private void update_view_status(){
@@ -187,9 +188,9 @@ public class ConnectScaleActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         try {
             unregisterReceiver(mGattUpdateReceiver);
+            EventBus.getDefault().unregister(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
