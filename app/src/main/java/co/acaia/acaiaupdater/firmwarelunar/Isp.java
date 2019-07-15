@@ -171,33 +171,51 @@ public class Isp {
     public static boolean parse_input( CISP_handler cisp_handler,byte s_in, Context context,final  ScaleCommunicationService mScaleCommunicationService) {
         int u_s_in=unsignedToBytes(s_in);
 
-        if (!cisp_handler.mb_started) {
+        /*if (!cisp_handler.mb_started) {
             cisp_handler.mn_app_index = 0;
             CommLogger.logv(TAG,"mb_start false");
             return false;
-        }
+        }*/
         CommLogger.logv(TAG,"cisp_handler.mn_appstep "+String.valueOf(cisp_handler.mn_appstep));
         CommLogger.logv(TAG,"byte s_in "+String.valueOf(u_s_in));
         CommLogger.logv(TAG,"cisp_handler.mn_app_index "+String.valueOf(cisp_handler.mn_app_index));
         CommLogger.logv(TAG,"cisp_handler.mn_app_len "+String.valueOf(cisp_handler.mn_app_len));
       //  int mn_appstep = cisp_handler.mn_appstep;
         if ( cisp_handler.mn_appstep == EPARSER_PROCESS.e_prs_checkheader.ordinal()) {
-            if (u_s_in != gs_header[cisp_handler.mn_app_index]) {
-                CommLogger.logv(TAG,"gs_header["+String.valueOf(cisp_handler.mn_app_index)+"] "+String.valueOf(gs_header[cisp_handler.mn_app_index]));
-                cisp_handler.mn_app_index = 0;
-                CommLogger.logv(TAG,"------------------------------ ");
-                return false;
+            if(cisp_handler.mn_app_index<2) {
+                if (u_s_in != gs_header[cisp_handler.mn_app_index]) {
+                    CommLogger.logv(TAG, "gs_header[" + String.valueOf(cisp_handler.mn_app_index) + "] " + String.valueOf(gs_header[cisp_handler.mn_app_index]));
+                    cisp_handler.mn_app_index = 0;
+                    CommLogger.logv(TAG, "------------------------------ ");
+                    return false;
+                } else {
+                    CommLogger.logv(TAG, "header ok");
+                }
             }else{
-                CommLogger.logv(TAG,"header ok");
+                cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
+                cisp_handler.mn_app_cmdid= 0;
+                cisp_handler.mn_app_checksum .set(0);
+                cisp_handler.mn_app_datasum .set(0);
+                cisp_handler.mn_app_index = 0;
+                return false;
             }
         } else if ( cisp_handler.mn_appstep == EPARSER_PROCESS.e_prs_cmdid.ordinal()) {
             cisp_handler.mn_app_cmdid = u_s_in;
             CommLogger.logv(TAG,"cisp_handler.mn_app_cmdid "+String.valueOf(cisp_handler.mn_app_cmdid));
         } else if ( cisp_handler.mn_appstep == EPARSER_PROCESS.e_prs_cmddata.ordinal()) {
             if (cisp_handler.mn_app_index == 0) { // the first time
-                cisp_handler.mn_app_len = gn_cmd_len[cisp_handler.mn_app_cmdid & 0x7f];
-                if (cisp_handler.mn_app_len == 255)
-                    cisp_handler.mn_app_len = u_s_in;
+                if(cisp_handler.mn_app_cmdid <9) {
+                    cisp_handler.mn_app_len = gn_cmd_len[cisp_handler.mn_app_cmdid & 0x7f];
+                    if (cisp_handler.mn_app_len == 255)
+                        cisp_handler.mn_app_len = u_s_in;
+                }else{
+                    cisp_handler.mn_appstep= EPARSER_PROCESS.e_prs_checkheader.ordinal();
+                    cisp_handler.mn_app_cmdid= 0;
+                    cisp_handler.mn_app_checksum .set(0);
+                    cisp_handler.mn_app_datasum .set(0);
+                    cisp_handler.mn_app_index = 0;
+                    return false;
+                }
             }
             cisp_handler.mn_app_buffer[cisp_handler.mn_app_index].set((short) u_s_in);
             cisp_handler.mn_app_datasum.set(cisp_handler.mn_app_datasum.get() + 1);

@@ -6,7 +6,7 @@ public class CommLogger {
 
 	public static void logv(String tag, String what) {
 
-        //Log.v(tag, what);
+        Log.v(tag, what);
 	}
     public static void logv2(String tag, String what) {
 

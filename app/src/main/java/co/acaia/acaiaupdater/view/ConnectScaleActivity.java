@@ -242,7 +242,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
 }

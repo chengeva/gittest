@@ -1009,6 +1009,7 @@ public class ScaleCommunicationService extends Service {
             Log.v("CINCODEBUG", "BM71 onCharacteristicRead");
         }
 
+        @SuppressLint("LongLogTag")
         @Override
         public void onCharacteristicChanged(Gatt gatt, GattCharacteristic chrc) {
             byte[] input_data = chrc.getValue();
@@ -1023,6 +1024,7 @@ public class ScaleCommunicationService extends Service {
 
 
             if (!isISPMode()) {
+                Log.v(TAG,"App Mode!");
                 if (acaiaScale == null) {
                     acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
                 } else {
@@ -1042,6 +1044,7 @@ public class ScaleCommunicationService extends Service {
                     }
                 }
             }else{
+                Log.v(TAG,"ISP Mode!");
                 ispHelper.parseDataPacket(chrc.getValue());
             }
         }
