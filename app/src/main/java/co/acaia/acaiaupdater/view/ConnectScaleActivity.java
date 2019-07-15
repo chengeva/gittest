@@ -51,13 +51,14 @@ public class ConnectScaleActivity extends AppCompatActivity {
         current_connection_state=STATE_DISCONNECTED;
         update_view_status();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
-        EventBus.getDefault().registerSticky(this);
+        EventBus.getDefault().register(this);
     }
 
     public void onEvent(UpdatedStatusEvent updatedStatusEvent){
         this.current_connection_state=STATE_CONNECTED;
         tv_current_firmware.setText("Current FW "+String.valueOf(updatedStatusEvent.mainVersion)+"."+String.valueOf(updatedStatusEvent.subVersion)+"."+String.valueOf(updatedStatusEvent.addVersion));
         tv_current_firmware.setVisibility(View.VISIBLE);
+        update_view_status();
     }
 
     private void update_view_status(){
