@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -38,6 +39,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
     private TextView tv_Update_status;
     private  TextView tv_current_firmware;
     private  TextView tv_disconnect;
+    private ImageView image_device;
 
     private AcaiaDevice currentSelectedDevice;
 
@@ -48,6 +50,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
 
     private int current_connection_state;
     private FirmwareFileEntity currentFirmwareFileEntity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +117,21 @@ public class ConnectScaleActivity extends ActionBarActivity {
     }
     private void init_views()
     {
+        image_device=findViewById(R.id.image_device);
+
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelPearlS)){
+            image_device.setImageResource(R.drawable.img_pearls_default);
+        }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelLunar)){
+            image_device.setImageResource(R.drawable.img_lunar_default);
+        }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelOrion)){
+            image_device.setImageResource(R.drawable.img_orion_default);
+        }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelCinco)){
+            image_device.setImageResource(R.drawable.img_cinco_done);
+        }
+
         connectButton=(Button)findViewById(R.id.btn_connect);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
