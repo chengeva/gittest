@@ -48,7 +48,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         tv_progress=(TextView)findViewById(R.id.Updating_progress);
         Update_status=(TextView) findViewById(R.id.Update_status);
         image_device=findViewById(R.id.image_device_update);
-        
+
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
 
         if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelPearlS)){
