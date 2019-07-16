@@ -538,7 +538,7 @@ public class ScaleCommunicationService extends Service {
                 mBluetoothGatt = null;
             } else {
                 mBluetoothGatt = mBluetoothDevice.connectGatt(this, false, mGattCallback);
-                //Log.d(TAG, "Trying to create a new connection.");
+                Log.v(TAG, "Trying to create a new connection.");
                 mBluetoothDeviceAddress = targetBtAddress;
                 mConnectionState = CONNECTION_STATE_CONNECTING;
             }
