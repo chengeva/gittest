@@ -424,6 +424,7 @@ public class ScaleCommunicationService extends Service {
             CommLogger.logv(TAG, "onReliableWriteCompleted received=" + String.valueOf(status));
         }
 
+        @SuppressLint("LongLogTag")
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
@@ -442,37 +443,34 @@ public class ScaleCommunicationService extends Service {
                     // need to know if ISP mode...
 
                     if (!isISPMode()) {
+                        Log.v(TAG,"App Mode!");
                         if (acaiaScale == null) {
                             acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
                         } else {
                             //Log.v(TAG, "acaia scale not null");
                             // parse packet
-                            acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
-                            //  update connection
-                            incomming_msg_counter++;
-                            if (incomming_msg_counter > 15) {
-                                EventBus.getDefault().post(new ScaleConnectionEvent(true, mCurrentConnectedDeviceAddr, acaiaScale.getProtocolVersion(), mBluetoothDevice));
-                                incomming_msg_counter = 0;
-                            }
-                        }
-                    }
-                    try {
-                        if (AcaiaUpdater.ispHelper == null) {
-                            // TODO ISP helper
-                           // ispHelper = new IspHelper(getApplicationContext(), self, handler, firmwareFileEntity);
-                            //ispHelper.parseDataPacket(characteristic.getValue());
-                        } else {
-                            // parse packet
-                            AcaiaUpdater. ispHelper.parseDataPacket(characteristic.getValue());
-                            //  update connection
-                            incomming_msg_counter++;
-                            if (incomming_msg_counter > 15) {
-                                //EventBus.getDefault().post(new ScaleConnectionEvent(true, mCurrentConnectedDeviceAddr, acaiaScale.getProtocolVersion(), mBluetoothDevice));
-                                incomming_msg_counter = 0;
-                            }
-                        }
-                    } catch (Exception e) {
 
+
+                            if(AcaiaUpdater.ispHelper==null){
+                                AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
+                            }
+
+                            AcaiaUpdater.ispHelper.parseDataPacket(characteristic.getValue());
+
+                            if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
+                                acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
+                            }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
+                                setIsISP(true);
+                            }
+                            //  update connection
+                        }
+
+                    }else{
+                        Log.v(TAG,"ISP Mode!");
+                        if(AcaiaUpdater.ispHelper==null){
+                            AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
+                        }
+                        AcaiaUpdater.ispHelper.parseDataPacket(characteristic.getValue());
                     }
 
                 }

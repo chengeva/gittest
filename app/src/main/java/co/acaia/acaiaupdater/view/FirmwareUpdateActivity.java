@@ -48,7 +48,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         if(AcaiaUpdater.currentAcaiaDevice.modelName.equals(AcaiaDevice.modelPearlS)){
             Update_status.setText("Please confirm firmware update on Pearl S");
         }
-        
+
         btn_updating=(Button) findViewById(R.id.btn_updating);
         btn_updating.setOnClickListener(new View.OnClickListener() {
             @Override

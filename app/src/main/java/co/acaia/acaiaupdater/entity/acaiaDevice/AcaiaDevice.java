@@ -21,6 +21,15 @@ public class AcaiaDevice {
         if(modelName.equals(modelPearlS)){
             isps.add(90);
         }
+        if(modelName.equals(modelLunar)){
+            isps.add(20);
+            isps.add(11);
+            isps.add(21);
+        }
+        if(modelName.equals(modelOrion)){
+            isps.add(70);
+        }
+
         return isps;
     }
 }
