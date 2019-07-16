@@ -21,6 +21,7 @@ import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
 import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
 import co.acaia.acaiaupdater.R;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import de.greenrobot.event.EventBus;
 
 public class FirmwareUpdateActivity extends ActionBarActivity {
@@ -43,6 +44,11 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         EventBus.getDefault().register(this);
         tv_progress=(TextView)findViewById(R.id.Updating_progress);
         Update_status=(TextView) findViewById(R.id.Update_status);
+
+        if(AcaiaUpdater.currentAcaiaDevice.modelName.equals(AcaiaDevice.modelPearlS)){
+            Update_status.setText("Please confirm firmware update on Pearl S");
+        }
+        
         btn_updating=(Button) findViewById(R.id.btn_updating);
         btn_updating.setOnClickListener(new View.OnClickListener() {
             @Override
