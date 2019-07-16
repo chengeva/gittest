@@ -83,6 +83,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
             public void run() {
                 tv_current_firmware.setText("Current FW "+String.valueOf(updatedStatusEvent.mainVersion)+"."+String.valueOf(updatedStatusEvent.subVersion)+"."+String.valueOf(updatedStatusEvent.addVersion));
                 tv_current_firmware.setVisibility(View.VISIBLE);
+                AcaiaUpdater.currentConnectedDeviceVersion=tv_current_firmware.getText().toString();
                 update_view_status();
             }
         });

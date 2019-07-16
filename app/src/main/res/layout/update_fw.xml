@@ -134,7 +134,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_next"
+                android:id="@+id/btn_updating"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/round_button"

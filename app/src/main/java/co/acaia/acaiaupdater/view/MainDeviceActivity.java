@@ -26,6 +26,7 @@ import com.parse.Parse;
 
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.FirmwareUpdateFragment;
 import co.acaia.acaiaupdater.MainActivity;
 import co.acaia.acaiaupdater.R;
@@ -80,7 +81,7 @@ public class MainDeviceActivity extends ActionBarActivity {
                 .server(MainActivity.new_endpoint)
                 .build()
         );
-
+        AcaiaUpdater.currentConnectedDeviceVersion="";
         setActionBar();
         init_view();
         initSettings();

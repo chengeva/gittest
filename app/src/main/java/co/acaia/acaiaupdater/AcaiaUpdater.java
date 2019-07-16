@@ -14,6 +14,7 @@ import io.realm.RealmConfiguration;
 public class AcaiaUpdater extends Application {
     public static AcaiaDevice currentAcaiaDevice;
     public static AcaiaFirmware currentFirmware;
+    public static String currentConnectedDeviceVersion;
 
     // Improve this into Singleton in the future, but not now...
     public static IspHelper ispHelper;
