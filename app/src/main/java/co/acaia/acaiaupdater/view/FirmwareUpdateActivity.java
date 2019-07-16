@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.Parse;
@@ -22,6 +23,7 @@ import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
 import de.greenrobot.event.EventBus;
 
 public class FirmwareUpdateActivity extends ActionBarActivity {
@@ -35,7 +37,8 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
     private TextView tv_progress;
     private TextView Update_status;
     private Button btn_updating;
-
+    private ImageView image_device;
+    private AcaiaDevice currentSelectedDevice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,22 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         EventBus.getDefault().register(this);
         tv_progress=(TextView)findViewById(R.id.Updating_progress);
         Update_status=(TextView) findViewById(R.id.Update_status);
+        image_device=findViewById(R.id.image_device_update);
+        
+        currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
+
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelPearlS)){
+            image_device.setImageResource(R.drawable.img_pearls_default);
+        }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelLunar)){
+            image_device.setImageResource(R.drawable.img_lunar_default);
+        }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelOrion)){
+            image_device.setImageResource(R.drawable.img_orion_default);
+        }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelCinco)){
+            image_device.setImageResource(R.drawable.img_cinco_done);
+        }
 
         if(AcaiaUpdater.currentAcaiaDevice.modelName.equals(AcaiaDevice.modelPearlS)){
             Update_status.setText("Please confirm firmware update on Pearl S");
