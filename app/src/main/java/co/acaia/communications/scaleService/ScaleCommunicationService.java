@@ -457,7 +457,7 @@ public class ScaleCommunicationService extends Service {
 
                             AcaiaUpdater.ispHelper.parseDataPacket(characteristic.getValue());
 
-                            if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
+                            if(AcaiaUpdater.ispHelper.isISP!=ISP_CHECK_ISP) {
                                 acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
                             }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
                                 setIsISP(true);
