@@ -35,9 +35,6 @@ public class FeedbackInitActivity extends ActionBarActivity  {
     private String zendeskUrl="https://acaia.zendesk.com/";
     private String applicationId="ac2c14f5468a4acb363049ea3f301bb3ac028967d3ec7b76";
     private String oauthClientId="mobile_sdk_client_322109bd6c70eec4c2e6";
-    //private String authUser="hanjord78@gmail.com";
-    // private String authPasswd="c06ru04tjp6";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +85,7 @@ public class FeedbackInitActivity extends ActionBarActivity  {
             List<String> tags=new ArrayList<>();
             tags.add(getDeviceName().replaceAll("\\s+",""));
             tags.add("Android"+Build.VERSION.RELEASE.replaceAll("\\s+",""));
-            tags.add("acaia Lunar Updater Android");
+            tags.add("Acaia Updater Android");
             tags.add(ApplicationUtils.getVersionNumber(getApplicationContext()).replaceAll("\\s+",""));
             return tags;
         }

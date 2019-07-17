@@ -1,8 +1,10 @@
 package co.acaia.acaiaupdater.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import co.acaia.acaiaupdater.FeedbackInitActivity;
 import co.acaia.acaiaupdater.R;
 
 public class InfoActivity extends ActionBarActivity {
@@ -33,21 +36,25 @@ public class InfoActivity extends ActionBarActivity {
         row_privacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://acaia.co/pages/privacy"));
+                startActivity(browserIntent);
             }
         });
         row_feedback=findViewById(R.id.row_feedback);
         row_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
+                startActivity(intent);
             }
         });
         row_about=findViewById(R.id.row_about);
         row_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://acaia.co"));
+                startActivity(browserIntent);
             }
         });
     }
