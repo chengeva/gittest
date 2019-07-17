@@ -27,13 +27,13 @@ public class InfoActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Information");
         tv_version=(TextView)findViewById(R.id.tv_version);
-        tv_version.setText(getVersionName(getApplicationContext()));
+        tv_version.setText("v "+getVersionName(getApplicationContext()));
 
         row_privacy=findViewById(R.id.row_privacy);
         row_privacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-        
+
             }
         });
         row_feedback=findViewById(R.id.row_feedback);
