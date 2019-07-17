@@ -28,6 +28,14 @@ public class ManualTroubleActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_trouble);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getIntent().getStringExtra("type").equals("Intro")){
+
+            getSupportActionBar().setTitle("Instructions");
+        }else{
+            getSupportActionBar().setTitle("Troubleshooting");
+        }
+
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
 
         tv_fromparse=findViewById(R.id.tv_fromparse);
