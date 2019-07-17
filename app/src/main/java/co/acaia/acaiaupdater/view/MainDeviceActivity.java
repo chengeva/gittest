@@ -17,6 +17,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -90,6 +92,27 @@ public class MainDeviceActivity extends ActionBarActivity {
         // This is required for later BT version
         this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_icon, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_name) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void init_new_bt() {
         // Init new acaia service protocol
