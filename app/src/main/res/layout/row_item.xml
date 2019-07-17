@@ -19,7 +19,7 @@
         android:src="@drawable/img_lunar_default" />
 
     <TextView
-        android:id="@+id/tv_device_name"
+        android:id="@+id/tv_firmware_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="false"

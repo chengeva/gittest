@@ -50,7 +50,7 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item, parent, false);
-            viewHolder.deviceName=(TextView)convertView.findViewById(R.id.tv_device_name);
+            viewHolder.deviceName=(TextView)convertView.findViewById(R.id.tv_firmware_title);
             viewHolder.deviceName.setText(dataModel.modelName);
             viewHolder.deviceImage=(ImageView)convertView.findViewById(R.id.image_device);
             if(dataModel.modelName.equals(AcaiaDevice.modelLunar)) {
