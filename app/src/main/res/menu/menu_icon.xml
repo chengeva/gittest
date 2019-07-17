@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_name"
+        android:id="@+id/action_info"
         android:icon="@drawable/icon_info"
-        android:title="Text to be seen by user"
+        android:title="Info"
         app:showAsAction="always"
         android:orderInCategory="0"/>
 

@@ -107,7 +107,9 @@ public class MainDeviceActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_name) {
+        if (id == R.id.action_info) {
+            Intent intent=new Intent(getApplicationContext(),InfoActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
