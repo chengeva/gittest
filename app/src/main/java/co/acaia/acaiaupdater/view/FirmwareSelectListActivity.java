@@ -2,11 +2,15 @@ package co.acaia.acaiaupdater.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.R;
+import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
@@ -20,7 +24,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
     ListView list_firmwares;
     private AcaiaDevice currentSelectedDevice;
     private static CustomFirmwareAdaptor adapter;
-
+    private   ArrayList<FirmwareFileEntity> firmwareFileEntitiesList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
         ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
+        firmwareFileEntitiesList=firmwareFileEntities;
         ArrayList<FirmwareModel> firmwareModels=new ArrayList<>();
         for (int i=0;i!=firmwareFileEntities.size();i++){
             FirmwareModel firmwareModel=new FirmwareModel();
@@ -40,6 +45,15 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
 
 ;       adapter= new CustomFirmwareAdaptor(firmwareModels,getApplicationContext());
         list_firmwares.setAdapter(adapter);
+        list_firmwares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FirmwareFileEntity firmwareFileEntity=firmwareFileEntitiesList.get(i);
+                Log.v("FirmwareSelectListActivity","choose: "+firmwareFileEntity.title);
+                AcaiaUpdater.currentFirmware=new AcaiaFirmware(firmwareFileEntity);
+                finish();
+            }
+        });
     }
 
     @Override

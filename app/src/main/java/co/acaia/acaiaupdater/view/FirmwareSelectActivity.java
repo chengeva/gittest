@@ -40,6 +40,12 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         AcaiaUpdater.currentAcaiaDevice=currentSelectedDevice;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     private void init_ui(){
         firmwareLabel=(TextView)findViewById(R.id.tv_firmware_version);
         firmwareRelease=(TextView) findViewById(R.id.tv_firmware_release);
@@ -66,12 +72,16 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         startActivity(intent);
     }
     private void setupViewWithModel(){
-        ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
-        // Improve later
-        FirmwareFileEntity firmwareFileEntity=firmwareFileEntities.get(0);
-        AcaiaUpdater.currentFirmware=new AcaiaFirmware(firmwareFileEntity);
-        firmwareLabel.setText(firmwareFileEntity.title);
-        firmwareRelease.setText(firmwareFileEntity.detail);
+
+        if(AcaiaUpdater.currentFirmware==null){
+            ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
+            // Improve later
+            FirmwareFileEntity firmwareFileEntity=firmwareFileEntities.get(0);
+            AcaiaUpdater.currentFirmware=new AcaiaFirmware(firmwareFileEntity);
+        }
+
+        firmwareLabel.setText(AcaiaUpdater.currentFirmware.title);
+        firmwareRelease.setText(AcaiaUpdater.currentFirmware.detail);
     }
 
     @Override
