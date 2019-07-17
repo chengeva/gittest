@@ -32,18 +32,23 @@ public class ManualTroubleActivity extends AppCompatActivity {
 
         tv_fromparse=findViewById(R.id.tv_fromparse);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusFirmware");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("AcaiaPlusDescriptions");
         query.whereEqualTo("model", currentSelectedDevice.modelName);
-        query.addDescendingOrder("releaseDate");
-        // hanjord
+        query.whereEqualTo("type",getIntent().getStringExtra("type"));
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(final List<ParseObject> firmwareFileList, ParseException e) {
+            public void done(final List<ParseObject> InstructionList, ParseException e) {
                 if (e == null) {
-                    Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
-
-
+                    if(InstructionList.size()!=0){
+                        final ParseObject informationObject=InstructionList.get(0);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv_fromparse.setText(informationObject.getString("detail"));
+                            }
+                        });
+                    }
                 } else {
-                    onDataRetrieved.doneRetrieved(false,"Parse error "+e.getLocalizedMessage());
+                    // handle error
                 }
             }
         });

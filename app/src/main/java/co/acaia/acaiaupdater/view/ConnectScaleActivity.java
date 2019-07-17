@@ -88,6 +88,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
         if (id == R.id.action_instructions) {
             Intent intent = new Intent(getApplicationContext(), ManualTroubleActivity.class);
             intent.putExtra("modelName",currentSelectedDevice.modelName);
+            intent.putExtra("type","Intro");
             startActivity(intent);
             return true;
         }
