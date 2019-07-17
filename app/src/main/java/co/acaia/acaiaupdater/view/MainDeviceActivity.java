@@ -135,7 +135,7 @@ public class MainDeviceActivity extends ActionBarActivity {
     private void initSettings()
     {
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "Acaia Updater");
         this.mWakeLock.acquire();
         handler = new Handler();
         mLeDeviceList = new ArrayList<>();

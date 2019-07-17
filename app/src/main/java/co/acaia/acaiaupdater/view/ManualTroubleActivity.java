@@ -68,5 +68,5 @@ public class ManualTroubleActivity extends AppCompatActivity {
         finish();
         return true;
     }
-    
+
 }
