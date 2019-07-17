@@ -7,6 +7,8 @@ import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import co.acaia.acaiaupdater.R;
@@ -14,6 +16,10 @@ import co.acaia.acaiaupdater.R;
 public class InfoActivity extends ActionBarActivity {
 
     private TextView tv_version;
+    private RelativeLayout row_privacy;
+    private RelativeLayout row_feedback;
+    private RelativeLayout row_about;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +28,28 @@ public class InfoActivity extends ActionBarActivity {
         getSupportActionBar().setTitle("Information");
         tv_version=(TextView)findViewById(R.id.tv_version);
         tv_version.setText(getVersionName(getApplicationContext()));
+
+        row_privacy=findViewById(R.id.row_privacy);
+        row_privacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+        
+            }
+        });
+        row_feedback=findViewById(R.id.row_feedback);
+        row_feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        row_about=findViewById(R.id.row_about);
+        row_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
