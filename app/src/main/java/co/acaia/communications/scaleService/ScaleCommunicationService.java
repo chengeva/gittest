@@ -269,8 +269,10 @@ public class ScaleCommunicationService extends Service {
 
         if (mConnectionState == CONNECTION_STATE_CONNECTED) {
             disconnect();
+            disconnectBm71();
         }
         mMode = MODE.DISTANCE;
+
         this.distanceConnectHelper = new DistanceConnectHelper();
         startScan();
     }
@@ -583,6 +585,7 @@ public class ScaleCommunicationService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
+
         try {
             mBluetoothDevice = null;
             mBluetoothDeviceAddress = null;
@@ -627,6 +630,42 @@ public class ScaleCommunicationService extends Service {
             CommLogger.logv(TAG, "failed disconnect event post");
             e.printStackTrace();
             ;
+        }
+
+    }
+
+    @SuppressLint("LongLogTag")
+    public synchronized void disconnectBm71() {
+        if (mBluetoothAdapter == null || mBM71Gatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+
+        try {
+            mBluetoothDevice = null;
+            mBluetoothDeviceAddress = null;
+            mBM71Gatt.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ;
+        }
+
+        try {
+            if (mBM71Gatt != null) {
+                mBM71Gatt.close();
+                mBM71Gatt = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ;
+        }
+
+
+        try {
+            mConnectionState = CONNECTION_STATE_DISCONNECTING;
+            mCurrentConnectedDeviceAddr = "";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -964,6 +1003,8 @@ public class ScaleCommunicationService extends Service {
             for (int i = 0; i != input_data.length; i++) {
                 Log.v("Input data", "[" + String.valueOf(i) + "] " + String.valueOf(input_data[i]));
             }
+
+            mConnectionState = CONNECTION_STATE_CONNECTED;
 
             send_failed_count = 0;
             if (last_received != 0) {
