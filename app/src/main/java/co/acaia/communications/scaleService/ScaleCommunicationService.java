@@ -811,7 +811,8 @@ public class ScaleCommunicationService extends Service {
     public void onEvent(DisconnectDeviceEvent event){
         // disconnect device if connected
         Log.v(TAG,"Disconnect!");
-        release();
+        disconnect();
+        mConnectionState=CONNECTION_STATE_DISCONNECTED;
     }
 
     private boolean sendCmd(byte[] Command) {
