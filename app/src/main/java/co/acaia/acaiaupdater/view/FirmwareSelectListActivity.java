@@ -14,6 +14,7 @@ import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
 import co.acaia.acaiaupdater.view.deviceList.CustomAdaptor;
 import co.acaia.acaiaupdater.view.firmwarelList.CustomFirmwareAdaptor;
 import co.acaia.acaiaupdater.view.firmwarelList.FirmwareModel;
+import co.acaia.communications.scaleService.gatt.Log;
 
 public class FirmwareSelectListActivity extends AppCompatActivity {
     ListView list_firmwares;
@@ -33,9 +34,17 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
             FirmwareModel firmwareModel=new FirmwareModel();
             firmwareModel.title=firmwareFileEntities.get(i).title;
             firmwareModel.caption=firmwareFileEntities.get(i).shortCap;
+            Log.v("FirmwareSelectListActivity","Got fw "+firmwareModel.title);
         }
 
 ;       adapter= new CustomFirmwareAdaptor(firmwareModels,getApplicationContext());
         list_firmwares.setAdapter(adapter);
     }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
 }
