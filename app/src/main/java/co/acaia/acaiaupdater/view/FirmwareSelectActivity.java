@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -26,6 +27,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
     private TextView firmwareLabel;
     private TextView firmwareRelease;
     private Button btn_next;
+    private RelativeLayout layout_available;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,15 @@ public class FirmwareSelectActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 nextActivity(currentSelectedDevice.modelName);
+            }
+        });
+        layout_available=findViewById(R.id.layout_available);
+        layout_available.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FirmwareSelectListActivity.class);
+                intent.putExtra("modelName",currentSelectedDevice.modelName);
+                startActivity(intent);
             }
         });
     }
