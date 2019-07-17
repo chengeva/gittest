@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.DeviceOKEvent;
+import co.acaia.acaiaupdater.Events.DisconnectDeviceEvent;
 import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.ScaleService;
@@ -204,7 +205,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
         tv_disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EventBus.getDefault().post(new DisconnectDeviceEvent());
             }
         });
     }

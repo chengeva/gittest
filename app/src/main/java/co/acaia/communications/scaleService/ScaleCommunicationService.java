@@ -23,6 +23,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
+import co.acaia.acaiaupdater.Events.DisconnectDeviceEvent;
 import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.communications.CommLogger;
@@ -781,6 +782,27 @@ public class ScaleCommunicationService extends Service {
 
 
         return true;
+    }
+
+    public void onEvent(DisconnectDeviceEvent event){
+        // disconnect device if connected
+        if(mBluetoothGatt!=null){
+            try{
+                mBluetoothGatt.disconnect();
+                mBluetoothGatt=null;
+            }catch (Exception e){
+
+            }
+        }
+
+        if(mBM71Gatt!=null){
+            try{
+                mBM71Gatt.disconnect();
+                mBM71Gatt=null;
+            }catch (Exception e){
+
+            }
+        }
     }
 
     private boolean sendCmd(byte[] Command) {
