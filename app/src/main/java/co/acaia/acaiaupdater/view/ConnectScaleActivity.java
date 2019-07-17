@@ -206,6 +206,8 @@ public class ConnectScaleActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 EventBus.getDefault().post(new DisconnectDeviceEvent());
+                current_connection_state=STATE_DISCONNECTED;
+                update_view_status();
             }
         });
     }

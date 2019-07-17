@@ -514,7 +514,7 @@ public class ScaleCommunicationService extends Service {
             Log.w(TAG, "Device not found.  Unable to connect.");
             return false;
         }
-        
+
         if (mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
             Log.v(TAG, "Trying to create a new connection. Pearls cinco");
             mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
