@@ -13,9 +13,10 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/row_privacy"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -50,11 +51,14 @@
 
         </RelativeLayout>
         v
+
         <RelativeLayout
+            android:id="@+id/row_feedback"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_feedback"
                 android:layout_width="wrap_content"
@@ -75,6 +79,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/icon_next3" />
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
@@ -84,11 +89,14 @@
                 android:layout_alignParentBottom="true"
                 android:background="#BCBBC1" />
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/row_about"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_about"
                 android:layout_width="wrap_content"
@@ -109,6 +117,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/icon_next3" />
+
             <View
                 android:id="@+id/view12"
                 android:layout_width="match_parent"

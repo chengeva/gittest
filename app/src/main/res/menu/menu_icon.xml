@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_info"
-        android:icon="@drawable/icon_info"
+        android:icon="@drawable/icon___white"
         android:title="Info"
         app:showAsAction="always"
         android:orderInCategory="0"/>
