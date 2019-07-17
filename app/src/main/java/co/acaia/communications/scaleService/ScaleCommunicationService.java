@@ -30,6 +30,7 @@ import co.acaia.communications.CommLogger;
 import co.acaia.communications.events.SendDataEvent;
 import co.acaia.communications.protocol.ScaleGattAttributes;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
+import co.acaia.communications.protocol.ver20.DataPacketParser;
 import co.acaia.communications.reliableQueue.ReliableSenderQueue;
 import co.acaia.communications.scale.AcaiaScale;
 import co.acaia.communications.scale.AcaiaScale2;
@@ -270,6 +271,7 @@ public class ScaleCommunicationService extends Service {
         if (mConnectionState == CONNECTION_STATE_CONNECTED) {
             disconnect();
             disconnectBm71();
+            DataPacketParser.initDataParser();
         }
         mMode = MODE.DISTANCE;
 

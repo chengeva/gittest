@@ -38,7 +38,12 @@ public class DataPacketParser {
     // default event freq helper
     private  static int sent_default=0;
 
-
+    public static void initDataParser(){
+        incommingPackt=0;
+        previousWeight=0;
+        minus5mode = false;
+        sent_default=0;
+    }
     private static void broadcastUpdate(final String action,Context context) {
         final Intent intent = new Intent(action);
         context.sendBroadcast(intent);
