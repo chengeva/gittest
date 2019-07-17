@@ -85,8 +85,10 @@ public class ConnectScaleActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_info) {
-
+        if (id == R.id.action_instructions) {
+            Intent intent = new Intent(getApplicationContext(), ManualTroubleActivity.class);
+            intent.putExtra("modelName",currentSelectedDevice.modelName);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
