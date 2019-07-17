@@ -504,40 +504,24 @@ public class ScaleCommunicationService extends Service {
     public boolean connect(final String targetBtAddress) {
         // Stop BLE scan before connecting
         stopScan();
-        if (isConnected()) {
-            release();
-            new Thread() {
-                public void run() {
-                    try {
-                        Thread.sleep(1500);
-                        connect(targetBtAddress);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        ;
-                    }
-                }
-            }.start();
+        if (mBluetoothAdapter == null || targetBtAddress == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
+            return false;
+        }
+
+        mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(targetBtAddress);
+        if (mBluetoothDevice == null) {
+            Log.w(TAG, "Device not found.  Unable to connect.");
+            return false;
+        }
+        
+        if (mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
+            Log.v(TAG, "Trying to create a new connection. Pearls cinco");
+            mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
+            mBluetoothGatt = null;
         } else {
-
-            if (mBluetoothAdapter == null || targetBtAddress == null) {
-                Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
-                return false;
-            }
-
-            mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(targetBtAddress);
-            if (mBluetoothDevice == null) {
-                Log.w(TAG, "Device not found.  Unable to connect.");
-                return false;
-            }
-
-            // We want to directly connect to the device, so we are setting the autoConnect
-            // parameter to false.
-            // Connect and check Module type
-            if (mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
-                Log.v(TAG, "Trying to create a new connection. Pearls cinco");
-                mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
-                mBluetoothGatt = null;
-            } else {
+            if(mBluetoothGatt == null && mConnectionState==CONNECTION_STATE_DISCONNECTED) {
+                mBluetoothAdapter.stopLeScan(mLeScanCallback);
                 mBluetoothGatt = mBluetoothDevice.connectGatt(this, false, mGattCallback);
                 Log.v(TAG, "Trying to create a new connection.");
                 mBluetoothDeviceAddress = targetBtAddress;
@@ -549,48 +533,48 @@ public class ScaleCommunicationService extends Service {
 
     @SuppressLint("LongLogTag")
     public void release() {
-        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+        if (mBluetoothAdapter != null && mBluetoothGatt != null) {
             Log.w(TAG, "BluetoothAdapter not initialized");
-            return;
-        }
-        try {
-            mBluetoothDevice = null;
-            mBluetoothDeviceAddress = null;
-            mBluetoothGatt.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
-        }
-
-        try {
-            if (mBluetoothGatt != null) {
-                mBluetoothGatt.close();
-                mBluetoothGatt = null;
+            try {
+                mBluetoothDevice = null;
+                mBluetoothDeviceAddress = null;
+                mBluetoothGatt.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
-        }
 
-
-        try {
-            mConnectionState = CONNECTION_STATE_DISCONNECTING;
-            mCurrentConnectedDeviceAddr = "";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            if (AcaiaUpdater.ispHelper != null) {
-                AcaiaUpdater.ispHelper.release();
-                AcaiaUpdater. ispHelper = null;
+            try {
+                if (mBluetoothGatt != null) {
+                    mBluetoothGatt.close();
+                    mBluetoothGatt = null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
             }
-            //mBluetoothGatt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
+
+
+            try {
+                mConnectionState = CONNECTION_STATE_DISCONNECTING;
+                mCurrentConnectedDeviceAddr = "";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                if (AcaiaUpdater.ispHelper != null) {
+                    AcaiaUpdater.ispHelper.release();
+                    AcaiaUpdater. ispHelper = null;
+                }
+                //mBluetoothGatt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
+            }
         }
+
     }
 
     @SuppressLint("LongLogTag")
@@ -784,25 +768,11 @@ public class ScaleCommunicationService extends Service {
         return true;
     }
 
+    @SuppressLint("LongLogTag")
     public void onEvent(DisconnectDeviceEvent event){
         // disconnect device if connected
-        if(mBluetoothGatt!=null){
-            try{
-                mBluetoothGatt.disconnect();
-                mBluetoothGatt=null;
-            }catch (Exception e){
-
-            }
-        }
-
-        if(mBM71Gatt!=null){
-            try{
-                mBM71Gatt.disconnect();
-                mBM71Gatt=null;
-            }catch (Exception e){
-
-            }
-        }
+        Log.v(TAG,"Disconnect!");
+        release();
     }
 
     private boolean sendCmd(byte[] Command) {
