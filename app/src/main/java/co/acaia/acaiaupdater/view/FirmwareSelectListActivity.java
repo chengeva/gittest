@@ -35,7 +35,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
             firmwareModel.caption=firmwareFileEntities.get(i).shortCap;
         }
 
-;        adapter= new CustomFirmwareAdaptor(firmwareModels,getApplicationContext());
+;       adapter= new CustomFirmwareAdaptor(firmwareModels,getApplicationContext());
         list_firmwares.setAdapter(adapter);
     }
 }
