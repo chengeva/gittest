@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_name"
-        android:icon="@drawable/icon_faq_i_white3x"
+        android:id="@+id/action_instructions"
+        android:icon="@drawable/icon___white"
         android:title="Text to be seen by user"
         app:showAsAction="always"
         android:orderInCategory="0"/>
