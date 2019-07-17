@@ -99,8 +99,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if(current_updating_state==STATE_UPDATE_COMPLETE){
-                    AcaiaUpdater.ispHelper.release();;
-                    AcaiaUpdater.ispHelper=null;
+
                     Intent intent = new Intent(getApplicationContext(), MainDeviceActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Removes other Activities from stack
                     startActivity(intent);
