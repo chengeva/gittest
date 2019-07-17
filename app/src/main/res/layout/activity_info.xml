@@ -27,7 +27,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:text="Privacy Policy"
-                android:textSize="30sp" />
+                android:textColor="#5F5F5F"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -67,7 +68,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:text="Feedback"
-                android:textSize="30sp" />
+                android:textColor="#5F5F5F"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imageView46"
@@ -105,7 +107,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:text="About"
-                android:textSize="30sp" />
+                android:textColor="#5F5F5F"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imageView467"
@@ -143,6 +146,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
             android:text="0.9.1"
+            android:textColor="#5F5F5F"
             android:textSize="20sp" />
     </RelativeLayout>
 </LinearLayout>
