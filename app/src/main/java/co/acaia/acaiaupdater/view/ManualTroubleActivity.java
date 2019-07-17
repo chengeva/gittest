@@ -62,4 +62,11 @@ public class ManualTroubleActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+    
 }
