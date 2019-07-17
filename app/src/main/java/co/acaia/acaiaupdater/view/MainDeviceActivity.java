@@ -212,6 +212,7 @@ public class MainDeviceActivity extends ActionBarActivity {
     private void nextActivity(String modelName){
         Intent intent = new Intent(getApplicationContext(), FirmwareSelectActivity.class);
         intent.putExtra("modelName",modelName);
+        AcaiaUpdater.currentFirmware=null;
         startActivity(intent);
     }
 

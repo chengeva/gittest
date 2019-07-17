@@ -43,7 +43,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        setupViewWithModel();
     }
 
     private void init_ui(){
