@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.view.deviceList.DeviceModel;
+import co.acaia.communications.scaleService.gatt.Log;
 
 public class CustomFirmwareAdaptor  extends ArrayAdapter<FirmwareModel> {
     private ArrayList<FirmwareModel> dataSet;
@@ -31,7 +32,8 @@ public class CustomFirmwareAdaptor  extends ArrayAdapter<FirmwareModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         FirmwareModel dataModel = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
+        Log.v("CustomFirmwareAdaptor", "set data "+dataModel.title);
+        // Check if an existing view is being reused, otherwise inflate the  view
         CustomFirmwareAdaptor.ViewHolder viewHolder; // view lookup cache stored in tag
 
         final View result;

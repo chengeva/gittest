@@ -35,6 +35,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
             firmwareModel.title=firmwareFileEntities.get(i).title;
             firmwareModel.caption=firmwareFileEntities.get(i).shortCap;
             Log.v("FirmwareSelectListActivity","Got fw "+firmwareModel.title);
+            firmwareModels.add(firmwareModel);
         }
 
 ;       adapter= new CustomFirmwareAdaptor(firmwareModels,getApplicationContext());
