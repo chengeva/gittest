@@ -83,7 +83,7 @@
     <string name="For_more_information">4. For more information or questions please email to support@acaia.co or visit www.acaia.co.</string>
     <!--Select scale -->
     <string name="menu_connect">Connect</string>
-    <string name="menu_disconnect">Disconnect</string>
+    <string name="menu_disconnect"><u>Disconnect</u></string>
     <string name="_menu_refresh">Refresh</string>
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>

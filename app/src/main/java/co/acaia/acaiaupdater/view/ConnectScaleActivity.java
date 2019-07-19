@@ -140,7 +140,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
                 tv_current_firmware.setVisibility(View.GONE);
                 connectButton.setText("Connect");
                 tv_Updating_progress.setText("Connect to "+currentSelectedDevice.modelName);
-                tv_Update_status.setText("Please place your phone close to "+currentSelectedDevice.modelName);
+                tv_Update_status.setText("Please place your phone\n close to "+currentSelectedDevice.modelName);
                 break;
             default:
                 break;
