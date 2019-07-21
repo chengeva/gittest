@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -50,6 +51,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
     private static final int STATE_OBTAININGINFO=1;
     private static final int STATE_CONNECTING=2;
     private static final int STATE_CONNECTED=3;
+    private static final int STATE_CONFIRMED_DEVICE=4;
 
     private int current_connection_state;
     private FirmwareFileEntity currentFirmwareFileEntity;
@@ -169,8 +171,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
             public void onClick(View view) {
 
                 switch (current_connection_state){
-                    case STATE_CONNECTED:
-                        // TODO: change firmware
+                    case STATE_CONFIRMED_DEVICE:
                         StartFirmwareUpdateEvent startFirmwareUpdateEvent=new StartFirmwareUpdateEvent(currentFirmwareFileEntity);
                         EventBus.getDefault().post(startFirmwareUpdateEvent);
                         final Handler handler = new Handler();
@@ -181,6 +182,14 @@ public class ConnectScaleActivity extends ActionBarActivity {
                                 nextActivity(currentSelectedDevice.modelName);
                             }
                         }, 500);
+
+                        break;
+                    case STATE_CONNECTED:
+                        // TODO: change firmware
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Checking device...", Toast.LENGTH_LONG);
+                        //顯示Toast
+                        toast.show();
 
                         break;
                     case STATE_CONNECTING:
