@@ -275,7 +275,7 @@ public class ScaleCommunicationService extends Service {
         }
         mMode = MODE.DISTANCE;
 
-        this.distanceConnectHelper = new DistanceConnectHelper();
+        this.distanceConnectHelper = new DistanceConnectHelper(distanceConnectEvent.currentConnectingDevice);
         startScan();
     }
 

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
+
 public class DistanceConnectHelper {
 
     public static final int RSSI_HIST_SIZE = 25;
@@ -15,8 +17,9 @@ public class DistanceConnectHelper {
     private HashMap<String, ArrayList<Double>> distanceMap;
     private HashMap<String, BluetoothDevice> btDevice;
     private BluetoothDevice targetBluetoothDevice;
-
-    public DistanceConnectHelper() {
+    private AcaiaDevice acaiaDevice;
+    public DistanceConnectHelper(AcaiaDevice acaiaDevice_) {
+        this.acaiaDevice=acaiaDevice_;
         distanceMap = new HashMap<>();
         btDevice = new HashMap<>();
 

@@ -190,7 +190,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
                     case STATE_DISCONNECTED:
                         current_connection_state=STATE_CONNECTING;
                         update_view_status();
-                        EventBus.getDefault().post(new DistanceConnectEvent());
+                        EventBus.getDefault().post(new DistanceConnectEvent(currentSelectedDevice));
                         break;
                     default:
                         break;
