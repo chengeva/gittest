@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="30dp"
     android:orientation="vertical">
 
 
@@ -58,7 +58,7 @@
 
         android:layout_height="0dp"
 
-        android:layout_weight="1.5">
+        android:layout_weight="2">
 
         <TextView
 
@@ -99,7 +99,7 @@
 
         android:layout_height="0dp"
 
-        android:layout_weight="1.5">
+        android:layout_weight="2">
 
 
         <TextView
@@ -142,21 +142,8 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-
         android:layout_height="0dp"
-
         android:layout_weight="4">
-
-
-
-
-
-
-
-
-
-
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -178,7 +165,7 @@
                 android:background="@drawable/round_button"
                 android:text="@string/Next"
                 android:textColor="@color/white"
-                app:layout_constraintDimensionRatio="7:1"
+                app:layout_constraintDimensionRatio="6:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent" />
