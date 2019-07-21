@@ -69,6 +69,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_fw);
+        getSupportActionBar().setTitle("Updating");
         current_updating_state=STATE_UPDATE_INIT;
         EventBus.getDefault().register(this);
         tv_progress=(TextView)findViewById(R.id.Updating_progress);

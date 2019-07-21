@@ -149,7 +149,7 @@
 
     <string name="Avaliable_Firmware">Avaliable Firmware</string>
     <string name="Update_Firmware_to">Update Firmware to :</string>
-    <string name="Release_Notes">Release Note: </string>
+    <string name="Release_Notes">Release Notes:</string>
     <string name="Connect_to_device">Connect to Device</string>
     <string name="make_sure_BT_Turn_on">Please make sure\nBluetooth is turned on.</string>
     <string name="Connect">Connect</string>

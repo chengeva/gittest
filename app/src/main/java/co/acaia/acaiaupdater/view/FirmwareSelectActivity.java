@@ -33,6 +33,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_firmware_new);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Select Firmware");
         init_ui();
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
         Log.v("FirmwareSelectActivity","Current device="+currentSelectedDevice.modelName);

@@ -18,7 +18,7 @@
             android:layout_alignParentRight="false"
             android:layout_weight="1"
             android:text="Pearl S 1.0.39"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:text="Latest Acaia Pearl S firmware"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            />
 
     </LinearLayout>
 
