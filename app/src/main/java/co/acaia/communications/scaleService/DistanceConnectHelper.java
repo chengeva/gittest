@@ -86,6 +86,24 @@ public class DistanceConnectHelper {
             return false;
         }
 
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelLunar)){
+            if (!deviceName.startsWith("ACAIAL") && !deviceName.startsWith("PROCHBT") && !deviceName.startsWith("LINK")) {
+                return false;
+            }
+        }
+
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelPearlS)){
+            if (!deviceName.startsWith("PEARLS")) {
+                return false;
+            }
+        }
+
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelOrion)){
+            if (!deviceName.startsWith("ORION") &&!deviceName.startsWith("PROCHBT")) {
+                return false;
+            }
+        }
+
         String deviceAddr = bluetoothDevice.getAddress();
 
         if (!distanceMap.containsKey(deviceAddr)) {
