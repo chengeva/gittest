@@ -202,10 +202,10 @@ public class FileHandler {
             Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version)+" "+String.valueOf(checkISP)+" "+String.valueOf(cisp_handler.mb_started));
             if(checkISP==true && cisp_handler.mb_started==true){
                 Log.v(TAG,"device check ok!=="+String.valueOf(isp_info.n_ISP_version));
-                lo_page.n_firm_main_ver .set((short)1);
-                lo_page.n_firm_sub_ver .set((short)1);
+                lo_page.n_firm_main_ver .set((short)AcaiaUpdater.currentFirmware.mainVer);
+                lo_page.n_firm_sub_ver .set((short)AcaiaUpdater.currentFirmware.subVer);
                 // TODO: check 'T' char int val
-                lo_page.n_firm_add_ver .set((short)84);
+                lo_page.n_firm_add_ver .set((short)AcaiaUpdater.currentFirmware.addVer);
                 lo_page.n_firm_page .set((short)cisp_handler.mn_total_page);
                 Log.v(TAG,"cisp_handler.mn_total_page="+String.valueOf(cisp_handler.mn_total_page));
 

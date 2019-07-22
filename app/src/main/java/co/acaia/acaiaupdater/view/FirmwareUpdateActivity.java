@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -64,7 +65,18 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Updating firmware...", Toast.LENGTH_LONG);
+        //顯示Toast
+        toast.show();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
