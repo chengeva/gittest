@@ -18,10 +18,13 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.Events.DisconnectDeviceEvent;
 import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
+import co.acaia.acaiaupdater.Events.UpdateISPEvent;
 import co.acaia.acaiaupdater.R;
 import co.acaia.acaiaupdater.ScaleService;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
@@ -51,7 +54,8 @@ public class ConnectScaleActivity extends ActionBarActivity {
     private static final int STATE_OBTAININGINFO=1;
     private static final int STATE_CONNECTING=2;
     private static final int STATE_CONNECTED=3;
-    private static final int STATE_CONFIRMED_DEVICE=4;
+    //private static final int STATE_CONFIRMED_DEVICE=4;
+    private static final int STATE_WRONG_DEVICE=5;
 
     private int current_connection_state;
     private FirmwareFileEntity currentFirmwareFileEntity;
@@ -72,7 +76,23 @@ public class ConnectScaleActivity extends ActionBarActivity {
         EventBus.getDefault().register(this);
         currentFirmwareFileEntity= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice).get(0);
         Log.v("ConnectScaleActivity","Updating to: "+currentFirmwareFileEntity.detail);
+
+
     }
+
+    /*public void onEvent(UpdateISPEvent updateISPEvent){
+        ArrayList<Integer> validISPs= AcaiaDevice.getValidISPFromModelName(currentSelectedDevice.modelName);
+        boolean checkISP=false;
+        for (int i=0;i!=validISPs.size();i++){
+            if(validISPs.get(i)==updateISPEvent.isp_version){
+                checkISP=true;
+                this.current_connection_state=STATE_CONFIRMED_DEVICE;
+            }
+        }
+        if(checkISP==false){
+            this.current_connection_state=STATE_WRONG_DEVICE;
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,7 +191,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
             public void onClick(View view) {
 
                 switch (current_connection_state){
-                    case STATE_CONFIRMED_DEVICE:
+                    case STATE_CONNECTED:
                         StartFirmwareUpdateEvent startFirmwareUpdateEvent=new StartFirmwareUpdateEvent(currentFirmwareFileEntity);
                         EventBus.getDefault().post(startFirmwareUpdateEvent);
                         final Handler handler = new Handler();
@@ -184,14 +204,14 @@ public class ConnectScaleActivity extends ActionBarActivity {
                         }, 500);
 
                         break;
-                    case STATE_CONNECTED:
+                    /*case STATE_CONNECTED:
                         // TODO: change firmware
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 "Checking device...", Toast.LENGTH_LONG);
                         //顯示Toast
                         toast.show();
 
-                        break;
+                        break;*/
                     case STATE_CONNECTING:
                         break;
                     case STATE_OBTAININGINFO:
@@ -268,8 +288,15 @@ public class ConnectScaleActivity extends ActionBarActivity {
                                 current_connection_state=STATE_OBTAININGINFO;
                                 update_view_status();
                             }
-
                             tv_Update_status.setText(result);
+                            /*
+                            if(current_connection_state==STATE_CONFIRMED_DEVICE){
+
+                            }else{
+                                tv_Update_status.setText("Checking device...");
+                            }*/
+
+
 
                             EventBus.getDefault().post(new WeightEvent(result));
                             break;

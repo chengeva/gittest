@@ -4,6 +4,7 @@ import static co.acaia.communications.protocol.ver20.ScaleProtocol.gn_cmd_len;
 import static co.acaia.communications.protocol.ver20.ScaleProtocol.gn_len;
 import static co.acaia.communications.protocol.ver20.ScaleProtocol.gs_header;
 
+import co.acaia.acaiaupdater.Events.UpdateISPEvent;
 import co.acaia.communications.events.ScaleFirmwareVersionEvent;
 import co.acaia.communications.scaleService.gatt.Log;
 import co.acaia.communications.scaleevent.UpdatedStatusEvent;
@@ -245,6 +246,8 @@ public class DataPacketParser {
             EventBus.getDefault().post(new ScaleFirmwareVersionEvent(ver));
             UpdatedStatusEvent updatedStatusEvent=new UpdatedStatusEvent(scale_info_.getMainVersion(),scale_info_.getSubVersion(),scale_info_.getAddVersion());
             EventBus.getDefault().post(updatedStatusEvent);
+            EventBus.getDefault().post(new UpdateISPEvent(scale_info_.n_ISP_version.get()));
+            Log.v("GOT ISP","isp version="+String.valueOf(scale_info_.n_ISP_version.get()));
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");

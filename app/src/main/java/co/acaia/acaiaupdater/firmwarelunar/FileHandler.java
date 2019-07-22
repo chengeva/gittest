@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.DeviceOKEvent;
+import co.acaia.acaiaupdater.Events.DeviceWrongEvent;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
@@ -219,6 +220,7 @@ public class FileHandler {
                 mScaleCommunicationService.sendCmdFromQueue(out);
             }else{
                 // Handle invalid device
+                EventBus.getDefault().post(new DeviceWrongEvent());
             }
 
         }else if( cisp_handler.mn_app_cmdid== Isp.EISPCMD.e_ispcmd_erase_page_a.ordinal() ){

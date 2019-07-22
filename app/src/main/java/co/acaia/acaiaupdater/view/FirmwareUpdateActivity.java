@@ -21,6 +21,7 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
+import co.acaia.acaiaupdater.Events.DeviceWrongEvent;
 import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
 import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
@@ -33,7 +34,8 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
     private static int STATE_UPDATE_INIT=0;
     private static int STATE_UPDATE_CHECKING_FW=0;
     private static int STATE_UPDATE_UPDATING=0;
-    private static int STATE_UPDATE_COMPLETE=0;
+    private static int STATE_UPDATE_COMPLETE=2;
+    private static int STATE_UPDATE_WRONG_DEVICE=1;
 
     private int current_updating_state;
 
@@ -103,6 +105,8 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
             image_device.setImageResource(R.drawable.img_cinco_done);
         }
 
+        Update_status.setText("Checking device");
+
         if(AcaiaUpdater.currentAcaiaDevice.modelName.equals(AcaiaDevice.modelPearlS)){
             Update_status.setText("Please confirm firmware update on Pearl S");
         }
@@ -111,7 +115,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         btn_updating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(current_updating_state==STATE_UPDATE_COMPLETE){
+                if(current_updating_state==STATE_UPDATE_COMPLETE || current_updating_state==STATE_UPDATE_WRONG_DEVICE){
 
                     Intent intent = new Intent(getApplicationContext(), MainDeviceActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Removes other Activities from stack
@@ -119,6 +123,11 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    public void onEvent(DeviceWrongEvent deviceWrongEvent){
+        Update_status.setText("Wronge device. Please restart firmware update.");
+        current_updating_state=STATE_UPDATE_WRONG_DEVICE;
     }
 
     public void onEvent(UpdateStatusEvent event){
