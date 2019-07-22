@@ -124,6 +124,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                tv_Update_status.setText("Connected to "+currentSelectedDevice.modelName);
                 tv_current_firmware.setText("Device in update mode");
                 tv_current_firmware.setVisibility(View.VISIBLE);
                 update_view_status();
