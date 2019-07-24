@@ -31,6 +31,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_firmware_select_list);
         list_firmwares=findViewById(R.id.list_firmwares);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Available Firmware");
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
         ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
         firmwareFileEntitiesList=firmwareFileEntities;
