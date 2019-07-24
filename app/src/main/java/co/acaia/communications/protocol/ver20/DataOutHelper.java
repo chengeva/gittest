@@ -138,6 +138,9 @@ public class DataOutHelper {
         sr_len.sr_len.set((short) sr_strlen(s_id, 15));
         int ln_out=pack_data(out.ls_out, (short) ScaleProtocol.ECMD.e_cmd_identify_s.ordinal(), s_out.ls_out, sr_len.sr_len);
         EventBus.getDefault().post(new SendDataEvent(u1_array_to_byte_array(out.ls_out,ln_out)));
+
+        // TODO: check Android Orion issue here
+
         return true;
     }
 

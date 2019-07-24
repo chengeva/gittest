@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:text="Pearl S 1.0.39"
             android:textSize="20sp"
+            android:textColor="@color/acaia_updater_text"
             android:textStyle="bold" />
 
         <TextView
@@ -27,6 +28,7 @@
             android:layout_height="0dp"
             android:layout_alignParentRight="false"
             android:layout_weight="1"
+            android:textColor="@color/acaia_updater_text"
             android:text="Latest Acaia Pearl S firmware"
             android:textSize="15sp"
             />

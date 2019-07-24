@@ -26,6 +26,7 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/image_device"
         android:text="Pearl S"
+        android:textColor="@color/acaia_updater_text"
         android:textSize="24sp"
         android:textStyle="bold" />
 

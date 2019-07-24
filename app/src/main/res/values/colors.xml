@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Acaia Updater Colours-->
+    <color name="acaia_updater_text">#5F5F5F</color>
+
     <color name="theme_status_bar">#000000</color>
     <color name="theme_actionbar">#212121</color>
     <color name="theme_background">#303030</color>

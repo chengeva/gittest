@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/acaia_updater_text"
                 android:id="@+id/tv_fromparse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

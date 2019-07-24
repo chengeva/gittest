@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -73,16 +74,28 @@ public class FirmwareSelectActivity extends ActionBarActivity {
         startActivity(intent);
     }
     private void setupViewWithModel(){
-
+        boolean gotFirmware=false;
         if(AcaiaUpdater.currentFirmware==null){
             ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
             // Improve later
-            FirmwareFileEntity firmwareFileEntity=firmwareFileEntities.get(0);
-            AcaiaUpdater.currentFirmware=new AcaiaFirmware(firmwareFileEntity);
-        }
+            if(firmwareFileEntities.size()==0){
+                // no fw found
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Error downloading firmware", Toast.LENGTH_LONG);
+                //顯示Toast
+                toast.show();
+                finish();
+            }else {
 
-        firmwareLabel.setText(AcaiaUpdater.currentFirmware.title);
-        firmwareRelease.setText(AcaiaUpdater.currentFirmware.detail);
+                FirmwareFileEntity firmwareFileEntity = firmwareFileEntities.get(0);
+                AcaiaUpdater.currentFirmware = new AcaiaFirmware(firmwareFileEntity);
+                gotFirmware=true;
+            }
+        }
+        if(gotFirmware) {
+            firmwareLabel.setText(AcaiaUpdater.currentFirmware.title);
+            firmwareRelease.setText(AcaiaUpdater.currentFirmware.detail);
+        }
     }
 
     @Override
