@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_margin="30dp"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
 
@@ -32,7 +32,7 @@
                 android:text="@string/Avaliable_Firmware"
                 android:textColor="#5F5F5F"
 
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +49,45 @@
 
         </android.support.constraint.ConstraintLayout>
 
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="0dp"
+
+        android:layout_weight="2">
+
+        <TextView
+
+            android:id="@+id/Update_fw_to_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="0dp"
+            android:text="@string/Update_Firmware_to"
+            android:textColor="#5F5F5F"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:id="@+id/tv_firmware_version"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentEnd="true"
+
+            android:layout_centerVertical="true"
+
+            android:layout_marginEnd="10dp"
+            android:text="1.1.13"
+
+            android:textSize="13sp" />
 
     </RelativeLayout>
 
@@ -71,48 +110,8 @@
             android:layout_marginStart="0dp"
             android:text="@string/Release_Notes"
             android:textColor="#5F5F5F"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-
-        android:layout_height="0dp"
-
-        android:layout_alignParentStart="true"
-        android:layout_weight="2">
-
-        <TextView
-
-            android:id="@+id/Update_fw_to_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="0dp"
-            android:text="@string/Update_Firmware_to"
-            android:textColor="#5F5F5F"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-
-            android:id="@+id/tv_firmware_version"
-
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentEnd="true"
-
-            android:layout_centerVertical="true"
-
-            android:layout_marginEnd="10dp"
-            android:text="1.1.13"
-
-            android:textSize="14sp" />
 
     </RelativeLayout>
 
@@ -135,7 +134,7 @@
             android:layout_marginBottom="1dp"
             android:text="1. The LED will display 100.0 when entering the Calibration Mode.   2. Press and hold Tare Button in weighing mode will not change weighing unit.   3. Minimal display weight is improved to 0.1 g.   4. The Bluetooth connectivity can be configured in the setup mode under ‘bt_SEt’ option. Default is ON.  	1.ON: Bluetooth is enabled.  2.OFF: Bluetooth is disabled."
             android:textColor="@color/acaia_updater_text"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -143,8 +142,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
-    </RelativeLayout>
+        android:layout_weight="4"></RelativeLayout>
 
     <RelativeLayout
 
@@ -177,11 +175,9 @@
     </RelativeLayout>
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
-    </RelativeLayout>
+        android:layout_weight="2"></RelativeLayout>
 
 </LinearLayout>
