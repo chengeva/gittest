@@ -135,7 +135,7 @@
             android:layout_marginBottom="1dp"
             android:text="1. The LED will display 100.0 when entering the Calibration Mode.   2. Press and hold Tare Button in weighing mode will not change weighing unit.   3. Minimal display weight is improved to 0.1 g.   4. The Bluetooth connectivity can be configured in the setup mode under ‘bt_SEt’ option. Default is ON.  	1.ON: Bluetooth is enabled.  2.OFF: Bluetooth is disabled."
             android:textColor="@color/acaia_updater_text"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
