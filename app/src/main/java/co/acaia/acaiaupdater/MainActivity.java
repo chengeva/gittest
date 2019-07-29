@@ -372,7 +372,7 @@ public class MainActivity extends ActionBarActivity {
                     switch (resultType) {
 
                         case ScaleCommunicationService.DATA_TYPE_WEIGHT:
-                           // Log.v(TAG,"got weight!");
+                           // //Log.v(TAG,"got weight!");
                             String result = intent.getExtras().getString(
                                     ScaleCommunicationService.EXTRA_DATA);
                             int unit = intent.getExtras().getInt(ScaleCommunicationService.EXTRA_UNIT);

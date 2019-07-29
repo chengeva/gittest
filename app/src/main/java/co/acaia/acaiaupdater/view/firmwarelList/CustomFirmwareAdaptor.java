@@ -32,7 +32,7 @@ public class CustomFirmwareAdaptor  extends ArrayAdapter<FirmwareModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         FirmwareModel dataModel = getItem(position);
-        Log.v("CustomFirmwareAdaptor", "set data "+dataModel.title);
+        //Log.v("CustomFirmwareAdaptor", "set data "+dataModel.title);
         // Check if an existing view is being reused, otherwise inflate the  view
         CustomFirmwareAdaptor.ViewHolder viewHolder; // view lookup cache stored in tag
 

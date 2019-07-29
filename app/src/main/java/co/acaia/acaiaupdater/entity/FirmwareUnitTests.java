@@ -25,8 +25,8 @@ public class FirmwareUnitTests {
                 if(e==null){
                     Realm realm= RealmUtil.getRealm();
                     realm.beginTransaction();
-                    Log.v(testName,object.getObjectId());
-                    Log.v(testName,object.getString("model"));
+                    //Log.v(testName,object.getObjectId());
+                    //Log.v(testName,object.getString("model"));
 
                     // Delete all database
                     RealmResults<FirmwareFileEntity> results = realm.where(FirmwareFileEntity.class).findAll();
@@ -35,14 +35,14 @@ public class FirmwareUnitTests {
 
                     FirmwareFileEntity firmwareFileEntity=FirmwareEntityHelper.firmwareFileEntityFromParseObject(object);
                     // test fields
-                    Log.v(testName,"Test title:" +firmwareFileEntity.title);
-                    Log.v(testName,"Test detail" +firmwareFileEntity.detail);
-                    Log.v(testName,"Test caption" +firmwareFileEntity.shortCap);
-                    Log.v(testName,"Test model" +firmwareFileEntity.model);
-                    Log.v(testName,"Test fileName" +firmwareFileEntity.fileName);
-                    Log.v(testName,"Test addVersion" +firmwareFileEntity.addVer);
-                    Log.v(testName,"Test majorVersion" +firmwareFileEntity.mainVer);
-                    Log.v(testName,"Test customOrdering" +firmwareFileEntity.customOrdering);
+                    //Log.v(testName,"Test title:" +firmwareFileEntity.title);
+                    //Log.v(testName,"Test detail" +firmwareFileEntity.detail);
+                    //Log.v(testName,"Test caption" +firmwareFileEntity.shortCap);
+                    //Log.v(testName,"Test model" +firmwareFileEntity.model);
+                    //Log.v(testName,"Test fileName" +firmwareFileEntity.fileName);
+                    //Log.v(testName,"Test addVersion" +firmwareFileEntity.addVer);
+                    //Log.v(testName,"Test majorVersion" +firmwareFileEntity.mainVer);
+                    //Log.v(testName,"Test customOrdering" +firmwareFileEntity.customOrdering);
 
 
 
@@ -50,14 +50,14 @@ public class FirmwareUnitTests {
                     // Test retrieve object from database
                     realm.beginTransaction();
                     FirmwareFileEntity firmwareFileEntity1 = realm.where(FirmwareFileEntity.class).findFirst();
-                    Log.v(testName,"Test found title:" +firmwareFileEntity1.title);
-                    Log.v(testName,"Test found detail:" +firmwareFileEntity1.detail);
-                    Log.v(testName,"Test found caption:" +firmwareFileEntity1.shortCap);
-                    Log.v(testName,"Test found model:" +firmwareFileEntity1.model);
-                    Log.v(testName,"Test found fileName:" +firmwareFileEntity1.fileName);
-                    Log.v(testName,"Test found addVersion:" +firmwareFileEntity1.addVer);
-                    Log.v(testName,"Test found majorVersion:" +firmwareFileEntity1.mainVer);
-                    Log.v(testName,"Test customOrdering:" +firmwareFileEntity1.customOrdering);
+                    //Log.v(testName,"Test found title:" +firmwareFileEntity1.title);
+                    //Log.v(testName,"Test found detail:" +firmwareFileEntity1.detail);
+                    //Log.v(testName,"Test found caption:" +firmwareFileEntity1.shortCap);
+                    //Log.v(testName,"Test found model:" +firmwareFileEntity1.model);
+                    //Log.v(testName,"Test found fileName:" +firmwareFileEntity1.fileName);
+                    //Log.v(testName,"Test found addVersion:" +firmwareFileEntity1.addVer);
+                    //Log.v(testName,"Test found majorVersion:" +firmwareFileEntity1.mainVer);
+                    //Log.v(testName,"Test customOrdering:" +firmwareFileEntity1.customOrdering);
 
 
 

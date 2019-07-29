@@ -75,7 +75,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         EventBus.getDefault().register(this);
         currentFirmwareFileEntity= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice).get(0);
-        Log.v("ConnectScaleActivity","Updating to: "+currentFirmwareFileEntity.detail);
+        //Log.v("ConnectScaleActivity","Updating to: "+currentFirmwareFileEntity.detail);
 
 
     }
@@ -273,7 +273,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
                     switch (resultType) {
 
                         case ScaleCommunicationService.DATA_TYPE_WEIGHT:
-                            // Log.v(TAG,"got weight!");
+                            // //Log.v(TAG,"got weight!");
                             String result = intent.getExtras().getString(
                                     ScaleCommunicationService.EXTRA_DATA);
                             int unit = intent.getExtras().getInt(ScaleCommunicationService.EXTRA_UNIT);
@@ -283,7 +283,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
                             }else{
                                 result=result+"ozWeightEvent";
                             }
-                            //Log.v("ConnectScaleActivity",result);
+                            ////Log.v("ConnectScaleActivity",result);
 
                             if(current_connection_state==STATE_CONNECTING){
                                 current_connection_state=STATE_OBTAININGINFO;

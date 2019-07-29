@@ -48,7 +48,7 @@ public class FileHandler {
             ln_lastpage--;
         int count=0;
         try {
-            Log.v(TAG,"file path"+file.getAbsolutePath());
+            //Log.v(TAG,"file path"+file.getAbsolutePath());
             FileInputStream i = new FileInputStream(file);
             RandomAccessFile rfile = new RandomAccessFile(file, "r");
             while (true) {
@@ -115,7 +115,7 @@ public class FileHandler {
             ln_lastpage--;
         int count=0;
         try {
-            Log.v(TAG,"file path"+file.getAbsolutePath());
+            //Log.v(TAG,"file path"+file.getAbsolutePath());
             FileInputStream i = new FileInputStream(file);
             RandomAccessFile rfile = new RandomAccessFile(file, "r");
             while (true) {
@@ -185,7 +185,7 @@ public class FileHandler {
 
             // obtain ISP info and check device valid...
             for(int i=0;i!=7;i++){
-                Log.v(TAG,"ISP data="+String.valueOf(i)+" "+String.valueOf(cisp_handler.mn_app_buffer[i].get()));
+                //Log.v(TAG,"ISP data="+String.valueOf(i)+" "+String.valueOf(cisp_handler.mn_app_buffer[i].get()));
             }
             Isp.isp_info isp_info=new Isp.isp_info(ByteDataHelper.getByteArrayFromU1(cisp_handler.mn_app_buffer,0,ISP_INFO_LENGTH));
             //isp_info.memcpy(cisp_handler.mn_app_buffer);
@@ -200,15 +200,15 @@ public class FileHandler {
                 }
             }
 
-            Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version)+" "+String.valueOf(checkISP)+" "+String.valueOf(cisp_handler.mb_started));
+            //Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version)+" "+String.valueOf(checkISP)+" "+String.valueOf(cisp_handler.mb_started));
             if(checkISP==true && cisp_handler.mb_started==true){
-                Log.v(TAG,"device check ok!=="+String.valueOf(isp_info.n_ISP_version));
+                //Log.v(TAG,"device check ok!=="+String.valueOf(isp_info.n_ISP_version));
                 lo_page.n_firm_main_ver .set((short)AcaiaUpdater.currentFirmware.mainVer);
                 lo_page.n_firm_sub_ver .set((short)AcaiaUpdater.currentFirmware.subVer);
                 // TODO: check 'T' char int val
                 lo_page.n_firm_add_ver .set((short)AcaiaUpdater.currentFirmware.addVer);
                 lo_page.n_firm_page .set((short)cisp_handler.mn_total_page);
-                Log.v(TAG,"cisp_handler.mn_total_page="+String.valueOf(cisp_handler.mn_total_page));
+                //Log.v(TAG,"cisp_handler.mn_total_page="+String.valueOf(cisp_handler.mn_total_page));
 
                 ln_len = DataOutHelper.pack_data(output_struct_.ls_out,(short)Isp.EISPCMD.e_ispcmd_start_s.ordinal(),lo_page.getConvertedByteArray(),srLenStruct.sr_len);
                 byte[] outt=DataOutHelper.u1_array_to_byte_array_withlen(output_struct_.ls_out,ln_len);

@@ -35,7 +35,7 @@ public class IspHelper {
         handler = h;
         currentModelName=firmwareFileEntity.model;
         File firmwareFile = new File(context.getFileStreamPath(firmwareFileEntity.fileName).getAbsolutePath());
-        Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
+        //Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
         cisphandler = new CISP_handler(firmwareFile);
 
         FileHandler.open_file(context, firmwareFile, cisphandler);

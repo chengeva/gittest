@@ -251,7 +251,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
             heartBeatTimer.cancel();;
             heartBeatTimer=null;
         }
-        Log.v("heartbeat","start heartbeat timer");
+        //Log.v("heartbeat","start heartbeat timer");
         heartBeatTimer=new Timer();
         heartBeatTimer.schedule(new HeartBeatTask(this),3000,1000);
     }
@@ -278,7 +278,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
 
         @Override
         public void run() {
-            //Log.v("test heartbeat","running heartbeat ");
+            ////Log.v("test heartbeat","running heartbeat ");
             if(scale.mScaleCommunicationService!=null) {
                 //scale.getScaleCommand().getWeight();
                 if(scale.mScaleCommunicationService.isConnected() && scale.mScaleCommunicationService.scaleGetStatue){
@@ -288,11 +288,11 @@ public class AcaiaScale2 extends  AcaiaScale  {
                     ///mScaleCommunicationService.sendHeartBeat();
                     try {
                         Thread.sleep(1000);
-                        //Log.v("test heartbeat","heartbeat ");
+                        ////Log.v("test heartbeat","heartbeat ");
                         //mScaleCommunicationService.sendCmdFromQueue(DataOutHelper.heartBeat());
                         // hanjord debug
                         if(get_status) {
-                            Log.v(TAG,"get staus!");
+                            //Log.v(TAG,"get staus!");
                             getScaleStatus();
                         }
                     }catch(Exception e){

@@ -177,7 +177,7 @@ public class MainDeviceActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DeviceModel dataModel=dataModels.get(i);
-                Log.v("MainDevice",dataModel.modelName);
+                //Log.v("MainDevice",dataModel.modelName);
                 if(dataModel.modelName.equals(AcaiaDevice.modelCinco)){
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "No new firmware available", Toast.LENGTH_LONG);
@@ -191,7 +191,7 @@ public class MainDeviceActivity extends ActionBarActivity {
                     parseFileRetriever.retrieveFirmwareFilesByModel(getApplicationContext(), acaiaDevice, new OnDataRetrieved() {
                         @Override
                         public void doneRetrieved(boolean success, String message) {
-                            Log.v("MainDevice", String.valueOf(success) + " " + message);
+                            //Log.v("MainDevice", String.valueOf(success) + " " + message);
                             if (dialog != null) {
                                 dialog.cancel();
                                 if (currentSelectedDevice != null) {

@@ -40,7 +40,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
             FirmwareModel firmwareModel=new FirmwareModel();
             firmwareModel.title=firmwareFileEntities.get(i).title;
             firmwareModel.caption=firmwareFileEntities.get(i).shortCap;
-            Log.v("FirmwareSelectListActivity","Got fw "+firmwareModel.title);
+            //Log.v("FirmwareSelectListActivity","Got fw "+firmwareModel.title);
             firmwareModels.add(firmwareModel);
         }
 
@@ -50,7 +50,7 @@ public class FirmwareSelectListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 FirmwareFileEntity firmwareFileEntity=firmwareFileEntitiesList.get(i);
-                Log.v("FirmwareSelectListActivity","choose: "+firmwareFileEntity.title);
+                //Log.v("FirmwareSelectListActivity","choose: "+firmwareFileEntity.title);
                 AcaiaUpdater.currentFirmware=new AcaiaFirmware(firmwareFileEntity);
                 finish();
             }

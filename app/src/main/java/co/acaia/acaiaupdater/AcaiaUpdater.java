@@ -23,7 +23,7 @@ public class AcaiaUpdater extends Application {
     public void onCreate() {
         super.onCreate();
         //EventBus.getDefault().register(this);
-        Log.v("AcaiaUpdater","Acaia Updater start!");
+        //Log.v("AcaiaUpdater","Acaia Updater start!");
         Realm.init(getApplicationContext());
 
         // create your Realm configuration
