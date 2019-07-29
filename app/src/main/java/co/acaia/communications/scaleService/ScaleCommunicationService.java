@@ -522,8 +522,10 @@ public class ScaleCommunicationService extends Service {
 
         if (mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
             //Log.v(TAG, "Trying to create a new connection. Pearls cinco");
-            mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
-            mBluetoothGatt = null;
+            if(mBM71Gatt==null) {
+                mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
+                mBluetoothGatt = null;
+            }
         } else {
             if(mBluetoothGatt == null && mConnectionState==CONNECTION_STATE_DISCONNECTED) {
                 mBluetoothAdapter.stopLeScan(mLeScanCallback);
