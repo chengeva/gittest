@@ -39,7 +39,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/icon_next3" />
+                android:background="@drawable/icon_next3"
+                android:visibility="invisible"/>
 
             <View
                 android:id="@+id/view"
@@ -48,10 +49,11 @@
                 android:layout_alignLeft="@id/tv_privacy"
                 android:layout_alignEnd="@id/imageView4"
                 android:layout_alignParentBottom="true"
-                android:background="#BCBBC1" />
+                android:background="#BCBBC1"
+                />
 
         </RelativeLayout>
-        v
+
 
         <RelativeLayout
             android:id="@+id/row_feedback"
@@ -80,7 +82,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/icon_next3" />
+                android:background="@drawable/icon_next3"
+                android:visibility="invisible"/>
 
             <View
                 android:id="@+id/view1"
@@ -119,7 +122,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/icon_next3" />
+                android:background="@drawable/icon_next3"
+                android:visibility="invisible"/>
 
             <View
                 android:id="@+id/view12"
