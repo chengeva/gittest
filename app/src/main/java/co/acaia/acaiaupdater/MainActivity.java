@@ -48,8 +48,8 @@ import de.greenrobot.event.EventBus;
 
 public class MainActivity extends ActionBarActivity {
     EventBus bus = EventBus.getDefault();
-    private final static String TAG = "OrangeDebug_" + MainActivity.class.getSimpleName();
-    public static final String ORANGE_TAG = "OrangeDebug";
+    private final static String TAG = "JordanDebug_" + MainActivity.class.getSimpleName();
+    public static final String ORANGE_TAG = "JordanDebug";
 
     private BluetoothAdapter mBluetoothAdapter;
     protected BluetoothManager bluetoothManager;
@@ -78,9 +78,15 @@ public class MainActivity extends ActionBarActivity {
      */
     FirmwareFileFactory firmwareFileFactory;
 
-    public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
+    /*public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
     public static final String new_client_key="4Mqo4vvon9yzlcLi7uty9UXLlQW5j4NjUzNIRgaV";
     public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
+    */
+
+    public static final String new_app_id="85k1oN8QoRyrSwP2Tl7LJfpgQEdfQfPYpEUDM5N1";
+    public static final String new_client_key="3sKqocyrUwcE0BVKUNLrCYFWyto4jPKQCnuKaGKM";
+    public static final String new_endpoint="https://parseapi.back4app.com/";
+
 
     //    actionbar;
     @SuppressLint("InvalidWakeLockTag")

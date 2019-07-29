@@ -76,6 +76,7 @@ public class FirmwareSelectActivity extends ActionBarActivity {
     private void setupViewWithModel(){
         boolean gotFirmware=false;
         if(AcaiaUpdater.currentFirmware==null){
+            Log.v("FirmwareSelect","Null firmware");
             ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
             // Improve later
             if(firmwareFileEntities.size()==0){
@@ -91,8 +92,11 @@ public class FirmwareSelectActivity extends ActionBarActivity {
                 AcaiaUpdater.currentFirmware = new AcaiaFirmware(firmwareFileEntity);
                 gotFirmware=true;
             }
+        }else{
+            gotFirmware=true;
         }
         if(gotFirmware) {
+            Log.v("FirmwareSelect","Got");
             firmwareLabel.setText(AcaiaUpdater.currentFirmware.title);
             firmwareRelease.setText(AcaiaUpdater.currentFirmware.detail);
         }
