@@ -584,56 +584,100 @@ public class ScaleCommunicationService extends Service {
 
     @SuppressLint("LongLogTag")
     public synchronized void disconnect() {
-        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-            Log.w(TAG, "BluetoothAdapter not initialized");
-            return;
-        }
-
-        try {
-            mBluetoothDevice = null;
-            mBluetoothDeviceAddress = null;
-            mBluetoothGatt.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
-        }
-
-        try {
-            if (mBluetoothGatt != null) {
-                mBluetoothGatt.close();
-                mBluetoothGatt = null;
+        if(mBM71Gatt!=null){
+            try {
+                mBluetoothDevice = null;
+                mBluetoothDeviceAddress = null;
+                mBM71Gatt.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
-        }
 
-
-        try {
-            mConnectionState = CONNECTION_STATE_DISCONNECTING;
-            mCurrentConnectedDeviceAddr = "";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            if (AcaiaUpdater.ispHelper != null) {
-                AcaiaUpdater. ispHelper.release();
-                AcaiaUpdater.ispHelper = null;
+            try {
+                if (mBM71Gatt != null) {
+                    mBM71Gatt.close();
+                    mBM71Gatt = null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
             }
-            //mBluetoothGatt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
+
+            try {
+                if (AcaiaUpdater.ispHelper != null) {
+                    AcaiaUpdater. ispHelper.release();
+                    AcaiaUpdater.ispHelper = null;
+                }
+                //mBluetoothGatt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
+            }
+            try {
+                EventBus.getDefault().post(new ScaleConnectionEvent(false));
+            } catch (Exception e) {
+                CommLogger.logv(TAG, "failed disconnect event post");
+                e.printStackTrace();
+                ;
+            }
+
+
+        }else {
+
+            if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+                Log.w(TAG, "BluetoothAdapter not initialized");
+                return;
+            }
+
+            try {
+                mBluetoothDevice = null;
+                mBluetoothDeviceAddress = null;
+                mBluetoothGatt.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
+            }
+
+            try {
+                if (mBluetoothGatt != null) {
+                    mBluetoothGatt.close();
+                    mBluetoothGatt = null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
+            }
+            try {
+                mConnectionState = CONNECTION_STATE_DISCONNECTING;
+                mCurrentConnectedDeviceAddr = "";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                if (AcaiaUpdater.ispHelper != null) {
+                    AcaiaUpdater. ispHelper.release();
+                    AcaiaUpdater.ispHelper = null;
+                }
+                //mBluetoothGatt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
+            }
+            try {
+                EventBus.getDefault().post(new ScaleConnectionEvent(false));
+            } catch (Exception e) {
+                CommLogger.logv(TAG, "failed disconnect event post");
+                e.printStackTrace();
+                ;
+            }
+
         }
-        try {
-            EventBus.getDefault().post(new ScaleConnectionEvent(false));
-        } catch (Exception e) {
-            CommLogger.logv(TAG, "failed disconnect event post");
-            e.printStackTrace();
-            ;
-        }
+
+
+
 
     }
 
@@ -1019,7 +1063,7 @@ public class ScaleCommunicationService extends Service {
             if (!isISPMode()) {
                 //Log.v(TAG,"App Mode!");
                 if (acaiaScale == null) {
-                    acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
+                    acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, true);
                 } else {
                     ////Log.v(TAG, "acaia scale not null");
                     // parse packet

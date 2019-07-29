@@ -289,17 +289,10 @@ public class ConnectScaleActivity extends ActionBarActivity {
                                 current_connection_state=STATE_OBTAININGINFO;
                                 update_view_status();
                             }
-                            tv_Update_status.setText(result);
-                            /*
-                            if(current_connection_state==STATE_CONFIRMED_DEVICE){
-
-                            }else{
-                                tv_Update_status.setText("Checking device...");
-                            }*/
-
-
-
-                            EventBus.getDefault().post(new WeightEvent(result));
+                            if(current_connection_state==STATE_CONNECTED) {
+                                tv_Update_status.setText(result);
+                                EventBus.getDefault().post(new WeightEvent(result));
+                            }
                             break;
 
                         case ScaleCommunicationService.DATA_TYPE_KEY_DISABLED_ELAPSED_TIME:

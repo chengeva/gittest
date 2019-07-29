@@ -73,7 +73,7 @@ public class DataPacketParser {
         //CommLogger.logv(TAG, "Testing parse packet end...");
     }
 
-    public static void parse_eventmsg(Struct.Unsigned8[] s_param,byte [] orig_data,Context context){
+    public static void parse_eventmsg(Struct.Unsigned8[] s_param,byte [] orig_data,Context context, boolean isCinco){
         final Intent intent = new Intent(ScaleCommunicationService.ACTION_DATA_AVAILABLE);
 
         int ln_length=s_param.length;
@@ -98,7 +98,10 @@ public class DataPacketParser {
                 CommLogger.logv(TAG,"weight error test="+error);
                 CommLogger.logv(TAG,"weight unit="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight="+String.valueOf(val));
-                if(unit==4)
+                if(isCinco==true){
+                    weightVal =(float)(val/10.0);
+                }
+                else if(unit==4)
                     weightVal =(float)(val/10000.0);
                 else if(unit==2)
                     weightVal =(float)(val/100.0);
@@ -269,7 +272,7 @@ public class DataPacketParser {
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_event_sa.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_event_sa");
-            parse_eventmsg(s_param,orig_data,context);
+            parse_eventmsg(s_param,orig_data,context,isCinco);
             // Parse the scale's event
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_str_sa.ordinal()){
