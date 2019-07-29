@@ -374,7 +374,17 @@ public class ScaleCommunicationService extends Service {
                     EventBus.getDefault().post(new ScaleConnectedEvent());
                     CommLogger.logv(TAG, "Service discover OK");
                     //mBluetoothGatt.beginReliableWrite();
-                    init_sync();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                init_sync();
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }, 100);
+
                     EventBus.getDefault().post(new ConnectionEvent(true));
 
                 } else {
