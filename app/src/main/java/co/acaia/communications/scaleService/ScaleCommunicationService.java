@@ -451,6 +451,7 @@ public class ScaleCommunicationService extends Service {
                         Log.v(TAG,"App Mode!");
                         if (acaiaScale == null) {
                             acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
+                            acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
                         } else {
                             //Log.v(TAG, "acaia scale not null");
                             // parse packet
