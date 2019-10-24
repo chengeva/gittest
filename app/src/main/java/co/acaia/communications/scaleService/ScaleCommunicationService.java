@@ -520,7 +520,7 @@ public class ScaleCommunicationService extends Service {
             return false;
         }
 
-        if (mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
+        if (mBluetoothDevice.getName().contains("PYXIS") || mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
             //Log.v(TAG, "Trying to create a new connection. Pearls cinco");
             if(mBM71Gatt==null) {
                 mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
