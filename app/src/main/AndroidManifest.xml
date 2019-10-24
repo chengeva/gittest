@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="co.acaia.acaiaupdater"
-    android:versionCode="21"
-    android:versionName="1.1.7">
+    android:versionCode="24"
+    android:versionName="1.1.9">
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"

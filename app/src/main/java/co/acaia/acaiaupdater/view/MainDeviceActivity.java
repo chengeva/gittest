@@ -178,39 +178,34 @@ public class MainDeviceActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DeviceModel dataModel=dataModels.get(i);
                 //Log.v("MainDevice",dataModel.modelName);
-                if(dataModel.modelName.equals(AcaiaDevice.modelCinco)){
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "No new firmware available", Toast.LENGTH_LONG);
-                    //顯示Toast
-                    toast.show();
-                }else {
-                    ParseFileRetriever parseFileRetriever = new ParseFileRetriever();
 
-                    AcaiaDevice acaiaDevice = AcaiaDeviceFactory.acaiaDeviceFromModelName(dataModel.modelName);
-                    currentSelectedDevice = acaiaDevice;
-                    parseFileRetriever.retrieveFirmwareFilesByModel(getApplicationContext(), acaiaDevice, new OnDataRetrieved() {
-                        @Override
-                        public void doneRetrieved(boolean success, String message) {
-                            //Log.v("MainDevice", String.valueOf(success) + " " + message);
-                            if (dialog != null) {
-                                dialog.cancel();
-                                if (currentSelectedDevice != null) {
-                                    nextActivity(currentSelectedDevice.modelName);
-                                }
+                ParseFileRetriever parseFileRetriever = new ParseFileRetriever();
+
+                AcaiaDevice acaiaDevice = AcaiaDeviceFactory.acaiaDeviceFromModelName(dataModel.modelName);
+                currentSelectedDevice = acaiaDevice;
+                parseFileRetriever.retrieveFirmwareFilesByModel(getApplicationContext(), acaiaDevice, new OnDataRetrieved() {
+                    @Override
+                    public void doneRetrieved(boolean success, String message) {
+                        //Log.v("MainDevice", String.valueOf(success) + " " + message);
+                        if (dialog != null) {
+                            dialog.cancel();
+                            if (currentSelectedDevice != null) {
+                                nextActivity(currentSelectedDevice.modelName);
                             }
                         }
-                    });
-                    dialog = ProgressDialog.show(MainDeviceActivity.this, "",
-                            "Downloading Firmware...", true);
-                    dialog.setCanceledOnTouchOutside(true);
-                    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialogInterface) {
-                            currentSelectedDevice = null;
-                            // Cancle firmware download...
-                        }
-                    });
-                }
+                    }
+                });
+                dialog = ProgressDialog.show(MainDeviceActivity.this, "",
+                        "Downloading Firmware...", true);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        currentSelectedDevice = null;
+                        // Cancle firmware download...
+                    }
+                });
+
             }
         });
 
