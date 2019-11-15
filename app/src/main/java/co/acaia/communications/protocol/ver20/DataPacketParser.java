@@ -115,7 +115,7 @@ public class DataPacketParser {
                 else if(unit==5)
                     weightVal =(float)(val/10000.0);
                 else if(unit==1)
-                    weightVal =(float)(val/100.0);
+                    weightVal =(float)(val/10.0);
                 String weightString = "";
                 if(isCinco==true){
                     if (unit == 2) {

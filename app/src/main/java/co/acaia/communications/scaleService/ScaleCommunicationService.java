@@ -1065,7 +1065,11 @@ public class ScaleCommunicationService extends Service {
             if (!isISPMode()) {
                 //Log.v(TAG,"App Mode!");
                 if (acaiaScale == null) {
-                    acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, true);
+                    if(gatt.getDevice().getName().contains("CINCO") || gatt.getDevice().getName().contains("PYXIS")) {
+                        acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, true);
+                    }else{
+                        acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
+                    }
                 } else {
                     ////Log.v(TAG, "acaia scale not null");
                     // parse packet
