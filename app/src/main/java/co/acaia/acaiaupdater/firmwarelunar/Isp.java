@@ -226,6 +226,11 @@ public class Isp {
                     return false;
                 }
             }
+
+            if(cisp_handler.mn_app_index>=15){
+                cisp_handler.reset();
+                return false;
+            }
             cisp_handler.mn_app_buffer[cisp_handler.mn_app_index].set((short) u_s_in);
             cisp_handler.mn_app_datasum.set(cisp_handler.mn_app_datasum.get() + 1);
             CommLogger.logv(TAG," cisp_handler.mn_app_datasum ="+String.valueOf( cisp_handler.mn_app_datasum ));
@@ -251,6 +256,7 @@ public class Isp {
                       FileHandler.net_event(cisp_handler,mScaleCommunicationService,modelName);
 
                 }else{
+                    CommLogger.logv(TAG,"Checksum error");
                     AcaiaUpdater.ispHelper.isISP=ISP_CHECK_APP;
                 }
 

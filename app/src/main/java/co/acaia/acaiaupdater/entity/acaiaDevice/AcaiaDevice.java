@@ -11,7 +11,7 @@ public class AcaiaDevice {
     public static final String modelOrion="Orion";
     public static final String modelPearlS="Pearl S";
     public static final String modelCinco="Cinco";
-
+    public static final String modelPyxis="Cinco";
     public AcaiaDevice (String modelName) {
         this.modelName = modelName;
     }
@@ -28,6 +28,10 @@ public class AcaiaDevice {
         }
         if(modelName.equals(modelOrion)){
             isps.add(70);
+        }
+
+        if(modelName.equals(modelCinco) || modelName.equals(modelPyxis)){
+            isps.add(22);
         }
 
         return isps;

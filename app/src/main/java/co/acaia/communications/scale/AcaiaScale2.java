@@ -40,7 +40,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
         handler=h;
         mo_prsdata=new ScaleProtocol.app_prsdata();
         DataPacketParser.init_app_prs_data(mo_prsdata);
-        startHeartBeat();
+        //startHeartBeat();
         EventBus.getDefault().post(new ProtocolModeEvent());
         this.isCinco=isCinco;
         get_status=true;

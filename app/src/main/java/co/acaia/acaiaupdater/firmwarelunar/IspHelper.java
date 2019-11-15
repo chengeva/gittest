@@ -43,6 +43,7 @@ public class IspHelper {
 
     public void parseDataPacket(byte[] data) {
         for (int i = 0; i != data.length; i++) {
+            Log.v(TAG,"Got data: "+String.valueOf(i)+" "+String.valueOf(data[i]));
             Isp.parse_input(cisphandler, data[i], context, mScaleCommunicationService,currentModelName);
         }
     }

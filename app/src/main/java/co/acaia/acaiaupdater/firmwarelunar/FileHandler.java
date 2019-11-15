@@ -172,7 +172,7 @@ public class FileHandler {
 
 
     public static void net_event(CISP_handler cisp_handler, ScaleCommunicationService mScaleCommunicationService, String modelName){
-        CommLogger.logv2(TAG, "net event!  cisp_handler.mn_app_cmdid=" + String.valueOf(cisp_handler.mn_app_cmdid));
+        CommLogger.logv(TAG, "net event!  cisp_handler.mn_app_cmdid=" + String.valueOf(cisp_handler.mn_app_cmdid));
         int ln_len;
         DataOutHelper.sr_len_struct srLenStruct = new DataOutHelper.sr_len_struct();
         srLenStruct.sr_len.set((short) Isp.PAGE_INFO_SIZE);
@@ -192,6 +192,7 @@ public class FileHandler {
 
 
             ArrayList<Integer> validISPs= AcaiaDevice.getValidISPFromModelName(modelName);
+            CommLogger.logv(TAG,"ispv="+String.valueOf(isp_info.n_ISP_version));
             boolean checkISP=false;
             for (int i=0;i!=validISPs.size();i++){
                 if(validISPs.get(i)==isp_info.n_ISP_version.get()){
