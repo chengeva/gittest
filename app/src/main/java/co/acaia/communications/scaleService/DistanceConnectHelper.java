@@ -86,6 +86,11 @@ public class DistanceConnectHelper {
             return false;
         }
 
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelCinco)){
+            if (!deviceName.startsWith("PYXIS") &&!deviceName.startsWith("CINCO")) {
+                return false;
+            }
+        }
         if(acaiaDevice.modelName.equals(AcaiaDevice.modelLunar)){
             if (!deviceName.startsWith("ACAIAL") && !deviceName.startsWith("PROCHBT") && !deviceName.startsWith("LINK")) {
                 return false;
