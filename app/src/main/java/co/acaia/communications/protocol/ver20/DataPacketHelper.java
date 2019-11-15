@@ -180,9 +180,18 @@ public class DataPacketHelper {
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
 
             // weird: s_param != orig_data
-            scale_status scaleStatus=new scale_status(getByteArrayFromU1(s_param,0,scale_status.getSize()));
-            CommLogger.logv(TAG,"curr unit="+String.valueOf(scaleStatus.n_unit.get()));
-            acaiaScale.n_unit=scaleStatus.n_unit.get();
+            scale_status scaleStatus=null;
+            try{
+               scaleStatus=new scale_status(getByteArrayFromU1(s_param,0,scale_status.getSize()));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if (scaleStatus!=null) {
+                CommLogger.logv(TAG, "curr unit=" + String.valueOf(scaleStatus.n_unit.get()));
+                acaiaScale.n_unit = scaleStatus.n_unit.get();
+            }else{
+                CommLogger.logv(TAG, "curr unit null");
+            }
             DataOutHelper. default_event();
 
         }else if(n_event== e_cmd_event_sa.ordinal()){

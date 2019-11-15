@@ -103,7 +103,7 @@ public class DataPacketParser {
                 CommLogger.logv(TAG,"aunit=="+String.valueOf(acaiaScale.n_unit));
                 if(isCinco==true){
                     //weightVal =(float)(val/10.0);
-                    if(unit==2){
+                    if(acaiaScale.n_unit==2){
                         weightVal =(float)(val/100.0);
                     }else{
                         weightVal =(float)(val/10000.0);
@@ -269,13 +269,14 @@ public class DataPacketParser {
             EventBus.getDefault().post(updatedStatusEvent);
             EventBus.getDefault().post(new UpdateISPEvent(scale_info_.n_ISP_version.get()));
             //Log.v("GOT ISP","isp version="+String.valueOf(scale_info_.n_ISP_version.get()));
-
+            acaiaScale.startHeartBeat();
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
             String deb="";
             CommLogger.logv("packet_status_raw", deb);
             co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status scaleStatus=new co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status(ByteDataHelper.getByteArrayFromU1(s_param, 0, co.acaia.communications.protocol.ver20.ScaleProtocol.scale_status.getSize()));
             // PROCESS STATUS HERE
+            acaiaScale.n_unit = scaleStatus.n_unit.get();
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_BEEP,(float)scaleStatus.n_setting_sound.get());
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_KEY_DISABLED_ELAPSED_TIME,(float)scaleStatus.n_setting_keydisable.get());
             sendIntent(context,ScaleCommunicationService.DATA_TYPE_AUTO_OFF_TIME,(float)scaleStatus.n_setting_sleep.get());

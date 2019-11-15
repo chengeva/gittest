@@ -324,17 +324,10 @@ public class ScaleProtocol {
         }
 
         public scale_status(byte[] b) {
-            byte[] bb = ByteBuffer.wrap(b).order(j2me.nio.ByteOrder.LITTLE_ENDIAN).array();
-            String deb = "";
-            for (int i = 0; i != bb.length * 8; i++) {
-                deb += String.valueOf(getBit(bb, i));
-                if ((i + 1) % 8 == 0) {
-                    deb += " ";
-                }
-            }
-            CommLogger.logv("status_raw", deb);
+            //byte[] bb = ByteBuffer.wrap(b).order(j2me.nio.ByteOrder.LITTLE_ENDIAN).array();
+
             this.setByteBuffer(ByteBuffer.wrap(b).order(j2me.nio.ByteOrder.LITTLE_ENDIAN), 0);
-            test();
+            //test();
         }
 
         private void test() {
