@@ -100,6 +100,7 @@ public class DataPacketParser {
                 CommLogger.logv(TAG,"weight error test="+error);
                 CommLogger.logv(TAG,"weight unit="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight="+String.valueOf(val));
+                CommLogger.logv(TAG,"aunit=="+String.valueOf(acaiaScale.n_unit));
                 if(isCinco==true){
                     //weightVal =(float)(val/10.0);
                     if(unit==2){

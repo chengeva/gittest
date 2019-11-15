@@ -251,6 +251,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
         stopHeartHeat();
     }
 
+    @Override
     public void startHeartBeat(){
         if(heartBeatTimer!=null){
             heartBeatTimer.cancel();;
@@ -267,7 +268,8 @@ public class AcaiaScale2 extends  AcaiaScale  {
     }
 
     private Boolean getScaleStatus(){
-        return mScaleCommunicationService.sendCmdwithResponse(DataOutHelper.app_command((short)ScaleProtocol.ECMD.e_cmd_status_s.ordinal()));
+        //return mScaleCommunicationService.sendCmdwithResponse(DataOutHelper.app_command((short)ScaleProtocol.ECMD.e_cmd_status_s.ordinal()));
+        return mScaleCommunicationService.sendStatus();
     }
     /*
         Old protocol needs a get data task

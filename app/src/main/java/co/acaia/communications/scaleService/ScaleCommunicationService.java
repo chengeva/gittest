@@ -31,6 +31,7 @@ import co.acaia.communications.events.SendDataEvent;
 import co.acaia.communications.protocol.ScaleGattAttributes;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
 import co.acaia.communications.protocol.ver20.DataPacketParser;
+import co.acaia.communications.protocol.ver20.ScaleProtocol;
 import co.acaia.communications.reliableQueue.ReliableSenderQueue;
 import co.acaia.communications.scale.AcaiaScale;
 import co.acaia.communications.scale.AcaiaScale2;
@@ -971,6 +972,12 @@ public class ScaleCommunicationService extends Service {
     public Boolean sendCmdwithResponse(byte[] Command) {
         // reliableSenderQueue.sendHighPriorityJob(Command, 1);
         sendCmdFromQueue(Command);
+        return true;
+    }
+
+    public Boolean sendStatus() {
+        if (!isISPMode())
+            sendCmdwithResponse(DataOutHelper.app_command((short) ScaleProtocol.ECMD.e_cmd_status_s.ordinal()));
         return true;
     }
 
