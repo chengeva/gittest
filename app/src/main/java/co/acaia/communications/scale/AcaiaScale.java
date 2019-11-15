@@ -10,6 +10,7 @@ public abstract class AcaiaScale {
     public static final int protocol_version_old=0;
     public static final int protocol_version_18=1;
     public static final int protocol_version_20=2;
+    public int n_unit;
 
 //    private final static String TAG = AcaiaScale.class.getSimpleName();
 //    private Context mCtx = null;

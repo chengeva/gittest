@@ -6,6 +6,7 @@ import static co.acaia.communications.protocol.ver20.ScaleProtocol.gs_header;
 
 import co.acaia.acaiaupdater.Events.UpdateISPEvent;
 import co.acaia.communications.events.ScaleFirmwareVersionEvent;
+import co.acaia.communications.scale.AcaiaScale;
 import co.acaia.communications.scaleService.gatt.Log;
 import co.acaia.communications.scaleevent.UpdatedStatusEvent;
 import javolution.io.Struct;
@@ -49,7 +50,7 @@ public class DataPacketParser {
         final Intent intent = new Intent(action);
         context.sendBroadcast(intent);
     }
-    public static void ParseData(app_prsdata o_data,byte[] sdata,Context context, boolean isSette, boolean isCinco){
+    public static void ParseData(app_prsdata o_data,byte[] sdata,Context context, boolean isSette, boolean isCinco, AcaiaScale acaiaScale){
 //        CommLogger.logv(TAG, "Testing parse packet...");
 //        CommLogger.logv(TAG, "Testing parse packet length=" + sdata.length);
 
@@ -57,7 +58,7 @@ public class DataPacketParser {
         for(int i=0;i!=sdata.length;i++){
             // CommLogger.logv(TAG,String.valueOf((int)sdata[i]));
 
-            int parse_result= app_uartin(o_data,sdata[i],sdata,context, isSette,isCinco);
+            int parse_result= app_uartin(o_data,sdata[i],sdata,context, isSette,isCinco,  acaiaScale);
             if(parse_result==0){
                 break;
             }else if(parse_result== EDATA_RESULT.e_result_error_char.ordinal()){
@@ -73,7 +74,7 @@ public class DataPacketParser {
         //CommLogger.logv(TAG, "Testing parse packet end...");
     }
 
-    public static void parse_eventmsg(Struct.Unsigned8[] s_param,byte [] orig_data,Context context, boolean isCinco){
+    public static void parse_eventmsg(Struct.Unsigned8[] s_param,byte [] orig_data,Context context, boolean isCinco, AcaiaScale acaiaScale){
         final Intent intent = new Intent(ScaleCommunicationService.ACTION_DATA_AVAILABLE);
 
         int ln_length=s_param.length;
@@ -95,11 +96,17 @@ public class DataPacketParser {
                 // hanjord warning: check weight empty error
                 String error=String.valueOf(wtevent.getWeight());
                 long val=wtevent.getWeight();
+                Log.v("ISCINCO","DP="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight error test="+error);
                 CommLogger.logv(TAG,"weight unit="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight="+String.valueOf(val));
                 if(isCinco==true){
-                    weightVal =(float)(val/10.0);
+                    //weightVal =(float)(val/10.0);
+                    if(unit==2){
+                        weightVal =(float)(val/100.0);
+                    }else{
+                        weightVal =(float)(val/1000.0);
+                    }
                 }
                 else if(unit==4)
                     weightVal =(float)(val/10000.0);
@@ -110,24 +117,34 @@ public class DataPacketParser {
                 else if(unit==1)
                     weightVal =(float)(val/100.0);
                 String weightString = "";
+                if(isCinco==true){
+                    if (unit == 2) {
+                        // gram
+                        weightString = String.format("%.2f", weightVal);
+                        intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
 
-                if (unit == 2) {
-                    // gram
-                    weightString = String.format("%.1f", weightVal);
-                    intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
+                    }else{
+                        weightString = String.format("%.3f", weightVal);
+                        intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_OUNCE);
+                    }
+                }else {
+                    if (unit == 2) {
+                        // gram
+                        weightString = String.format("%.1f", weightVal);
+                        intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
 
-                } else if(unit==4){
-                    weightString = String.format("%.3f", weightVal);
-                    intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_OUNCE);
-                }
-                else if (unit == 1) {
-                    // gram
-                    weightString = String.format("%.1f", weightVal);
-                    intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
+                    } else if (unit == 4) {
+                        weightString = String.format("%.3f", weightVal);
+                        intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_OUNCE);
+                    } else if (unit == 1) {
+                        // gram
+                        weightString = String.format("%.1f", weightVal);
+                        intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
 
-                } else if(unit==5){
-                    weightString = String.format("%.3f", weightVal);
-                    intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_OUNCE);
+                    } else if (unit == 5) {
+                        weightString = String.format("%.3f", weightVal);
+                        intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_OUNCE);
+                    }
                 }
 
                     /*
@@ -233,7 +250,7 @@ public class DataPacketParser {
         }
     }
 
-    public static void app_event(app_prsdata o_data,byte n_cbid,int n_event,Struct.Unsigned8[] s_param,byte[] orig_data,Context context, boolean isCinco){
+    public static void app_event(app_prsdata o_data,byte n_cbid,int n_event,Struct.Unsigned8[] s_param,byte[] orig_data,Context context, boolean isCinco,  AcaiaScale acaiaScale){
 
         // u1 ln_receiverid = -1;
         int ln_loop = 0;
@@ -272,7 +289,7 @@ public class DataPacketParser {
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_event_sa.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_event_sa");
-            parse_eventmsg(s_param,orig_data,context,isCinco);
+            parse_eventmsg(s_param,orig_data,context,isCinco,acaiaScale);
             // Parse the scale's event
 
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_str_sa.ordinal()){
@@ -300,7 +317,7 @@ public class DataPacketParser {
         return s_out;
     }
 
-    public static int app_uartin(app_prsdata o_data,byte s_in,byte[] orig_data,Context context, boolean isSette, boolean isCinco){
+    public static int app_uartin(app_prsdata o_data,byte s_in,byte[] orig_data,Context context, boolean isSette, boolean isCinco,  AcaiaScale acaiaScale){
         int mn_appstep=o_data.mn_appstep.get();
 //          CommLogger.logv(TAG,"----------------");
 //          CommLogger.logv(TAG,"mn_appstep = "+String.valueOf(mn_appstep)+", val="+String.valueOf(s_in));
@@ -371,7 +388,7 @@ public class DataPacketParser {
                 // CommLogger.logv(TAG,"o_data.mn_app_datasum="+String.valueOf(o_data.mn_app_datasum.get()));
                 if (o_data.mn_app_checksum.get() == o_data.mn_app_datasum.get()) {
                     // CommLogger.logv(TAG,"parse success!");
-                    app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data,context,isCinco);
+                    app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data,context,isCinco,acaiaScale);
 
                 }else{
                     //Log.v("DataPacketParser","Check sum error!");

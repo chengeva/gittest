@@ -281,7 +281,7 @@ public class ConnectScaleActivity extends ActionBarActivity {
                             if(unit==0){
                                 result=result+"g";
                             }else{
-                                result=result+"ozWeightEvent";
+                                result=result+"oz";
                             }
                             ////Log.v("ConnectScaleActivity",result);
 

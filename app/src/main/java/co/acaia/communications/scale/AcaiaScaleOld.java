@@ -77,6 +77,12 @@ public class AcaiaScaleOld extends AcaiaScale {
             }
 
             @Override
+            public void parseDataPacketCinco(byte[] data, AcaiaScale acaiaScale) {
+
+            }
+
+
+            @Override
             public boolean connect(String addr) {
                 return false;
             }

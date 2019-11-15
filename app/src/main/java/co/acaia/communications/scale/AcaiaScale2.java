@@ -56,7 +56,12 @@ public class AcaiaScale2 extends  AcaiaScale  {
         scaleCommand=new AcaiaScaleCommand() {
             @Override
             public void parseDataPacket(byte[] data) {
-                DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco);
+                DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco,null);
+            }
+
+            @Override
+            public void parseDataPacketCinco(byte[] data, AcaiaScale acaiaScale) {
+                DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco,acaiaScale);
             }
 
 
@@ -278,7 +283,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
 
         @Override
         public void run() {
-            ////Log.v("test heartbeat","running heartbeat ");
+           CommLogger.logv("test heartbeat","running heartbeat ");
             if(scale.mScaleCommunicationService!=null) {
                 //scale.getScaleCommand().getWeight();
                 if(scale.mScaleCommunicationService.isConnected() && scale.mScaleCommunicationService.scaleGetStatue){

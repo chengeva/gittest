@@ -174,7 +174,7 @@ public class ScaleCommunicationService extends Service {
     // Distance connect helper
     DistanceConnectHelper distanceConnectHelper;
 
-    public boolean scaleGetStatue = false;
+    public boolean scaleGetStatue = true;
 
     // Microchip
     private Bm71GattListener mBM71Listener;
@@ -1078,7 +1078,7 @@ public class ScaleCommunicationService extends Service {
                     AcaiaUpdater.ispHelper.parseDataPacket(chrc.getValue());
 
                     if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
-                        acaiaScale.getScaleCommand().parseDataPacket(chrc.getValue());
+                        acaiaScale.getScaleCommand().parseDataPacketCinco(chrc.getValue(),acaiaScale);
                     }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
                         setIsISP(true);
                     }

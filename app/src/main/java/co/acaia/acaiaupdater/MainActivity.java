@@ -380,7 +380,7 @@ public class MainActivity extends ActionBarActivity {
                             if(unit==0){
                                 result=result+"g";
                             }else{
-                                result=result+"ozWeightEvent";
+                                result=result+"oz";
                             }
                             EventBus.getDefault().post(new WeightEvent(result));
                             break;

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.ScaleDataParser;
 import co.acaia.communications.events.ScaleDataEvent;
+import co.acaia.communications.scale.AcaiaScale;
 import de.greenrobot.event.EventBus;
 import javolution.io.Struct;
 
@@ -128,12 +129,12 @@ public class DataPacketHelper {
         o_data.mn_app_datasum .set((short)0);
 
     }
-    public static int check_protocol_type(byte sdata[]){
+    public static int check_protocol_type(byte sdata[],AcaiaScale acaiaScale){
         app_prsdata mo_prsdata=new app_prsdata();
         // warning: need a factory method to do this
         init_app_prs_data(mo_prsdata);
         for(int i=0;i!=sdata.length;i++){
-            int parse_result= app_uartin(mo_prsdata,sdata[i],sdata);
+            int parse_result= app_uartin(mo_prsdata,sdata[i],sdata,acaiaScale);
             CommLogger.logv(TAG, "Parse result" + String.valueOf(parse_result));
             if(parse_result==EDATA_RESULT.e_result_error_char.ordinal()){
                 CommLogger.logv(TAG, "Parse Error!");
@@ -144,7 +145,7 @@ public class DataPacketHelper {
         }
         return 1;
     }
-    public static void test_parse_packet( byte sdata[]){
+    public static void test_parse_packet( byte sdata[],AcaiaScale acaiaScale){
         CommLogger.logv(TAG, "Testing parse packet...");
         CommLogger.logv(TAG, "Testing parse packet length=" + sdata.length);
         app_prsdata mo_prsdata=new app_prsdata();
@@ -155,7 +156,7 @@ public class DataPacketHelper {
         for(int i=0;i!=sdata.length;i++){
            // CommLogger.logv(TAG,String.valueOf((int)sdata[i]));
 
-           int parse_result= app_uartin(mo_prsdata,sdata[i],sdata);
+           int parse_result= app_uartin(mo_prsdata,sdata[i],sdata,acaiaScale);
             if(parse_result==EDATA_RESULT.e_result_error_char.ordinal()){
                 CommLogger.logv(TAG, "Parse Error!");
                 break;
@@ -164,7 +165,7 @@ public class DataPacketHelper {
         CommLogger.logv(TAG, "Testing parse packet end...");
     }
 
-    public static void app_event(app_prsdata o_data,byte n_cbid,int n_event,Struct.Unsigned8[] s_param,byte[] orig_data){
+    public static void app_event(app_prsdata o_data, byte n_cbid, int n_event, Struct.Unsigned8[] s_param, byte[] orig_data, AcaiaScale acaiaScale){
 
        // u1 ln_receiverid = -1;
         int ln_loop = 0;
@@ -176,30 +177,11 @@ public class DataPacketHelper {
             DataOutHelper.sent_appid(o_data, "012345678901234".getBytes());
         }else if(n_event== e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
-           /* byte[]debug=getByteArrayFromU1(s_param,0,scale_status.getSize());
-            for(int i=0;i!=scale_status.getSize();i++){
-                CommLogger.logv("status","status["+String.valueOf(i)+"]"+String.valueOf(debug[i]));
-            }*/
-            String deb="";
-            for(int i=0;i!=orig_data.length*8;i++){
-                deb+=String.valueOf(getBit(orig_data,i));
-                if((i+1)%8==0){
-                    deb+=" ";
-                }
-            }
-            CommLogger.logv("packet_status_raw", deb);
-           byte[]debug = getByteArrayFromU1(s_param,0,scale_status.getSize());
-            deb="";
-            for(int i=0;i!=debug.length*8;i++){
-                deb+=String.valueOf(getBit(debug,i));
-                if((i+1)%8==0){
-                    deb+=" ";
-                }
-            }
-            CommLogger.logv("packet_status_spa", deb);
+
             // weird: s_param != orig_data
-            // bug
             scale_status scaleStatus=new scale_status(getByteArrayFromU1(s_param,0,scale_status.getSize()));
+            CommLogger.logv(TAG,"curr unit="+String.valueOf(scaleStatus.n_unit.get()));
+            acaiaScale.n_unit=scaleStatus.n_unit.get();
             DataOutHelper. default_event();
         }else if(n_event== e_cmd_event_sa.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_event_sa");
@@ -317,7 +299,7 @@ public class DataPacketHelper {
         return 0;
     }
 
-    public static int app_uartin(app_prsdata o_data,byte s_in,byte[] orig_data){
+    public static int app_uartin(app_prsdata o_data,byte s_in,byte[] orig_data, AcaiaScale acaiaScale){
         int mn_appstep=o_data.mn_appstep.get();
        // CommLogger.logv(TAG,"----------------");
        // CommLogger.logv(TAG,"mn_appstep="+String.valueOf(mn_appstep));
@@ -370,7 +352,7 @@ public class DataPacketHelper {
                 CommLogger.logv(TAG, "o_data.mn_app_datasum=" + String.valueOf(o_data.mn_app_datasum.get()));
                 if (o_data.mn_app_checksum.get() == o_data.mn_app_datasum.get()) {
                     CommLogger.logv(TAG, "parse success!");
-                    app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data);
+                    app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data,acaiaScale);
                 }
                 o_data.mn_app_cmdid .set((short)0);
                 o_data.mn_app_checksum .set((short)0);
