@@ -251,7 +251,7 @@ public class AcaiaScale2 extends  AcaiaScale  {
         stopHeartHeat();
     }
 
-    private void startHeartBeat(){
+    public void startHeartBeat(){
         if(heartBeatTimer!=null){
             heartBeatTimer.cancel();;
             heartBeatTimer=null;

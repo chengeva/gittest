@@ -17,7 +17,9 @@ public abstract class AcaiaScale {
     protected ScaleCommunicationService mScaleCommunicationService = null;
     protected AcaiaScaleCommand scaleCommand;
 
+    public void startHeartBeat(){
 
+    }
     public AcaiaScaleCommand getScaleCommand(){
         return scaleCommand;
     }

@@ -105,7 +105,7 @@ public class DataPacketParser {
                     if(unit==2){
                         weightVal =(float)(val/100.0);
                     }else{
-                        weightVal =(float)(val/1000.0);
+                        weightVal =(float)(val/10000.0);
                     }
                 }
                 else if(unit==4)
@@ -124,7 +124,7 @@ public class DataPacketParser {
                         intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
 
                     }else{
-                        weightString = String.format("%.3f", weightVal);
+                        weightString = String.format("%.4f", weightVal);
                         intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_OUNCE);
                     }
                 }else {

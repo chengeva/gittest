@@ -175,6 +175,7 @@ public class DataPacketHelper {
         if(n_event==e_cmd_info_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_info_a");
             DataOutHelper.sent_appid(o_data, "012345678901234".getBytes());
+            acaiaScale.startHeartBeat();
         }else if(n_event== e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
 
@@ -183,6 +184,7 @@ public class DataPacketHelper {
             CommLogger.logv(TAG,"curr unit="+String.valueOf(scaleStatus.n_unit.get()));
             acaiaScale.n_unit=scaleStatus.n_unit.get();
             DataOutHelper. default_event();
+
         }else if(n_event== e_cmd_event_sa.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_event_sa");
             parse_eventmsg(s_param,orig_data);
