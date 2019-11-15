@@ -101,15 +101,8 @@ public class DataPacketParser {
                 CommLogger.logv(TAG,"weight unit="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight="+String.valueOf(val));
                 CommLogger.logv(TAG,"aunit=="+String.valueOf(acaiaScale.n_unit));
-                if(isCinco==true){
-                    //weightVal =(float)(val/10.0);
-                    if(acaiaScale.n_unit==2){
-                        weightVal =(float)(val/100.0);
-                    }else{
-                        weightVal =(float)(val/10000.0);
-                    }
-                }
-                else if(unit==4)
+
+                 if(unit==4)
                     weightVal =(float)(val/10000.0);
                 else if(unit==2)
                     weightVal =(float)(val/100.0);
@@ -121,6 +114,16 @@ public class DataPacketParser {
                     unit=5;
                     weightVal =(float)(val/1000.0);
                 }
+
+                if(isCinco==true){
+                    //weightVal =(float)(val/10.0);
+                    if(acaiaScale.n_unit==2){
+                        weightVal =(float)(val/100.0);
+                    }else{
+                        weightVal =(float)(val/10000.0);
+                    }
+                }
+
                 String weightString = "";
                 if(isCinco==true){
                     if (acaiaScale.n_unit == 2) {
