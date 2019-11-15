@@ -468,6 +468,7 @@ public class ScaleCommunicationService extends Service {
                                 acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
                             }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
                                 setIsISP(true);
+                                scaleGetStatue=false;
                             }
                             //  update connection
                         }
@@ -1092,6 +1093,7 @@ public class ScaleCommunicationService extends Service {
                         acaiaScale.getScaleCommand().parseDataPacketCinco(chrc.getValue(),acaiaScale);
                     }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
                         setIsISP(true);
+                        scaleGetStatue=false;
                     }
                     //  update connection
                 }
