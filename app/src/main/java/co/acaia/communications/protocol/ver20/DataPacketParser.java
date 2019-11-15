@@ -119,7 +119,7 @@ public class DataPacketParser {
                     weightVal =(float)(val/10.0);
                 String weightString = "";
                 if(isCinco==true){
-                    if (unit == 2) {
+                    if (acaiaScale.n_unit == 2) {
                         // gram
                         weightString = String.format("%.2f", weightVal);
                         intent.putExtra(ScaleCommunicationService.EXTRA_UNIT, ScaleCommunicationService.UNIT_GRAM);
