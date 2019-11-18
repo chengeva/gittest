@@ -67,9 +67,7 @@ public class Scale {
     };
 	
 
-	public boolean connect(String addr) {
-		return (mScaleService != null)?mScaleService.connect(addr):false;
-	}
+
 	
 	public boolean disconnect() {
 		if (mScaleService == null) return false;

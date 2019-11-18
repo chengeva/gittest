@@ -384,46 +384,7 @@ public class ScaleService extends Service {
 		Log.i(TAG, "Service Get Stat _batt_resp_count:" + Integer.toString(_batt_resp_cnt));
     }
     
-    public boolean connect(String targetBtAddress) {
-    	if (mBluetoothAdapter == null || targetBtAddress == null) {
-            Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
-            return false;
-        }
-/* It make long response time for reconnect */ 
-        // Previously connected device.  Try to reconnect.
-        if (mBluetoothDeviceAddress != null && targetBtAddress.equals(mBluetoothDeviceAddress)
-                && mBluetoothGatt != null) {
-            Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
-            if (mBluetoothGatt.connect()) {
-                mConnectionState = CONNECTION_STATE_CONNECTING;
-                return true;
-            } else {
-                return false;
-            }
-        }
 
-        /*
-    	if (mConnectionState == STATE_CONNECTED || mConnectionState == STATE_CONNECTING) {
-    		if (mBluetoothGatt.connect()) {
-    			
-    		}
-    	}*/
-
-        //final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(targetBtAddress);
-    	mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(targetBtAddress);
-        if (mBluetoothDevice == null) {
-            Log.w(TAG, "Device not found.  Unable to connect.");
-            return false;
-        }
-        
-        // We want to directly connect to the device, so we are setting the autoConnect
-        // parameter to false.
-        mBluetoothGatt = mBluetoothDevice.connectGatt(this, false, mGattCallback);
-        Log.d(TAG, "Trying to create a new connection.");
-        mBluetoothDeviceAddress = targetBtAddress;
-        mConnectionState = CONNECTION_STATE_CONNECTING;
-        return true;
-    }
     
     public void disconnect() {
     	if (mBluetoothAdapter == null || mBluetoothGatt == null) {

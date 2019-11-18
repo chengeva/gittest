@@ -237,6 +237,8 @@ public class Isp {
         } else if ( cisp_handler.mn_appstep == EPARSER_PROCESS.e_prs_checksum.ordinal()) {
             cisp_handler.mn_app_checksum.set((cisp_handler.mn_app_checksum.get() << 8) + u_s_in);
         }
+
+
         cisp_handler.mn_app_index++;
         CommLogger.logv(TAG,"cisp_handler.mn_app_index "+String.valueOf(cisp_handler.mn_app_index));
         CommLogger.logv(TAG,"cisp_handler.mn_app_len "+String.valueOf(cisp_handler.mn_app_len));

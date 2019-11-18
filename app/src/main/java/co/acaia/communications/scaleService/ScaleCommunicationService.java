@@ -218,11 +218,6 @@ public class ScaleCommunicationService extends Service {
             }
         } else if (event.command == ScaleConnectionCommandEventType.connection_command.DISCONNECT.ordinal()) {
             disconnect();
-        } else if ((event.command == ScaleConnectionCommandEventType.connection_command.AUTO_CONNECT.ordinal())) {
-            if (!isConnected()) {
-                AutoConnectHelper autoConnectHelper = new AutoConnectHelper(mBluetoothAdapter);
-                autoConnectHelper.startAutoConnect(AutoConnectHelper.mode_auto);
-            }
         }
     }
 
@@ -333,6 +328,7 @@ public class ScaleCommunicationService extends Service {
                             AcaiaUpdater.ispHelper.release();
                             AcaiaUpdater.ispHelper = null;
                         }
+                        resetAcaiaScale();
                         EventBus.getDefault().post(new ConnectionEvent(false));
                         last_received = 0;
                         mCurrentConnectedDeviceAddr = "";
@@ -428,6 +424,15 @@ public class ScaleCommunicationService extends Service {
 
         public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
             CommLogger.logv(TAG, "onReliableWriteCompleted received=" + String.valueOf(status));
+        }
+
+        public void resetAcaiaScale()
+        {
+            if(acaiaScale!=null){
+                acaiaScale.release();
+                acaiaScale=null;
+            }
+
         }
 
         @SuppressLint("LongLogTag")
@@ -1142,6 +1147,10 @@ public class ScaleCommunicationService extends Service {
             //mBM71Gatt.disconnect();
             mConnectionState = CONNECTION_STATE_DISCONNECTED;
             EventBus.getDefault().post(new ScaleConnectionEvent(false));
+            if(acaiaScale!=null){
+                acaiaScale.release();
+                acaiaScale=null;
+            }
         }
     }
 
