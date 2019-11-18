@@ -516,6 +516,7 @@ public class ScaleCommunicationService extends Service {
     public boolean connect(final String targetBtAddress) {
         // Stop BLE scan before connecting
         stopScan();
+
         if (mBluetoothAdapter == null || targetBtAddress == null) {
             Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
             return false;
@@ -527,11 +528,14 @@ public class ScaleCommunicationService extends Service {
             return false;
         }
 
+        if(mConnectionState==CONNECTION_STATE_CONNECTING) return false;
+        CommLogger.logv(TAG,"Connect to:"+targetBtAddress);
         if (mBluetoothDevice.getName().contains("PYXIS") || mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
             //Log.v(TAG, "Trying to create a new connection. Pearls cinco");
             if(mBM71Gatt==null) {
                 mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
                 mBluetoothGatt = null;
+                mConnectionState = CONNECTION_STATE_CONNECTING;
             }
         } else {
             if(mBluetoothGatt == null && mConnectionState==CONNECTION_STATE_DISCONNECTED) {
@@ -765,7 +769,7 @@ public class ScaleCommunicationService extends Service {
                     sendBroadcast(intent);*/
 
                     if (mMode == MODE.DISTANCE) {
-                        //Log.v(TAG, "scanned device name: " + device.getName() + ", address: " + device.getAddress());
+                        CommLogger.logv(TAG, "distance scanned device name: " + device.getName() + ", address: " + device.getAddress());
                         if (distanceConnectHelper.onNewScannedDevice(device, (double) rssi) == true) {
 
                             stopScan();
