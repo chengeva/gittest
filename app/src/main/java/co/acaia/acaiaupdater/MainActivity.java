@@ -85,8 +85,8 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String new_app_id="85k1oN8QoRyrSwP2Tl7LJfpgQEdfQfPYpEUDM5N1";
     public static final String new_client_key="3sKqocyrUwcE0BVKUNLrCYFWyto4jPKQCnuKaGKM";
-    public static final String new_endpoint="https://parseapi.back4app.com/";
-
+    //public static final String new_endpoint="https://parseapi.back4app.com/";
+    public static final String new_endpoint="http://api-updater.acaia.net/";
 
     //    actionbar;
     @SuppressLint("InvalidWakeLockTag")
