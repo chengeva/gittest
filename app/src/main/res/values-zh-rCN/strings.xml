@@ -92,13 +92,14 @@
 
     <!-- Text that appears when updating -->
     <string name="firmware_update_done">固件更新完成</string>
-    <string name="Firmware_updating">固件更新中...</string>
-    <string name="Updating_Firmware">更新固件中 ...</string>
-    <string name="Erasing_previous_Firmware">清除旧有版本...</string>
+    <string name="Firmware_updating">固件更新中</string>
+    <string name="Updating_Firmware">更新固件中</string>
+    <string name="Erasing_previous_Firmware">清除旧有版本</string>
     <string name="Disconnected_while_updating">连接中断。重新连接或重启程式</string>
     <string name="error_while_updating">连接错误。请重新启动App以及智能秤</string>
     <string name="start_firmware_update_when_updating">开始固件更新</string>
     <string name="Firmware_Update_Done_when_updating">固件更新完成</string>
+    <string name="Firmware_Update_Done＿Btn">完成</string>
     <string name="connect_scale_first">请先连接智能秤.</string>
     <!---Feedback -->
     <string name="Full_Name">全名</string>

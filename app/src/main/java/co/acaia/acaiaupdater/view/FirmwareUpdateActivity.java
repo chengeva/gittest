@@ -73,7 +73,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Toast toast = Toast.makeText(getApplicationContext(),
-                "Updating firmware...", Toast.LENGTH_LONG);
+                "Updating firmware", Toast.LENGTH_LONG);
         //顯示Toast
         toast.show();
     }
@@ -136,7 +136,8 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    btn_updating.setText(getResources().getString(R.string.Firmware_Update_Done_when_updating));
+                    Update_status.setText(getResources().getString(R.string.Firmware_Update_Done_when_updating));
+                    btn_updating.setText(getResources().getString(R.string.Firmware_Update_Done＿Btn));
                     upload_firmware_done_log();
                     current_updating_state=STATE_UPDATE_COMPLETE;
                 }
@@ -148,7 +149,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Update_status.setText("Updating Firmware...");
+                Update_status.setText("Updating Firmware");
                 tv_progress.setText(String.valueOf((int)event.process)+"%");
             }
         });
@@ -158,7 +159,7 @@ public class FirmwareUpdateActivity extends ActionBarActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Update_status.setText("Erasing Previous Firmware...");
+                Update_status.setText("Erasing Previous Firmware");
                 tv_progress.setText(String.valueOf((int)event.process)+"%");
             }
         });
