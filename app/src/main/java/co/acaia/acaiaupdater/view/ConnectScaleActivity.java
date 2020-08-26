@@ -164,8 +164,22 @@ public class ConnectScaleActivity extends AppCompatActivity {
                 tv_disconnect.setVisibility(View.GONE);
                 tv_current_firmware.setVisibility(View.GONE);
                 connectButton.setText("Connect");
-                tv_Updating_progress.setText("Connect to "+currentSelectedDevice.modelName);
-                tv_Update_status.setText("Please place your phone\n close to "+currentSelectedDevice.modelName);
+
+                if(currentSelectedDevice.modelName.equals("Cinco")){
+                    tv_Updating_progress.setText("Connect to "+"Pyxis / Cinco");
+                }else{
+                    tv_Updating_progress.setText("Connect to "+currentSelectedDevice.modelName);
+                }
+
+                if(currentSelectedDevice.modelName.equals("Cinco")){
+
+                    tv_Update_status.setText("Please place your phone\n close to "+"Pyxis / Cinco");
+                }else{
+
+                    tv_Update_status.setText("Please place your phone\n close to "+currentSelectedDevice.modelName);
+                }
+
+
                 break;
             default:
                 break;
