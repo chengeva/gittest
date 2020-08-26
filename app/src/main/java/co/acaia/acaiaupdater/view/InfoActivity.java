@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import co.acaia.acaiaupdater.ui.FeedbackInitActivity;
 import co.acaia.androidupdater.R;
 
 public class InfoActivity extends AppCompatActivity {
@@ -45,9 +46,9 @@ public class InfoActivity extends AppCompatActivity {
         row_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent=new Intent();
-                //intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
-               // startActivity(intent);
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
+                 startActivity(intent);
             }
         });
         row_about=findViewById(R.id.row_about);

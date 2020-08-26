@@ -116,6 +116,13 @@
             android:label="@string/title_activity_select_firmware"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name="co.acaia.acaiaupdater.ui.FeedbackInitActivity"
+            android:label="@string/title_activity_feedback_init"
+        android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>
