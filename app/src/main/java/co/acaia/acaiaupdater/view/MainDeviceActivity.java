@@ -69,11 +69,7 @@ public class MainDeviceActivity extends AppCompatActivity {
     // New service
     private AcaiaScaleService acaiaScaleCommunicationService = null;
     private Handler handler;
-
-    public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
-    public static final String new_client_key="4Mqo4vvon9yzlcLi7uty9UXLlQW5j4NjUzNIRgaV";
-    public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +169,9 @@ public class MainDeviceActivity extends AppCompatActivity {
         dataModels.add(deviceModel);
         deviceModel=new DeviceModel("Cinco");
         dataModels.add(deviceModel);
+        deviceModel=new DeviceModel("Astra");
+        dataModels.add(deviceModel);
+
         adapter= new CustomAdaptor(dataModels,getApplicationContext());
         listview_devicelist.setAdapter(adapter);
         listview_devicelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {

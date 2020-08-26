@@ -12,6 +12,7 @@ public class AcaiaDevice {
     public static final String modelPearlS="Pearl S";
     public static final String modelCinco="Cinco";
     public static final String modelPyxis="Cinco";
+    public static final String modelAstra="Astra";
     public AcaiaDevice (String modelName) {
         this.modelName = modelName;
     }

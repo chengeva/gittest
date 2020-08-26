@@ -65,6 +65,9 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
             if(dataModel.modelName.equals(AcaiaDevice.modelCinco)) {
                 viewHolder.deviceImage.setImageResource(R.drawable.img_cinco_done);
             }
+            if(dataModel.modelName.equals(AcaiaDevice.modelAstra)) {
+                viewHolder.deviceImage.setVisibility(View.INVISIBLE);
+            }
             result=convertView;
 
             convertView.setTag(viewHolder);

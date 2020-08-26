@@ -14,6 +14,7 @@ import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.Events.DeviceWrongEvent;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
+import co.acaia.acaiaupdater.entity.acaiaDevice.Astra;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
@@ -199,6 +200,9 @@ public class FileHandler {
                     checkISP=true;
                     EventBus.getDefault().post(new DeviceOKEvent());
                 }
+            }
+            if(modelName.equals(Astra.modelAstra)){
+                checkISP=true;
             }
 
             //Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version)+" "+String.valueOf(checkISP)+" "+String.valueOf(cisp_handler.mb_started));

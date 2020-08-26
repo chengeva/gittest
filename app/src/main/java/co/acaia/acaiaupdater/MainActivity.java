@@ -89,16 +89,19 @@ public class MainActivity extends AppCompatActivity {
     /*
     Staging
      */
-    public static final String new_app_id="8CXIItW3lA7Tct4xu6u358UNbNjijShqHMQ4MNqs";
-    public static final String new_client_key="lskfYShnnrLFyjTisfpDLPNQfHhqNsiNNejI7jPq";
-    public static final String new_endpoint="https://pg-app-2ofw88apxr7zrli6e7h6tulzaj94ax.scalabl.cloud/1/";
+   // public static final String new_app_id="8CXIItW3lA7Tct4xu6u358UNbNjijShqHMQ4MNqs";
+   // public static final String new_client_key="lskfYShnnrLFyjTisfpDLPNQfHhqNsiNNejI7jPq";
+   // public static final String new_endpoint="https://pg-app-2ofw88apxr7zrli6e7h6tulzaj94ax.scalabl.cloud/1/";
 
-    /*
+
     // Production
-        public static final String app_id="q0rZrvt0WXb8TvlfE4c61ODQqeOl3HTEEp7Q3qgB";
-    public static final String client_key="LKsVXdYOI22U4lHV5B0IJGD0qICXzA9awAELx0sO";
-    public static final String app_server="https://parseapi.back4app.com/";
-     */
+
+    public static final String new_app_id="q0rZrvt0WXb8TvlfE4c61ODQqeOl3HTEEp7Q3qgB";
+    public static final String new_client_key="LKsVXdYOI22U4lHV5B0IJGD0qICXzA9awAELx0sO";
+
+    // Fix for China
+    public static final String new_endpoint="https://api-updater.acaia.net/";
+
 
     //    actionbar;
     @SuppressLint("InvalidWakeLockTag")

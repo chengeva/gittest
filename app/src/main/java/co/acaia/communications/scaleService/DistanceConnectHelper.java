@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
+import co.acaia.communications.scaleService.gatt.Log;
 
 public class DistanceConnectHelper {
 
@@ -81,9 +82,9 @@ public class DistanceConnectHelper {
         }
 
         String deviceName = bluetoothDevice.getName();
-
+        Log.v("TESTING DEVICE","DEVICENAME "+deviceName);
         if (!deviceName.startsWith("PYXIS") &&!deviceName.startsWith("CINCO") && !deviceName.startsWith("ORION") &&!deviceName.startsWith("acaia") && !deviceName.startsWith("PEARLS") && !deviceName.startsWith("ACAIA") && !deviceName.startsWith("PROCHBT") && !deviceName.startsWith("LINK")) {
-            return false;
+            //return false;
         }
 
         if(acaiaDevice.modelName.equals(AcaiaDevice.modelCinco)){
@@ -108,6 +109,13 @@ public class DistanceConnectHelper {
                 return false;
             }
         }
+
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelAstra)){
+            if (!deviceName.startsWith("ASTRA") &&!deviceName.startsWith("ASQE")) {
+                return false;
+            }
+        }
+
 
         String deviceAddr = bluetoothDevice.getAddress();
 

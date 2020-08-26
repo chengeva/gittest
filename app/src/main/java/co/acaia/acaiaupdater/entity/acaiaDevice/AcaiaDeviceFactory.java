@@ -1,5 +1,6 @@
 package co.acaia.acaiaupdater.entity.acaiaDevice;
 
+import static co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice.modelAstra;
 import static co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice.modelCinco;
 import static co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice.modelLunar;
 import static co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice.modelOrion;
@@ -18,6 +19,9 @@ public class AcaiaDeviceFactory {
         }
         if(modelName.equals(modelOrion)){
             return new Orion(modelName);
+        }
+        if(modelName.equals(modelAstra)){
+            return new Astra(modelName);
         }
         return null;
     }

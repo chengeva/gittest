@@ -106,6 +106,11 @@ public class FirmwareUpdateActivity extends AppCompatActivity {
         if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelCinco)){
             image_device.setImageResource(R.drawable.img_cinco_done);
         }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelAstra)){
+            image_device.setVisibility(View.INVISIBLE);
+        }
+
+
 
         Update_status.setText("Checking device");
 
@@ -128,8 +133,13 @@ public class FirmwareUpdateActivity extends AppCompatActivity {
     }
 
     public void onEvent(DeviceWrongEvent deviceWrongEvent){
-        Update_status.setText("Wronge device. Please restart firmware update.");
-        current_updating_state=STATE_UPDATE_WRONG_DEVICE;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Update_status.setText("Wronge device. Please restart firmware update.");
+                current_updating_state=STATE_UPDATE_WRONG_DEVICE;
+            }
+        });
     }
 
     public void onEvent(UpdateStatusEvent event){
