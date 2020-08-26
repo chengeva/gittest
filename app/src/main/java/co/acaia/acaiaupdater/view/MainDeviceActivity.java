@@ -169,8 +169,7 @@ public class MainDeviceActivity extends AppCompatActivity {
         dataModels.add(deviceModel);
         deviceModel=new DeviceModel("Cinco");
         dataModels.add(deviceModel);
-        deviceModel=new DeviceModel("Astra");
-        dataModels.add(deviceModel);
+
 
         adapter= new CustomAdaptor(dataModels,getApplicationContext());
         listview_devicelist.setAdapter(adapter);

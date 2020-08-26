@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Production
 
-    public static final String new_app_id="q0rZrvt0WXb8TvlfE4c61ODQqeOl3HTEEp7Q3qgB";
-    public static final String new_client_key="LKsVXdYOI22U4lHV5B0IJGD0qICXzA9awAELx0sO";
+    public static final String new_app_id="85k1oN8QoRyrSwP2Tl7LJfpgQEdfQfPYpEUDM5N1";
+    public static final String new_client_key="3sKqocyrUwcE0BVKUNLrCYFWyto4jPKQCnuKaGKM";
 
     // Fix for China
     public static final String new_endpoint="https://api-updater.acaia.net/";

@@ -106,9 +106,7 @@ public class FirmwareUpdateActivity extends AppCompatActivity {
         if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelCinco)){
             image_device.setImageResource(R.drawable.img_cinco_done);
         }
-        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelAstra)){
-            image_device.setVisibility(View.INVISIBLE);
-        }
+
 
 
 

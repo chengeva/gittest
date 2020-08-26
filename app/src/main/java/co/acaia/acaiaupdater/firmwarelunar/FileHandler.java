@@ -1,7 +1,6 @@
 package co.acaia.acaiaupdater.firmwarelunar;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +13,6 @@ import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.Events.DeviceWrongEvent;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
-import co.acaia.acaiaupdater.entity.acaiaDevice.Astra;
 import co.acaia.communications.CommLogger;
 import co.acaia.communications.protocol.ver20.ByteDataHelper;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
@@ -22,8 +20,6 @@ import co.acaia.communications.scaleService.ScaleCommunicationService;
 import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
 import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
-import co.acaia.androidupdater.R;
-import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import de.greenrobot.event.EventBus;
 
 import static co.acaia.acaiaupdater.firmwarelunar.Isp.ISP_INFO_LENGTH;
@@ -201,9 +197,7 @@ public class FileHandler {
                     EventBus.getDefault().post(new DeviceOKEvent());
                 }
             }
-            if(modelName.equals(Astra.modelAstra)){
-                checkISP=true;
-            }
+
 
             //Log.v(TAG,"ISP version=="+String.valueOf(isp_info.n_ISP_version)+" "+String.valueOf(checkISP)+" "+String.valueOf(cisp_handler.mb_started));
             if(checkISP==true && cisp_handler.mb_started==true){

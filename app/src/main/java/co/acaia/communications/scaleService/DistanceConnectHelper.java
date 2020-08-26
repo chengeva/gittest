@@ -110,11 +110,6 @@ public class DistanceConnectHelper {
             }
         }
 
-        if(acaiaDevice.modelName.equals(AcaiaDevice.modelAstra)){
-            if (!deviceName.startsWith("ASTRA") &&!deviceName.startsWith("ASQE")) {
-                return false;
-            }
-        }
 
 
         String deviceAddr = bluetoothDevice.getAddress();
