@@ -1,9 +1,11 @@
 package co.acaia.acaiaupdater.view.deviceList;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 
-import co.acaia.acaiaupdater.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import co.acaia.androidupdater.R;
 
 public class UpdateFirmwareActivity extends AppCompatActivity {
 

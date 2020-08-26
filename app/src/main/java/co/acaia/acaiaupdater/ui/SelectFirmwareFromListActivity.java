@@ -1,7 +1,7 @@
 package co.acaia.acaiaupdater.ui;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,12 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 
-public class SelectFirmwareFromListActivity extends ActionBarActivity {
+public class SelectFirmwareFromListActivity extends AppCompatActivity {
     ListView firmwareListView;
     List<FirmwareFileEntity> firmwareFileEntities;
     public static final int result_ver = 2;

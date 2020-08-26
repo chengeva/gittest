@@ -1,15 +1,17 @@
 package co.acaia.acaiaupdater.ui;
 
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import co.acaia.acaiaupdater.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class CheckFirmwareActivity extends ActionBarActivity {
+import co.acaia.androidupdater.R;
+
+public class CheckFirmwareActivity extends AppCompatActivity {
     Typeface type;
     TextView tv_acaia;
     TextView tv_set;

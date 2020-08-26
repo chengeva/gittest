@@ -1,15 +1,17 @@
 package co.acaia.acaiaupdater.view;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;

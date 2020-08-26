@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 
@@ -25,7 +27,7 @@ import co.acaia.acaiaupdater.Events.DeviceOKEvent;
 import co.acaia.acaiaupdater.Events.DisconnectDeviceEvent;
 import co.acaia.acaiaupdater.Events.StartFirmwareUpdateEvent;
 import co.acaia.acaiaupdater.Events.UpdateISPEvent;
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.ScaleService;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
@@ -40,7 +42,7 @@ import co.acaia.communications.scaleevent.ScaleSettingUpdateEventType;
 import co.acaia.communications.scaleevent.UpdatedStatusEvent;
 import de.greenrobot.event.EventBus;
 
-public class ConnectScaleActivity extends ActionBarActivity {
+public class ConnectScaleActivity extends AppCompatActivity {
     private Button connectButton;
     private TextView tv_Updating_progress;
     private TextView tv_Update_status;

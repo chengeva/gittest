@@ -1,13 +1,15 @@
 package co.acaia.acaiaupdater.ui;
 
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import co.acaia.acaiaupdater.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class TroubleShootingActivity extends ActionBarActivity {
+import co.acaia.androidupdater.R;
+
+public class TroubleShootingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

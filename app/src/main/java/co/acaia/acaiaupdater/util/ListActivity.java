@@ -2,21 +2,23 @@ package co.acaia.acaiaupdater.util;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import co.acaia.acaiaupdater.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.ui.CheckFirmwareActivity;
 import co.acaia.acaiaupdater.ui.ConnectScaleWithAppActivity;
 import co.acaia.acaiaupdater.ui.FirmwareUpdateActivity;
 import co.acaia.acaiaupdater.ui.StartFirmwareUpdate;
 import co.acaia.acaiaupdater.ui.TroubleShootingActivity;
 
-public class ListActivity extends ActionBarActivity {
+public class ListActivity extends AppCompatActivity {
 
 
     public final static String TYPE = "type";

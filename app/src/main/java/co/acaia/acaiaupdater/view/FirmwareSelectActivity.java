@@ -1,8 +1,8 @@
 package co.acaia.acaiaupdater.view;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,19 +11,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import co.acaia.acaiaupdater.AcaiaUpdater;
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
 
-public class FirmwareSelectActivity extends ActionBarActivity {
+public class FirmwareSelectActivity extends AppCompatActivity {
     private AcaiaDevice currentSelectedDevice;
     private TextView firmwareLabel;
     private TextView firmwareRelease;

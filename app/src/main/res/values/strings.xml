@@ -145,7 +145,7 @@
     <string name="Version_Detail">Version Detail</string>
     <string name="Select_Firmware_Version">Select Firmware Version</string>
     <string name="Feedback">Feedback</string>
-    <string name="select_scale">Select Scale</string>   
+    <string name="select_scale">Select Scale</string>
     <!-- Combined Updater Select Firmware -->
 
     <string name="Avaliable_Firmware">Available Firmware</string>
@@ -157,4 +157,5 @@
     <string name="updating_progress">0%</string>
     <string name="erasing_previous_fw">Erasing Previous Firmware</string>
     <string name="updating">Updating</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

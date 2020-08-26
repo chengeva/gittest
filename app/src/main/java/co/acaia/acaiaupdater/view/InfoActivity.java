@@ -6,17 +6,18 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import co.acaia.acaiaupdater.FeedbackInitActivity;
-import co.acaia.acaiaupdater.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class InfoActivity extends ActionBarActivity {
+import co.acaia.androidupdater.R;
+
+public class InfoActivity extends AppCompatActivity {
 
     private TextView tv_version;
     private RelativeLayout row_privacy;
@@ -44,9 +45,9 @@ public class InfoActivity extends ActionBarActivity {
         row_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent();
-                intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent();
+                //intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
+               // startActivity(intent);
             }
         });
         row_about=findViewById(R.id.row_about);

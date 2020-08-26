@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.view.deviceList.DeviceModel;
 import co.acaia.communications.scaleService.gatt.Log;
 

@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -33,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
+import co.acaia.androidupdater.R;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleDisconnectedEvent;
 import co.acaia.communications.events.ScaleFirmwareVersionEvent;
@@ -95,8 +97,6 @@ public class FirmwareUpdateFragment extends Fragment {
     // connection state
     private boolean isConnected=false;
 
-    public static final String app_id="q0rZrvt0WXb8TvlfE4c61ODQqeOl3HTEEp7Q3qgB";
-    public static final String client_key="LKsVXdYOI22U4lHV5B0IJGD0qICXzA9awAELx0sO";
 
     // scale version
 
@@ -241,7 +241,12 @@ public class FirmwareUpdateFragment extends Fragment {
     {
 
         try {
-            Parse.initialize(getActivity(), app_id, client_key);
+            Parse.initialize(new Parse.Configuration.Builder(getActivity())
+                    .applicationId(MainActivity.new_app_id)
+                    .clientKey(MainActivity.new_client_key)
+                    .server(MainActivity.new_endpoint)
+                    .build()
+            );
         }catch (Exception e){
 
         }
@@ -282,7 +287,12 @@ public class FirmwareUpdateFragment extends Fragment {
     private void upload_firmware_done_log()
     {
         try {
-            Parse.initialize(getActivity(), app_id, client_key);
+            Parse.initialize(new Parse.Configuration.Builder(getActivity())
+                    .applicationId(MainActivity.new_app_id)
+                    .clientKey(MainActivity.new_client_key)
+                    .server(MainActivity.new_endpoint)
+                    .build()
+            );
         }catch (Exception e){
 
         }

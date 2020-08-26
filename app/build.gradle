@@ -3,58 +3,33 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
-
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "co.acaia.androidupdater"
         minSdkVersion 23
         targetSdkVersion 28
-
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    sourceSets.main {
-
-        jni.srcDirs = [] //disable automatic ndk-build call
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/notice.txt'
     }
 }
 
 dependencies {
-
-    implementation 'commons-io:commons-io:2.4'
-    //compile 'com.github.satyan:sugar:1.3'
-    implementation 'com.android.support:appcompat-v7:21.0.+'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    compile files('libs/eventbus.jar')
-    compile files('libs/javolution-5.5.1.jar')
-    compile files('libs/HockeySDK-3.5.0.jar')
-    implementation 'com.parse:parse-android:1.16.3' //update version to the latest one
-    implementation 'com.parse.bolts:bolts-android:1.+'
-    implementation 'com.zendesk:sdk:1.3.2.1'
-    //compile 'io.realm:realm-android:5.12.0'
-    //compile 'io.realm:android-adapters:2.1.1'
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'com.google.android.material:material:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:1.24.1"
+    implementation group: 'com.zendesk', name: 'support', version: '3.0.2'
+    //implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'androidx.multidex:multidex:2.0.0'
 }

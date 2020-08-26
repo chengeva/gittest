@@ -17,13 +17,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.parse.Parse;
 
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import co.acaia.acaiaupdater.entity.FirmwareUnitTests;
 import co.acaia.acaiaupdater.filehelper.FileHelperUnitTests;
 import co.acaia.acaiaupdater.filehelper.ParseFileRetriever;
+import co.acaia.androidupdater.R;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.ble.events.ScaleFoundEvent;
 import co.acaia.ble.events.ScaleListChangeEvent;
@@ -45,8 +47,9 @@ import co.acaia.communications.scaleevent.ScaleSettingUpdateEventType;
 import co.acaia.acaiaupdater.filehelper.FirmwareFileFactory;
 import co.acaia.acaiaupdater.util.Utils;
 import de.greenrobot.event.EventBus;
+import io.realm.Realm;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     EventBus bus = EventBus.getDefault();
     private final static String TAG = "JordanDebug_" + MainActivity.class.getSimpleName();
     public static final String ORANGE_TAG = "JordanDebug";
@@ -83,10 +86,19 @@ public class MainActivity extends ActionBarActivity {
     public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
     */
 
-    public static final String new_app_id="85k1oN8QoRyrSwP2Tl7LJfpgQEdfQfPYpEUDM5N1";
-    public static final String new_client_key="3sKqocyrUwcE0BVKUNLrCYFWyto4jPKQCnuKaGKM";
-    //public static final String new_endpoint="https://parseapi.back4app.com/";
-    public static final String new_endpoint="https://api-updater.acaia.net/";
+    /*
+    Staging
+     */
+    public static final String new_app_id="8CXIItW3lA7Tct4xu6u358UNbNjijShqHMQ4MNqs";
+    public static final String new_client_key="lskfYShnnrLFyjTisfpDLPNQfHhqNsiNNejI7jPq";
+    public static final String new_endpoint="https://pg-app-2ofw88apxr7zrli6e7h6tulzaj94ax.scalabl.cloud/1/";
+
+    /*
+    // Production
+        public static final String app_id="q0rZrvt0WXb8TvlfE4c61ODQqeOl3HTEEp7Q3qgB";
+    public static final String client_key="LKsVXdYOI22U4lHV5B0IJGD0qICXzA9awAELx0sO";
+    public static final String app_server="https://parseapi.back4app.com/";
+     */
 
     //    actionbar;
     @SuppressLint("InvalidWakeLockTag")
@@ -106,6 +118,7 @@ public class MainActivity extends ActionBarActivity {
 
         handler = new Handler();
         mLeDeviceList = new ArrayList<>();
+
 
         if (!getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_BLUETOOTH_LE)) {
@@ -274,9 +287,9 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
                 return true;
             case R.id.menu_main_feedback:
-                Intent intent=new Intent();
-                intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
-                startActivity(intent);
+               // Intent intent=new Intent();
+               // intent.setClass(getApplicationContext(), FeedbackInitActivity.class);
+               // startActivity(intent);
               /*  Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:developer@acaia.co"));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT,

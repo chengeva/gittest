@@ -32,6 +32,7 @@
     <dimen name="radius_of_button">4dp</dimen>
 
     <dimen name="font_main_dp">20sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>

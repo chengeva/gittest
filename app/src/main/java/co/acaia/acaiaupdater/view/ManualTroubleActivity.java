@@ -1,9 +1,11 @@
 package co.acaia.acaiaupdater.view;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -12,7 +14,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;

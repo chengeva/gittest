@@ -741,6 +741,7 @@ public class ScaleCommunicationService extends Service {
         }
 
         stopScan();
+
         if (!mBluetoothAdapter.startLeScan(mLeScanCallback)) {
             Log.d(TAG, "startLeScan Error");
         }
@@ -767,7 +768,7 @@ public class ScaleCommunicationService extends Service {
                     intent.putExtra(EXTRA_DEVICE, device);
                     intent.putExtra(EXTRA_RSSI, rssi);
                     sendBroadcast(intent);*/
-
+                    CommLogger.logv(TAG, "address" + device.getAddress() + ",RSSI=" + String.valueOf(rssi));
                     if (mMode == MODE.DISTANCE) {
                         CommLogger.logv(TAG, "distance scanned device name: " + device.getName() + ", address: " + device.getAddress());
                         if (distanceConnectHelper.onNewScannedDevice(device, (double) rssi) == true) {

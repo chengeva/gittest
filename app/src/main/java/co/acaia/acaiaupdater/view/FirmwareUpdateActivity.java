@@ -6,8 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -25,12 +27,12 @@ import co.acaia.acaiaupdater.Events.DeviceWrongEvent;
 import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
 import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
 import de.greenrobot.event.EventBus;
 
-public class FirmwareUpdateActivity extends ActionBarActivity {
+public class FirmwareUpdateActivity extends AppCompatActivity {
     private static int STATE_UPDATE_INIT=0;
     private static int STATE_UPDATE_CHECKING_FW=0;
     private static int STATE_UPDATE_UPDATING=0;

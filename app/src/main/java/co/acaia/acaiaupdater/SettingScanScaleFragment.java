@@ -13,7 +13,6 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.ListFragment;
+
+import co.acaia.androidupdater.R;
 import co.acaia.communications.scalecommand.ScaleConnectionCommandEvent;
 import co.acaia.communications.scalecommand.ScaleConnectionCommandEventType;
 import de.greenrobot.event.EventBus;

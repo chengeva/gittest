@@ -21,7 +21,7 @@ import co.acaia.communications.scaleService.ScaleCommunicationService;
 import co.acaia.acaiaupdater.Events.UpdateEraseProgress;
 import co.acaia.acaiaupdater.Events.UpdateProgress;
 import co.acaia.acaiaupdater.Events.UpdateStatusEvent;
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.rawfile.RawFileHelper;
 import de.greenrobot.event.EventBus;
 

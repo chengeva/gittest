@@ -2,18 +2,22 @@ package co.acaia.acaiaupdater;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
+import co.acaia.androidupdater.R;
 import co.acaia.communications.scaleevent.ScaleConnectionEvent;
 import de.greenrobot.event.EventBus;
 
 
-public class SettingScanScaleListActivity extends ActionBarActivity {
+public class SettingScanScaleListActivity extends AppCompatActivity {
     EventBus bus=EventBus.getDefault();
     private boolean mScanning;
 

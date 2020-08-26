@@ -1,7 +1,7 @@
 package co.acaia.acaiaupdater.ui;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import co.acaia.acaiaupdater.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import de.greenrobot.event.EventBus;
 
-public class SelectFirmwareActivity extends ActionBarActivity {
+public class SelectFirmwareActivity extends AppCompatActivity {
     public static final int PICK_FIRMWARE = 1;  // The request code
 
     public static final String extra_firmware_ver = "ver";

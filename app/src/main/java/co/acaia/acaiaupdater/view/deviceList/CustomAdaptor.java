@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 
 public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnClickListener{

@@ -13,8 +13,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +24,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.parse.Parse;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import co.acaia.acaiaupdater.AcaiaUpdater;
 import co.acaia.acaiaupdater.FirmwareUpdateFragment;
 import co.acaia.acaiaupdater.MainActivity;
-import co.acaia.acaiaupdater.R;
+import co.acaia.androidupdater.R;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
 import co.acaia.acaiaupdater.entity.acaiaDevice.Lunar;
@@ -44,7 +46,7 @@ import co.acaia.communications.scalecommand.ScaleCommandEvent;
 import co.acaia.communications.scalecommand.ScaleCommandType;
 import de.greenrobot.event.EventBus;
 
-public class MainDeviceActivity extends ActionBarActivity {
+public class MainDeviceActivity extends AppCompatActivity {
 
     private ListView listview_devicelist;
     ArrayList<DeviceModel> dataModels;
