@@ -17,7 +17,7 @@ public class FileHelperUnitTests {
         parseFileRetriever.retrieveFirmwareFilesByModel(context,lunar, new OnDataRetrieved() {
             @Override
             public void doneRetrieved(boolean success, String message) {
-                //Log.v(TAGG,String.valueOf(success)+" "+message);
+                //// Log.v(TAGG,String.valueOf(success)+" "+message);
             }
         });
     }

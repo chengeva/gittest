@@ -101,7 +101,7 @@ public final class Log {
 
     public static void v(String tag, String msg) {
         if (sDebug) {
-            //android.util.//Log.v(TAG, msg);
+            //android.util.//// Log.v(TAG, msg);
         }
     }
 
@@ -131,7 +131,7 @@ public final class Log {
 
     public static void v(String tag, String msg, Exception e) {
         if (sDebug) {
-           // android.util.//Log.v(TAG, msg, e);
+           // android.util.//// Log.v(TAG, msg, e);
         }
     }
 }

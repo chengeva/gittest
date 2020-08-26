@@ -96,7 +96,7 @@ public class DataPacketParser {
                 // hanjord warning: check weight empty error
                 String error=String.valueOf(wtevent.getWeight());
                 long val=wtevent.getWeight();
-                Log.v("ISCINCO","DP="+String.valueOf(wtevent.getUnit()));
+                //// Log.v("ISCINCO","DP="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight error test="+error);
                 CommLogger.logv(TAG,"weight unit="+String.valueOf(wtevent.getUnit()));
                 CommLogger.logv(TAG,"weight="+String.valueOf(val));
@@ -275,7 +275,7 @@ public class DataPacketParser {
             UpdatedStatusEvent updatedStatusEvent=new UpdatedStatusEvent(scale_info_.getMainVersion(),scale_info_.getSubVersion(),scale_info_.getAddVersion());
             EventBus.getDefault().post(updatedStatusEvent);
             EventBus.getDefault().post(new UpdateISPEvent(scale_info_.n_ISP_version.get()));
-            //Log.v("GOT ISP","isp version="+String.valueOf(scale_info_.n_ISP_version.get()));
+            //// Log.v("GOT ISP","isp version="+String.valueOf(scale_info_.n_ISP_version.get()));
             acaiaScale.startHeartBeat();
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
@@ -330,7 +330,7 @@ public class DataPacketParser {
         int mn_appstep=o_data.mn_appstep.get();
 //          CommLogger.logv(TAG,"----------------");
 //          CommLogger.logv(TAG,"mn_appstep = "+String.valueOf(mn_appstep)+", val="+String.valueOf(s_in));
-        // //Log.v(TAG,"mn_appstep = "+String.valueOf(mn_appstep)+", o_data.mn_app_datasum val="+String.valueOf( o_data.mn_app_datasum));
+        // //// Log.v(TAG,"mn_appstep = "+String.valueOf(mn_appstep)+", o_data.mn_app_datasum val="+String.valueOf( o_data.mn_app_datasum));
 
         if(mn_appstep== ScaleProtocol.EAPP_PROCESS.e_prs_checkheader.ordinal()){
             //  CommLogger.logv(TAG,"e_prs_checkheader="+String.valueOf(ByteDataHelper.getUnsignedByte(s_in)));
@@ -400,7 +400,7 @@ public class DataPacketParser {
                     app_event(o_data,o_data.mn_id,o_data.mn_app_cmdid.get(),o_data.mn_app_buffer,orig_data,context,isCinco,acaiaScale);
 
                 }else{
-                    //Log.v("DataPacketParser","Check sum error!");
+                    //// Log.v("DataPacketParser","Check sum error!");
                 }
                 o_data.mn_app_cmdid .set((short)0);
                 o_data.mn_app_checksum .set((short)0);

@@ -177,7 +177,7 @@ public class MainDeviceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DeviceModel dataModel=dataModels.get(i);
-                //Log.v("MainDevice",dataModel.modelName);
+                //// Log.v("MainDevice",dataModel.modelName);
 
                 ParseFileRetriever parseFileRetriever = new ParseFileRetriever();
 
@@ -186,7 +186,7 @@ public class MainDeviceActivity extends AppCompatActivity {
                 parseFileRetriever.retrieveFirmwareFilesByModel(getApplicationContext(), acaiaDevice, new OnDataRetrieved() {
                     @Override
                     public void doneRetrieved(boolean success, String message) {
-                        //Log.v("MainDevice", String.valueOf(success) + " " + message);
+                        //// Log.v("MainDevice", String.valueOf(success) + " " + message);
                         if (dialog != null) {
                             dialog.cancel();
                             if (currentSelectedDevice != null) {

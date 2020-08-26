@@ -95,7 +95,7 @@ public class SettingScanScaleListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        //Log.v("Scan scale","item.getItemId()="+String.valueOf(item.getItemId()));
+        //// Log.v("Scan scale","item.getItemId()="+String.valueOf(item.getItemId()));
 
         switch (item.getItemId()){
             case R.id.menu_scan:

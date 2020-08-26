@@ -82,7 +82,7 @@ public class DistanceConnectHelper {
         }
 
         String deviceName = bluetoothDevice.getName();
-        Log.v("TESTING DEVICE","DEVICENAME "+deviceName);
+        // Log.v("TESTING DEVICE","DEVICENAME "+deviceName);
         if (!deviceName.startsWith("PYXIS") &&!deviceName.startsWith("CINCO") && !deviceName.startsWith("ORION") &&!deviceName.startsWith("acaia") && !deviceName.startsWith("PEARLS") && !deviceName.startsWith("ACAIA") && !deviceName.startsWith("PROCHBT") && !deviceName.startsWith("LINK")) {
             //return false;
         }

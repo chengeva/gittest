@@ -44,7 +44,7 @@ public class ParseFileRetriever implements  FileRetriever{
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(final List<ParseObject> firmwareFileList, ParseException e) {
                     if (e == null) {
-                        //Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
+                        //// Log.v(TAG,"got n files "+String.valueOf(firmwareFileList.size()));
                         numData=firmwareFileList.size();
 
                         for(int i=0;i!=firmwareFileList.size();i++){
@@ -54,7 +54,7 @@ public class ParseFileRetriever implements  FileRetriever{
                                     if(success==true){
                                         numData--;
                                         if(numData==0){
-                                            //Log.v(TAG,"Done retrieve "+String.valueOf(firmwareFileList.size()));
+                                            //// Log.v(TAG,"Done retrieve "+String.valueOf(firmwareFileList.size()));
                                             onDataRetrieved.doneRetrieved(true,"Done ");
                                         }
                                     }

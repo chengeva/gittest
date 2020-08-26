@@ -7,6 +7,6 @@ import android.util.Log;
  */
 public class Logger {
     public static void log(String tag,String what){
-        //Log.v(tag,what);
+        //// Log.v(tag,what);
     }
 }

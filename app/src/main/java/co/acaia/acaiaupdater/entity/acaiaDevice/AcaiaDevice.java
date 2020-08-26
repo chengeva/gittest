@@ -29,6 +29,7 @@ public class AcaiaDevice {
         }
         if(modelName.equals(modelOrion)){
             isps.add(70);
+            isps.add(71);
         }
 
         if(modelName.equals(modelCinco) || modelName.equals(modelPyxis)){

@@ -35,7 +35,7 @@ public class IspHelper {
         handler = h;
         currentModelName=firmwareFileEntity.model;
         File firmwareFile = new File(context.getFileStreamPath(firmwareFileEntity.fileName).getAbsolutePath());
-        //Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
+        //// Log.v("file name=","file name="+firmwareFile.getAbsolutePath());
         cisphandler = new CISP_handler(firmwareFile);
 
         FileHandler.open_file(context, firmwareFile, cisphandler);
@@ -43,7 +43,7 @@ public class IspHelper {
 
     public void parseDataPacket(byte[] data) {
         for (int i = 0; i != data.length; i++) {
-            Log.v(TAG,"Got data: "+String.valueOf(i)+" "+String.valueOf(data[i]));
+            // Log.v(TAG,"Got data: "+String.valueOf(i)+" "+String.valueOf(data[i]));
             Isp.parse_input(cisphandler, data[i], context, mScaleCommunicationService,currentModelName);
         }
     }

@@ -39,7 +39,7 @@ public class FirmwareSelectActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Select Firmware");
         init_ui();
         currentSelectedDevice= AcaiaDeviceFactory.acaiaDeviceFromModelName(getIntent().getStringExtra("modelName"));
-        //Log.v("FirmwareSelectActivity","Current device="+currentSelectedDevice.modelName);
+        //// Log.v("FirmwareSelectActivity","Current device="+currentSelectedDevice.modelName);
         setupViewWithModel();
         AcaiaUpdater.currentAcaiaDevice=currentSelectedDevice;
     }
@@ -78,7 +78,7 @@ public class FirmwareSelectActivity extends AppCompatActivity {
     private void setupViewWithModel(){
         boolean gotFirmware=false;
         if(AcaiaUpdater.currentFirmware==null){
-            //Log.v("FirmwareSelect","Null firmware");
+            //// Log.v("FirmwareSelect","Null firmware");
             ArrayList<FirmwareFileEntity> firmwareFileEntities= FirmwareEntityHelper.obtainFirmwareWithModelName(currentSelectedDevice);
             // Improve later
             if(firmwareFileEntities.size()==0){
@@ -98,7 +98,7 @@ public class FirmwareSelectActivity extends AppCompatActivity {
             gotFirmware=true;
         }
         if(gotFirmware) {
-            //Log.v("FirmwareSelect","Got");
+            //// Log.v("FirmwareSelect","Got");
             firmwareLabel.setText(AcaiaUpdater.currentFirmware.title);
             firmwareRelease.setText(AcaiaUpdater.currentFirmware.detail);
         }

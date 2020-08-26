@@ -64,7 +64,7 @@ public class AospGattAdapter implements GattAdapter {
         mDevice = dev;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             // only for gingerbread and newer versions
-            //Log.v("hanjord","connect with 23");
+            //// Log.v("hanjord","connect with 23");
             mGatt = dev.connectGatt(ctx, autoConnect, mCallback,2);
         }
         else {
@@ -222,7 +222,7 @@ public class AospGattAdapter implements GattAdapter {
             GattDescriptor dsc = new AospGattDescriptor(descriptor);
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 mListener.onDescriptorWrite(mGattInterface, dsc, Gatt.GATT_SUCCESS);
-                //Log.v("onDescriptorWrite"," onDescriptorWrite success");
+                //// Log.v("onDescriptorWrite"," onDescriptorWrite success");
             } else {
                 mListener.onDescriptorWrite(mGattInterface, dsc, status);
                 if (status == 133) {

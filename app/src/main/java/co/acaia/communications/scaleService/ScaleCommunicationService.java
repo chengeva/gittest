@@ -242,7 +242,7 @@ public class ScaleCommunicationService extends Service {
     public void onEvent(StartFirmwareUpdateEvent event) {
         setIsISP(true);
         CommLogger.logv(TAG, "click start isp");
-        //Log.v(TAG,"got ustart update event");
+        //// Log.v(TAG,"got ustart update event");
         if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_APP) {
             AcaiaUpdater.ispHelper.isISP=ISP_SET_ISP;
             AcaiaUpdater.ispHelper.change_isp_mode();
@@ -262,7 +262,7 @@ public class ScaleCommunicationService extends Service {
 
     @SuppressLint("LongLogTag")
     public void onEvent(final DistanceConnectEvent distanceConnectEvent) {
-        //Log.v(TAG,"Got distance connect event");
+        //// Log.v(TAG,"Got distance connect event");
 
         if (mConnectionState == CONNECTION_STATE_CONNECTED) {
             disconnect();
@@ -454,12 +454,12 @@ public class ScaleCommunicationService extends Service {
                     // need to know if ISP mode...
 
                     if (!isISPMode()) {
-                        //Log.v(TAG,"App Mode!");
+                        //// Log.v(TAG,"App Mode!");
                         if (acaiaScale == null) {
                             acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
                             acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
                         } else {
-                            ////Log.v(TAG, "acaia scale not null");
+                            ////// Log.v(TAG, "acaia scale not null");
                             // parse packet
 
 
@@ -479,7 +479,7 @@ public class ScaleCommunicationService extends Service {
                         }
 
                     }else{
-                        //Log.v(TAG,"ISP Mode!");
+                        //// Log.v(TAG,"ISP Mode!");
                         if(AcaiaUpdater.ispHelper==null){
                             AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
                         }
@@ -531,7 +531,7 @@ public class ScaleCommunicationService extends Service {
         if(mConnectionState==CONNECTION_STATE_CONNECTING) return false;
         CommLogger.logv(TAG,"Connect to:"+targetBtAddress);
         if (mBluetoothDevice.getName().contains("PYXIS") || mBluetoothDevice.getName().contains("CINCO") || mBluetoothDevice.getName().contains("PEARLS")) {
-            //Log.v(TAG, "Trying to create a new connection. Pearls cinco");
+            //// Log.v(TAG, "Trying to create a new connection. Pearls cinco");
             if(mBM71Gatt==null) {
                 mBM71Gatt = mBM71GattAdapter.connectGatt(getApplicationContext(), false, mBM71Listener, mBluetoothDevice);
                 mBluetoothGatt = null;
@@ -541,7 +541,7 @@ public class ScaleCommunicationService extends Service {
             if(mBluetoothGatt == null && mConnectionState==CONNECTION_STATE_DISCONNECTED) {
                 mBluetoothAdapter.stopLeScan(mLeScanCallback);
                 mBluetoothGatt = mBluetoothDevice.connectGatt(this, false, mGattCallback);
-                //Log.v(TAG, "Trying to create a new connection.");
+                //// Log.v(TAG, "Trying to create a new connection.");
                 mBluetoothDeviceAddress = targetBtAddress;
                 mConnectionState = CONNECTION_STATE_CONNECTING;
             }
@@ -776,7 +776,7 @@ public class ScaleCommunicationService extends Service {
                             stopScan();
                             if (mConnectionState != CONNECTION_STATE_CONNECTED) {
                                 if (distanceConnectHelper.getTargetBluetoothDevice() != null) {
-                                    //Log.v("Distance connect", "Connect to:" + distanceConnectHelper.getTargetBluetoothDevice().getAddress());
+                                    //// Log.v("Distance connect", "Connect to:" + distanceConnectHelper.getTargetBluetoothDevice().getAddress());
                                     connect(distanceConnectHelper.getTargetBluetoothDevice().getAddress());
                                 }
                                 // Hanjord todo: Work on failure states
@@ -871,7 +871,7 @@ public class ScaleCommunicationService extends Service {
     @SuppressLint("LongLogTag")
     public void onEvent(DisconnectDeviceEvent event){
         // disconnect device if connected
-        //Log.v(TAG,"Disconnect!");
+        //// Log.v(TAG,"Disconnect!");
         disconnect();
         mConnectionState=CONNECTION_STATE_DISCONNECTED;
     }
@@ -882,7 +882,7 @@ public class ScaleCommunicationService extends Service {
             return false;
         }
         if (mBluetoothGatt != null) {
-            //Log.v("sendCmd", "mBluetoothGatt not null");
+            //// Log.v("sendCmd", "mBluetoothGatt not null");
             if (mBluetoothGatt
                     .getService(
                             UUID.fromString(ScaleGattAttributes.CSR_JB_UART_TX_PRIMARY_SERVICE_UUID)) != null) {
@@ -906,19 +906,19 @@ public class ScaleCommunicationService extends Service {
 
             mTransRx.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
             mTransRx.setValue(Command);
-            //Log.v("CINCODEBUG", "bm71 send command, len=%d" + String.valueOf(Command.length));
+            //// Log.v("CINCODEBUG", "bm71 send command, len=%d" + String.valueOf(Command.length));
             for (int i = 0; i != Command.length; i++) {
-                //Log.v("SENDDATA", String.valueOf(i) + " " + String.valueOf(Command[i]));
+                //// Log.v("SENDDATA", String.valueOf(i) + " " + String.valueOf(Command[i]));
             }
             return mBM71Gatt.writeCharacteristic(mTransRx);
             //return false;
         } else {
             if (mBM71Gatt == null) {
-                //Log.v("sendCmd", "mBM71Gatt null");
+                //// Log.v("sendCmd", "mBM71Gatt null");
             }
 
             if (mTransRx == null) {
-                //Log.v("sendCmd", "mTransRx null");
+                //// Log.v("sendCmd", "mTransRx null");
             }
             return false;
         }
@@ -1034,8 +1034,8 @@ public class ScaleCommunicationService extends Service {
         }
 
         public void onMtuChanged(Gatt gatt, int mtu, int newState) {
-            //Log.v("", "onMtuChanged called newState: " + newState);
-            //Log.v("", "MTU changed MTU " + mtu);
+            //// Log.v("", "onMtuChanged called newState: " + newState);
+            //// Log.v("", "MTU changed MTU " + mtu);
             mBM71Gatt.discoverServices();
         }
 
@@ -1055,13 +1055,13 @@ public class ScaleCommunicationService extends Service {
         @Override
         public void onServicesDiscovered(Gatt gatt, int status) {
             onBM71ServiceDiscover();
-            //Log.v("CINCODEBUG", "BM71 discovered service");
+            //// Log.v("CINCODEBUG", "BM71 discovered service");
         }
 
         @Override
         public void onCharacteristicRead(Gatt gatt, GattCharacteristic charac,
                                          int status) {
-            //Log.v("CINCODEBUG", "BM71 onCharacteristicRead");
+            //// Log.v("CINCODEBUG", "BM71 onCharacteristicRead");
         }
 
         @SuppressLint("LongLogTag")
@@ -1069,7 +1069,7 @@ public class ScaleCommunicationService extends Service {
         public void onCharacteristicChanged(Gatt gatt, GattCharacteristic chrc) {
             byte[] input_data = chrc.getValue();
             for (int i = 0; i != input_data.length; i++) {
-                //Log.v("Input data", "[" + String.valueOf(i) + "] " + String.valueOf(input_data[i]));
+                //// Log.v("Input data", "[" + String.valueOf(i) + "] " + String.valueOf(input_data[i]));
             }
 
             mConnectionState = CONNECTION_STATE_CONNECTED;
@@ -1081,7 +1081,7 @@ public class ScaleCommunicationService extends Service {
 
 
             if (!isISPMode()) {
-                //Log.v(TAG,"App Mode!");
+                //// Log.v(TAG,"App Mode!");
                 if (acaiaScale == null) {
                     if(gatt.getDevice().getName().contains("CINCO") || gatt.getDevice().getName().contains("PYXIS")) {
                         acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, true);
@@ -1089,7 +1089,7 @@ public class ScaleCommunicationService extends Service {
                         acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
                     }
                 } else {
-                    ////Log.v(TAG, "acaia scale not null");
+                    ////// Log.v(TAG, "acaia scale not null");
                     // parse packet
 
 
@@ -1109,7 +1109,7 @@ public class ScaleCommunicationService extends Service {
                 }
 
             }else{
-                //Log.v(TAG,"ISP Mode!");
+                //// Log.v(TAG,"ISP Mode!");
                 if(AcaiaUpdater.ispHelper==null){
                     AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
                 }
@@ -1126,7 +1126,7 @@ public class ScaleCommunicationService extends Service {
 
         @Override
         public void onDescriptorWrite(Gatt gatt, GattDescriptor dsc, int status) {
-            //Log.v("CINCODEBUG", "onDescriptorWrite service here");
+            //// Log.v("CINCODEBUG", "onDescriptorWrite service here");
             BluetoothGattCharacteristic ch = (BluetoothGattCharacteristic) dsc
                     .getCharacteristic().getImpl();
 
@@ -1160,16 +1160,16 @@ public class ScaleCommunicationService extends Service {
     }
 
     private void onBM71ServiceDiscover() {
-        //Log.v("CINCODEBUG", "calling mService.setCharacteristicNotification:Activity Transperent");
+        //// Log.v("CINCODEBUG", "calling mService.setCharacteristicNotification:Activity Transperent");
 
         if (mBM71Gatt != null) {
             GattService proprietary = mBM71Gatt.getService(SERVICE_ISSC_PROPRIETARY);
             List<GattService> services = mBM71Gatt.getServices();
             for (int i = 0; i != services.size(); i++) {
-                //Log.v("CINCODEBUG", "service uuid=" + String.valueOf(services.get(i).getUuid().toString()));
+                //// Log.v("CINCODEBUG", "service uuid=" + String.valueOf(services.get(i).getUuid().toString()));
             }
             if (services.size() == 0) {
-                //Log.v("CINCODEBUG", "no servive");
+                //// Log.v("CINCODEBUG", "no servive");
                 return;
             }
 
@@ -1180,20 +1180,20 @@ public class ScaleCommunicationService extends Service {
             mAirPatch = proprietary.getCharacteristic(CHR_AIR_PATCH);
             mTransCtrl = proprietary.getCharacteristic(CHR_ISSC_TRANS_CTRL);
 
-            //Log.v("CINCODEBUG", "calling mService.setCharacteristicNotification:Activity Transperent");
+            //// Log.v("CINCODEBUG", "calling mService.setCharacteristicNotification:Activity Transperent");
             boolean set = mBM71Gatt.setCharacteristicNotification(mTransTx, true);
-            //Log.v("hanjord", "hanjord mTransTx " + mTransTx.getUuid().toString());
-            //Log.v("CINCODEBUG", "set notification:" + set);
+            //// Log.v("hanjord", "hanjord mTransTx " + mTransTx.getUuid().toString());
+            //// Log.v("CINCODEBUG", "set notification:" + set);
             GattDescriptor dsc = mTransTx
                     .getDescriptor(DES_CLIENT_CHR_CONFIG);
             dsc.setValue(dsc
                     .getConstantBytes(GattDescriptor.ENABLE_NOTIFICATION_VALUE));
 
             mBM71Gatt.writeDescriptor(dsc);
-            //android.util.//Log.v("hanjord", "tx descriptor=" + dsc.getUuid().toString());
+            //android.util.//// Log.v("hanjord", "tx descriptor=" + dsc.getUuid().toString());
 
         } else {
-            //Log.v("CINCODEBUG", "mBM71Gatt null");
+            //// Log.v("CINCODEBUG", "mBM71Gatt null");
         }
     }
 

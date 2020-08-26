@@ -114,7 +114,7 @@ public class FirmwareUpdateFragment extends Fragment {
     public void onEvent(final ScaleFirmwareVersionEvent scaleFirmwareVersionEvent) {
         try {
 
-            //Log.v(TAG, "connect firmware version=" + String.valueOf(scaleFirmwareVersionEvent.firmwarever));
+            //// Log.v(TAG, "connect firmware version=" + String.valueOf(scaleFirmwareVersionEvent.firmwarever));
             connectedScaleFirmwareVersion=scaleFirmwareVersionEvent.firmwarever;
 
         } catch (Exception e) {
@@ -534,7 +534,7 @@ public class FirmwareUpdateFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Log.v(TAG, "protocol mode!");
+                //// Log.v(TAG, "protocol mode!");
 
             }
         });

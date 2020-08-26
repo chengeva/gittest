@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class CommLogger {
     public static void logv(String tag, String what) {
-        //Log.v(tag, what);
+        //// Log.v(tag, what);
     }
     public static void loge(String tag, String msg) {
         Log.e(tag, msg);

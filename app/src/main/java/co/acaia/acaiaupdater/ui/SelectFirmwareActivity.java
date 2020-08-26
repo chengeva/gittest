@@ -36,7 +36,7 @@ public class SelectFirmwareActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra(extra_firmware_ver)){
             long ver = getIntent().getLongExtra(SelectFirmwareFromListActivity.extra_ver, 0);
-            ////Log.v("selected version",String.valueOf(ver));
+            ////// Log.v("selected version",String.valueOf(ver));
             EventBus.getDefault().post(new SelectVersionEvent(ver));
 
             // TODO: set detail
@@ -88,7 +88,7 @@ public class SelectFirmwareActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 long ver = data.getLongExtra(SelectFirmwareFromListActivity.extra_ver, 0);
-                ////Log.v("selected version",String.valueOf(ver));
+                ////// Log.v("selected version",String.valueOf(ver));
                 EventBus.getDefault().post(new SelectVersionEvent(ver));
                 // TODO: set detail
                 //setDetail(FirmwareFileEntity.findById(FirmwareFileEntity.class, ver));
@@ -107,7 +107,7 @@ public class SelectFirmwareActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        ////Log.v("select firmware ", "opt selected");
+        ////// Log.v("select firmware ", "opt selected");
         super.onBackPressed();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
