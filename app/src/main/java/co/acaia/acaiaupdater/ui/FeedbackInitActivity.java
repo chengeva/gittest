@@ -65,8 +65,8 @@ public class FeedbackInitActivity extends AppCompatActivity {
                     Support.INSTANCE.init(Zendesk.INSTANCE);
 
                     Intent requestActivityIntent = RequestActivity.builder()
-                            .withRequestSubject("Support Ticket for Acaia Pearl Updater Android")
-                            .withTags("App", "acaiaPearlUpdaterAndroid","Android"+ Build.VERSION.RELEASE.replaceAll("\\s+",""),getDeviceName().replaceAll("\\s+",""), ApplicationUtils.getVersionNumber(getApplicationContext()).replaceAll("\\s+",""))
+                            .withRequestSubject("Support Ticket for Acaia Updater Android")
+                            .withTags("App", "acaiaUpdaterAndroid","Android"+ Build.VERSION.RELEASE.replaceAll("\\s+",""),getDeviceName().replaceAll("\\s+",""), ApplicationUtils.getVersionNumber(getApplicationContext()).replaceAll("\\s+",""))
 
                             .intent(getApplicationContext());
                     startActivity(requestActivityIntent);
