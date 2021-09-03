@@ -106,6 +106,9 @@ public class FirmwareUpdateActivity extends AppCompatActivity {
         if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelCinco)){
             image_device.setImageResource(R.drawable.img_cinco_done);
         }
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelPearl2021)){
+            image_device.setImageResource(R.drawable.img_pearl2021_update);
+        }
 
 
 
@@ -114,6 +117,10 @@ public class FirmwareUpdateActivity extends AppCompatActivity {
 
         if(AcaiaUpdater.currentAcaiaDevice.modelName.equals(AcaiaDevice.modelPearlS)){
             Update_status.setText("Please confirm firmware update on Pearl S");
+        }
+
+        if(AcaiaUpdater.currentAcaiaDevice.modelName.equals(AcaiaDevice.modelPearl2021)){
+            Update_status.setText("Please confirm firmware update on Pearl (2021)");
         }
 
         btn_updating=(Button) findViewById(R.id.btn_updating);

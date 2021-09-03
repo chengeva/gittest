@@ -7,6 +7,7 @@ public class AcaiaDevice {
     public String modelName;
 
     // Constants
+    public static final String modelPearl2021="Pearl (2021)";
     public static final String modelLunar="Lunar";
     public static final String modelOrion="Orion";
     public static final String modelPearlS="Pearl S";
@@ -19,6 +20,10 @@ public class AcaiaDevice {
 
     public static ArrayList<Integer> getValidISPFromModelName(String modelName){
         ArrayList<Integer> isps=new ArrayList<>();
+        if(modelName.equals(modelPearl2021)){
+            isps.add(15);
+        }
+
         if(modelName.equals(modelPearlS)){
             isps.add(90);
         }

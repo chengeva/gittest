@@ -161,7 +161,10 @@ public class MainDeviceActivity extends AppCompatActivity {
     {
         listview_devicelist=(ListView)findViewById(R.id.listview_devicelist);
         dataModels=new ArrayList<>();
-        DeviceModel deviceModel=new DeviceModel("Pearl S");
+        DeviceModel deviceModel=new DeviceModel("Pearl (2021)");
+        dataModels.add(deviceModel);
+
+        deviceModel=new DeviceModel("Pearl S");
         dataModels.add(deviceModel);
         deviceModel=new DeviceModel("Lunar");
         dataModels.add(deviceModel);

@@ -202,6 +202,10 @@ public class ConnectScaleActivity extends AppCompatActivity {
             image_device.setImageResource(R.drawable.img_cinco_done);
         }
 
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelPearl2021)){
+            image_device.setImageResource(R.drawable.img_pearl2021_default);
+        }
+
         connectButton=(Button)findViewById(R.id.btn_connect);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override

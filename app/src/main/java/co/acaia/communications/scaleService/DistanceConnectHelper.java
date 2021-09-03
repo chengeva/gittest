@@ -110,6 +110,11 @@ public class DistanceConnectHelper {
             }
         }
 
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelPearl2021)){
+            if (!deviceName.startsWith("PEARL-")) {
+                return false;
+            }
+        }
 
 
         String deviceAddr = bluetoothDevice.getAddress();
