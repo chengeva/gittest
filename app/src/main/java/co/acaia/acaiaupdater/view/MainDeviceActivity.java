@@ -88,7 +88,7 @@ public class MainDeviceActivity extends AppCompatActivity {
         init_new_bt();
         currentSelectedDevice=null;
         // This is required for later BT version
-        this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
+        this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
     }
 
     @Override

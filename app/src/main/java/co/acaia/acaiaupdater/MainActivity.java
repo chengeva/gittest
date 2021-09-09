@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         //FirmwareUnitTests.testFirmwareEntity();
         FileHelperUnitTests.testRetrieveFirmwareFile(getApplicationContext());
 
-        this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
+        this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
 
     }
     @Override
