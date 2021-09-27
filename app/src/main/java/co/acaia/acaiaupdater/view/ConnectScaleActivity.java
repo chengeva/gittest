@@ -207,7 +207,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
         }
 
         if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelLunar2021)){
-            image_device.setImageResource(R.drawable.menu_lunar2021);
+            image_device.setImageResource(R.drawable.img_lunar2021_done);
         }
 
         connectButton=(Button)findViewById(R.id.btn_connect);

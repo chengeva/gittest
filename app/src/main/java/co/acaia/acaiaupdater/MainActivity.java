@@ -81,20 +81,24 @@ public class MainActivity extends AppCompatActivity {
      */
     FirmwareFileFactory firmwareFileFactory;
 
-    /*public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
+    public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
     public static final String new_client_key="4Mqo4vvon9yzlcLi7uty9UXLlQW5j4NjUzNIRgaV";
     public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
-    */
+
 
     /*
     Staging
      */
-   // public static final String new_app_id="8CXIItW3lA7Tct4xu6u358UNbNjijShqHMQ4MNqs";
-   // public static final String new_client_key="lskfYShnnrLFyjTisfpDLPNQfHhqNsiNNejI7jPq";
-   // public static final String new_endpoint="https://pg-app-2ofw88apxr7zrli6e7h6tulzaj94ax.scalabl.cloud/1/";
 
+    /*
+    public static final String new_app_id="sOIKQRfv0PCeczBo21cqnUOWIfN52uqSx2kxK8bq";
+    public static final String new_client_key="Rp25h8TPxGRlRgLfh8avFSk2BT4kU87Lb3tnUYia";
+    public static final String new_endpoint="https://parseapi.back4app.com";
+    */
 
     // Production
+
+    /*
 
     public static final String new_app_id="85k1oN8QoRyrSwP2Tl7LJfpgQEdfQfPYpEUDM5N1";
     public static final String new_client_key="3sKqocyrUwcE0BVKUNLrCYFWyto4jPKQCnuKaGKM";
@@ -102,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     // Fix for China
     public static final String new_endpoint="https://api-updater.acaia.net/";
 
+    */
 
     //    actionbar;
     @SuppressLint("InvalidWakeLockTag")

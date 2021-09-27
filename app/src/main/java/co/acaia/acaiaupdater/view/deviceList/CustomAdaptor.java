@@ -76,7 +76,7 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
             }
 
             if(dataModel.modelName.equals(AcaiaDevice.modelLunar2021)) {
-                viewHolder.deviceImage.setImageResource(R.drawable.menu_lunar2021);
+                viewHolder.deviceImage.setImageResource(R.drawable.img_lunar2021_done);
             }
 
             result=convertView;
