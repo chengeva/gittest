@@ -116,6 +116,11 @@ public class DistanceConnectHelper {
             }
         }
 
+        if(acaiaDevice.modelName.equals(AcaiaDevice.modelLunar2021)){
+            if (!deviceName.startsWith("LUNAR-")) {
+                return false;
+            }
+        }
 
         String deviceAddr = bluetoothDevice.getAddress();
 

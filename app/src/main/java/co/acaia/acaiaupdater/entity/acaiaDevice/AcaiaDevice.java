@@ -8,6 +8,7 @@ public class AcaiaDevice {
 
     // Constants
     public static final String modelPearl2021="Pearl (2021)";
+    public static final String modelLunar2021="Lunar (2021)";
     public static final String modelLunar="Lunar";
     public static final String modelOrion="Orion";
     public static final String modelPearlS="Pearl S";
@@ -22,6 +23,10 @@ public class AcaiaDevice {
         ArrayList<Integer> isps=new ArrayList<>();
         if(modelName.equals(modelPearl2021)){
             isps.add(15);
+        }
+
+        if(modelName.equals(modelLunar2021)){
+            isps.add(25);
         }
 
         if(modelName.equals(modelPearlS)){

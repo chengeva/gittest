@@ -206,6 +206,10 @@ public class ConnectScaleActivity extends AppCompatActivity {
             image_device.setImageResource(R.drawable.img_pearl2021_default);
         }
 
+        if(currentSelectedDevice.modelName.equals(AcaiaDevice.modelLunar2021)){
+            image_device.setImageResource(R.drawable.menu_lunar2021);
+        }
+
         connectButton=(Button)findViewById(R.id.btn_connect);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override

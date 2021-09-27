@@ -75,6 +75,10 @@ public class CustomAdaptor extends ArrayAdapter<DeviceModel> implements View.OnC
                 viewHolder.deviceImage.setImageResource(R.drawable.img_pearl2021_default);
             }
 
+            if(dataModel.modelName.equals(AcaiaDevice.modelLunar2021)) {
+                viewHolder.deviceImage.setImageResource(R.drawable.menu_lunar2021);
+            }
+
             result=convertView;
 
             convertView.setTag(viewHolder);
