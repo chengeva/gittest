@@ -81,10 +81,11 @@ public class MainActivity extends AppCompatActivity {
      */
     FirmwareFileFactory firmwareFileFactory;
 
+    /*
     public static final String new_app_id="UeTaOo1LBsWEbaGAqj6ITY0N4jNjFgzQL5lTjVhU";
     public static final String new_client_key="4Mqo4vvon9yzlcLi7uty9UXLlQW5j4NjUzNIRgaV";
     public static final String new_endpoint="https://pg-app-1s8ari663b0lwp94zxwfth7yc6vgfq.scalabl.cloud/1/";
-
+    */
 
     /*
     Staging
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Production
 
-    /*
+
 
     public static final String new_app_id="85k1oN8QoRyrSwP2Tl7LJfpgQEdfQfPYpEUDM5N1";
     public static final String new_client_key="3sKqocyrUwcE0BVKUNLrCYFWyto4jPKQCnuKaGKM";
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     // Fix for China
     public static final String new_endpoint="https://api-updater.acaia.net/";
 
-    */
+
 
     //    actionbar;
     @SuppressLint("InvalidWakeLockTag")
