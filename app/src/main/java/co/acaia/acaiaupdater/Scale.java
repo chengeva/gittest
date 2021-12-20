@@ -7,6 +7,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
+import co.acaia.acaiaupdater.common.CommLogger;
+
 
 public class Scale {
 	private final static String TAG = Scale.class.getSimpleName();
@@ -25,7 +27,7 @@ public class Scale {
 			
 		}
 		if (context == null) {
-			MainActivity.orangeDebug("Scale initialize, but context=null");
+
 		}
 		mCtx = context;
 		Intent scalServiceIntent = new Intent(mCtx, ScaleService.class);
@@ -49,7 +51,7 @@ public class Scale {
     			// MainActivity.orangeDebug("Scale onServiceConnected");
     			mScaleService = ((ScaleService.LocalBinder) service).getService();
             if (!mScaleService.initialize()) {
-            		Log.i(TAG, "ScaleService initialize failed!");
+            		CommLogger.logv(TAG, "ScaleService initialize failed!");
             		return;
             }else{
             	
@@ -61,7 +63,7 @@ public class Scale {
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-        		MainActivity.orangeDebug("Scale onServiceDisconnected");
+
         		mScaleService = null;
         }
     };
@@ -137,7 +139,7 @@ public class Scale {
 	
 	public boolean startScan() {
 		if (mScaleService == null){
-			MainActivity.orangeDebug("startScan but scale service null");
+
 			return false;
 		}else{
 			// MainActivity.orangeDebug("startScan procced");

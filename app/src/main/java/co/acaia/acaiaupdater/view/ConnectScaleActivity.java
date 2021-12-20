@@ -370,7 +370,7 @@ public class ConnectScaleActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    // Log.i(TAG, "Error on getting data!");
+                    // CommLogger.logv(TAG, "Error on getting data!");
                 }
 
 

@@ -418,11 +418,7 @@ public class FirmwareUpdateFragment extends Fragment {
                                 if (tv_select_firmware.getText().toString().equals(getActivity().getResources().getString(R.string._downloading_firmware))) {
                                     Toast.makeText(getActivity(), "Downloading firmware", Toast.LENGTH_LONG).show();
                         } else {
-                            MainActivity.orangeDebug("startFirmware clicked.");
 
-                            // TODO: Firmware entitiy
-                            //EventBus.getDefault().post(new SelectVersionEvent(currentFirmwareFileEntity.getId()));
-                            //EventBus.getDefault().post(new StartFirmwareUpdateEvent());
 
                         }
 
@@ -447,7 +443,7 @@ public class FirmwareUpdateFragment extends Fragment {
                 BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
                 if (!mBluetoothAdapter.isEnabled()) {
 
-                    MainActivity.orangeDebug("start scan but mBluetoothAdapter not enabled ");
+
 
                     Intent enableBtIntent = new Intent(
                             BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -572,17 +568,17 @@ public class FirmwareUpdateFragment extends Fragment {
             });
 
         } catch (Exception e) {
-            MainActivity.orangeDebug("ScaleConnectedEvent failed! e=" + e);
+
         }
     }
 
 
     public void onEvent(ScaleDisconnectedEvent event) {
         try {
-            MainActivity.orangeDebug("Disconnected ");
+
             txtScaleName.setText(getResources().getString(R.string._none));
         } catch (Exception e) {
-            MainActivity.orangeDebug("ScaleDisconnectedEvent failed! e=" + e);
+
         }
     }
 

@@ -17,6 +17,7 @@ import co.acaia.communications.events.WeightEvent;
 import co.acaia.communications.scaleevent.NewScaleConnectionStateEvent;
 import co.acaia.communications.scaleevent.ProtocolModeEvent;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEvent;
+import co.acaia.communications.scaleevent.UpdateTimerValueEvent;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.NoSubscriberEvent;
 import io.realm.Realm;
@@ -89,6 +90,12 @@ public class AcaiaUpdater extends Application {
     public void onEvent(final ScaleDataEvent event) {
 
     }
+
+    public void onEvent(final UpdateTimerValueEvent event) {
+
+    }
+
+
 
     @Override
     public void onTerminate() {

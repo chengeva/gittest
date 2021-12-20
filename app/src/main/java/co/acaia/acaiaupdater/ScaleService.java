@@ -21,6 +21,8 @@ import android.util.Log;
 import com.acaia.scale.communications.AcaiaCommunicationPacketHelper;
 import com.acaia.scale.communications.AcaiaScaleAttributes;
 
+import co.acaia.communications.CommLogger;
+
 
 public class ScaleService extends Service {
 	
@@ -152,7 +154,7 @@ public class ScaleService extends Service {
 
         @Override
         public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-        	Log.i(TAG, "onLeScan");
+        	//CommLogger.logv(TAG, "onLeScan");
         	final Intent intent = new Intent(ACTION_DEVICE_FOUND);
         	intent.putExtra(EXTRA_DEVICE, device);
         	intent.putExtra(EXTRA_RSSI, rssi);
@@ -168,7 +170,7 @@ public class ScaleService extends Service {
 	private void broadcastUpdate(final String action,
 			final BluetoothGattCharacteristic characteristic) {
 		final Intent intent = new Intent(action);
-		// Log.i(TAG, "data in");
+		// CommLogger.logv(TAG, "data in");
 		if (UUID.fromString(AcaiaScaleAttributes.CSR_JB_UART_RX_SECOND_UUID)
 				.equals(characteristic.getUuid())) {
 						final byte[] data = characteristic.getValue();
@@ -215,7 +217,7 @@ public class ScaleService extends Service {
 				{
 					int sub_type = AcaiaCommunicationPacketHelper.getScalePacketSubDataType(data);
 					int sub_type_value = AcaiaCommunicationPacketHelper.getSubdataValue(data);
-					Log.i(TAG, "SUB TYPE: " + Integer.toString(sub_type));
+
 					if (sub_type == 0) {
 						intent.putExtra(EXTRA_DATA_TYPE, ScaleService.DATA_TYPE_AUTO_OFF_TIME);
 						intent.putExtra(EXTRA_DATA, sub_type_value);
@@ -248,14 +250,14 @@ public class ScaleService extends Service {
         		String connection_str = "";
 	            if (newState == BluetoothProfile.STATE_CONNECTED) {
 	                mConnectionState = CONNECTION_STATE_CONNECTED;
-	                Log.i(TAG, "Connected to GATT server.");
-	                Log.i(TAG, "Attempting to start service discovery:" +
+	                CommLogger.logv(TAG, "Connected to GATT server.");
+	                CommLogger.logv(TAG, "Attempting to start service discovery:" +
 	                        mBluetoothGatt.discoverServices());
 	                connection_str = ACTION_CONNECTION_STATE_CONNECTED;
 	            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
 	                mConnectionState = CONNECTION_STATE_DISCONNECTED;
 	                mServiceDiscoverDone = false;
-	                Log.i(TAG, "Disconnected from GATT server.");
+	                CommLogger.logv(TAG, "Disconnected from GATT server.");
 	                //Mike, 2014/05/09, This is an workaround, because if we just do disconnect and then connect, the time of building connection is very long
 	                mBluetoothDeviceAddress = null;
 	                if (mBluetoothGatt != null) {
@@ -284,7 +286,7 @@ public class ScaleService extends Service {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-        	Log.i(TAG, "onServicesDiscovered received: " + status);
+        	CommLogger.logv(TAG, "onServicesDiscovered received: " + status);
             if (status == BluetoothGatt.GATT_SUCCESS) {
             	mServiceDiscoverDone = true;
             	//mBtGattChar = getScaleBtGattChar();
@@ -299,7 +301,7 @@ public class ScaleService extends Service {
         public void onCharacteristicRead(BluetoothGatt gatt,
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
-        	Log.i(TAG, "onCharacteristicRead received: " + status);
+        	CommLogger.logv(TAG, "onCharacteristicRead received: " + status);
             if (status == BluetoothGatt.GATT_SUCCESS) {
                broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
@@ -307,29 +309,29 @@ public class ScaleService extends Service {
 
         @Override
 		public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-        	Log.i(TAG, "onCharacteristicWrite received: " + Integer.toString(status));
+        	CommLogger.logv(TAG, "onCharacteristicWrite received: " + Integer.toString(status));
         }
         
         public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-        	Log.i(TAG, "onDescriptorRead received");
+        	CommLogger.logv(TAG, "onDescriptorRead received");
         }
         
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-        	Log.i(TAG, "onDescriptorWrite received: " + Integer.toString(status));
+        	CommLogger.logv(TAG, "onDescriptorWrite received: " + Integer.toString(status));
         }
         
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-        	Log.i(TAG, "onReadRemoteRssi received");
+        	CommLogger.logv(TAG, "onReadRemoteRssi received");
         }
         
         public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
-        	Log.i(TAG, "onReliableWriteCompleted received");
+        	CommLogger.logv(TAG, "onReliableWriteCompleted received");
         }
         
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
-        	Log.i(TAG, "onCharacteristicChanged received");
+        	CommLogger.logv(TAG, "onCharacteristicChanged received");
         	
         	if (UUID.fromString(ScaleGattAttributes.CSR_JB_UART_RX_SECOND_UUID_STRING)
     				.equals(characteristic.getUuid())) {
@@ -340,11 +342,11 @@ public class ScaleService extends Service {
 
         		AcaiaCommunicationPacketHelper.parseScalePacket(data);
         		
-        		Log.i("BLE UPDATE len", String.valueOf(data.length));
-    			Log.i("BLE UPDATE res", String
+        		CommLogger.logv("BLE UPDATE len", String.valueOf(data.length));
+    			CommLogger.logv("BLE UPDATE res", String
     					.valueOf(AcaiaCommunicationPacketHelper
     							.parseScalePacket(data)));
-    			Log.i("BLE UPDATE type", String
+    			CommLogger.logv("BLE UPDATE type", String
     					.valueOf(AcaiaCommunicationPacketHelper
     							.getScalePacketDataType(data)));
 
@@ -359,7 +361,7 @@ public class ScaleService extends Service {
 	    			case AcaiaScaleAttributes.ECMD.e_cmd_battery_r:
 	    				_batt_resp_cnt++;
 	    				if (_batt_resp_cnt != _batt_cmd_cnt) {
-	    					Log.i(TAG, "Battery request and response cound not match");
+	    					CommLogger.logv(TAG, "Battery request and response cound not match");
 	    					getState();
 	    				}
 	    				
@@ -369,7 +371,7 @@ public class ScaleService extends Service {
 	    				
 	    				int subDataValue = AcaiaCommunicationPacketHelper.getSubdataValue(data);
 	    				
-	    				Log.i(TAG, "subcmd type: "+Integer.toString(subDataType)+", subDataValue: "+Integer.toString(subDataValue));
+	    				CommLogger.logv(TAG, "subcmd type: "+Integer.toString(subDataType)+", subDataValue: "+Integer.toString(subDataValue));
 	    				
 	    				break;
     			}
@@ -380,8 +382,8 @@ public class ScaleService extends Service {
     };
 
     public void getState() {
-    	Log.i(TAG, "Service Get Stat _batt_cmd_count:" + Integer.toString(_batt_cmd_cnt));
-		Log.i(TAG, "Service Get Stat _batt_resp_count:" + Integer.toString(_batt_resp_cnt));
+    	CommLogger.logv(TAG, "Service Get Stat _batt_cmd_count:" + Integer.toString(_batt_cmd_cnt));
+		CommLogger.logv(TAG, "Service Get Stat _batt_resp_count:" + Integer.toString(_batt_resp_cnt));
     }
     
 
@@ -403,13 +405,13 @@ public class ScaleService extends Service {
 
 		if (mBluetoothAdapter == null) {
 			if (!initialize()) {
-				Log.i(TAG, "startScan error, cannot initialize");
+				CommLogger.logv(TAG, "startScan error, cannot initialize");
 				return;
 			}
 		}
 		
 		stopScan();
-		Log.i(TAG, "Scan Mode: " + 
+		CommLogger.logv(TAG, "Scan Mode: " +
 				Integer.toString(mBluetoothAdapter.getScanMode())+", "+
 				Boolean.toString(mBluetoothAdapter.isDiscovering()));
 		UUID []uuids = {UUID.fromString(ScaleGattAttributes.CSR_JB_UART_RX_PRIMARY_SERVICE_UUID_STRING)};
@@ -516,7 +518,7 @@ public class ScaleService extends Service {
 						.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
 				mBluetoothGatt.writeDescriptor(descriptor);
 			} else {
-				Log.i(TAG, "Set descriptor failed!");
+				CommLogger.logv(TAG, "Set descriptor failed!");
 			}
 		}
 
@@ -533,7 +535,7 @@ public class ScaleService extends Service {
 		}
 		List<BluetoothGattService> gattService = mBluetoothGatt
 				.getServices();
-		Log.i(TAG, "size=" + String.valueOf(gattService.size()));
+		CommLogger.logv(TAG, "size=" + String.valueOf(gattService.size()));
 		
 		if (gattService.size() == 0) {
 			//
@@ -618,20 +620,13 @@ public class ScaleService extends Service {
 	
 	@Override
     public boolean onUnbind(Intent intent) {
-        // After using a given device, you should make sure that BluetoothGatt.close() is called
-        // such that resources are cleaned up properly.  In this particular example, close() is
-        // invoked when the UI is disconnected from the Service.
-        //close();
-		MainActivity.orangeDebug("onUnbind");
+
         return super.onUnbind(intent);
     }
 	
 	@Override
 	public IBinder onBind(Intent intent) {
-		// MainActivity.orangeDebug("onBind: ScaleService");
-		// TODO Auto-generated method stub
-		//return mBinder;
-		MainActivity.orangeDebug("onBind");
+
 		return mBinder;
 	}
 
@@ -658,7 +653,7 @@ public class ScaleService extends Service {
 	
 	private boolean checkConnection() {
 		if (mBluetoothGatt == null || mBluetoothAdapter == null) {
-			Log.i(TAG, "Bluetooth is not initialized or not connected!");
+			CommLogger.logv(TAG, "Bluetooth is not initialized or not connected!");
 			return false;
 		}
 		return true; 

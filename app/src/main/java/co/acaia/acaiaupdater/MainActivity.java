@@ -258,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        MainActivity.orangeDebug("MainActivity onStart");
         super.onStart();
 
     }
@@ -331,20 +330,8 @@ public class MainActivity extends AppCompatActivity {
         return intentFilter;
     }
 
-    public static void orangeDebug(String str) {
-        if (str == null) {
-            Log.i(ORANGE_TAG, "NULL string!");
-        } else {
-            Log.i(ORANGE_TAG, str);
-        }
-    }
-
     public void onEvent(ScaleConnectedEvent event) {
-        try {
-            MainActivity.orangeDebug("Connected : " + event);
-        } catch (Exception e) {
-            Log.e(TAG, "ScaleFoundEvent failed!");
-        }
+
     }
 
     public void onEvent(ScaleFoundEvent event) {
@@ -430,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    // Log.i(TAG, "Error on getting data!");
+                    // CommLogger.logv(TAG, "Error on getting data!");
                 }
 
 

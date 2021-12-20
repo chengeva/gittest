@@ -29,6 +29,7 @@ import android.os.Handler;
 
 import java.util.List;
 
+import co.acaia.communications.CommLogger;
 import co.acaia.communications.scaleService.gatt.Gatt;
 import co.acaia.communications.scaleService.gatt.GattAdapter;
 import co.acaia.communications.scaleService.gatt.GattCharacteristic;
@@ -150,7 +151,7 @@ public class AospGattAdapter implements GattAdapter {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt Gatt, BluetoothGattCharacteristic chrc) {
-            //Log.i("onCharacteristicChanged: AospGattadapter ");
+            //CommLogger.logv("onCharacteristicChanged: AospGattadapter ");
             GattCharacteristic c = new AospGattCharacteristic(chrc);
             mListener.onCharacteristicChanged(mGattInterface, c);
         }
@@ -191,7 +192,7 @@ public class AospGattAdapter implements GattAdapter {
 
         @Override
         public void onConnectionStateChange(BluetoothGatt Gatt, int status, int newState) {
-        	Log.i("status = "+ status);
+        	CommLogger.logv("","status = "+ status);
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 mListener.onConnectionStateChange(mGattInterface, Gatt.GATT_SUCCESS, newState);
                 if (newState == Gatt.STATE_DISCONNECTED) {
@@ -244,9 +245,9 @@ public class AospGattAdapter implements GattAdapter {
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 mListener.onServicesDiscovered(mGattInterface, Gatt.GATT_SUCCESS);
-                Log.i("onServicesDiscovered: AospGattadapter ");
+                //CommLogger.logv("onServicesDiscovered: AospGattadapter ");
                 if (mTimeoutHandler != null && mTimeoutRunnable != null) {
-                    Log.i("mTimeoutRunnable and mTimeoutHandler not null  ");
+                    //CommLogger.logv("mTimeoutRunnable and mTimeoutHandler not null  ");
                     mTimeoutHandler.removeCallbacks(mTimeoutRunnable);
                     mTimeoutRunnable = null;
                     mTimeoutHandler = null;

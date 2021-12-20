@@ -95,7 +95,7 @@ public final class Log {
 
     public static void i(String tag, String msg) {
         if (sDebug) {
-            android.util.Log.i(TAG, msg);
+
         }
     }
 
@@ -125,7 +125,7 @@ public final class Log {
 
     public static void i(String tag, String msg, Exception e) {
         if (sDebug) {
-            android.util.Log.i(TAG, msg, e);
+
         }
     }
 

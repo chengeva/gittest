@@ -135,7 +135,7 @@ public class AcaiaCommunicationPacketHelper {
      * @return The decoded data of the packet. e.g. 11.0
      */
     public static float parseScalePacket(byte[] buff) {
-        //Log.i("PARSE PACKET", String.valueOf(buff));
+        //CommLogger.logv("PARSE PACKET", String.valueOf(buff));
         return parsescalepacket(buff, buff.length);
     }
 

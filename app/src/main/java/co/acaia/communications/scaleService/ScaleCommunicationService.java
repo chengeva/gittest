@@ -440,10 +440,11 @@ public class ScaleCommunicationService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
+            CommLogger.logv7(TAG, "onCharacteristicChanged received");
             try {
                 if (gatt.getDevice().getAddress().equals(mCurrentConnectedDeviceAddr)) {
                     mConnectionState = CONNECTION_STATE_CONNECTED;
-                    CommLogger.logv(TAG, "onCharacteristicChanged received");
+                    CommLogger.logv7(TAG, "onCharacteristicChanged quals(mCurrentConnectedDeviceAddr()");
                     // CommLogger.logv(TAG,"chara len="+String.valueOf(readLen));
                     if (last_received == 0) {
                         EventBus.getDefault().post(new NewScaleConnectionStateEvent(mCurrentConnectedDeviceAddr));
@@ -455,24 +456,29 @@ public class ScaleCommunicationService extends Service {
                     // need to know if ISP mode...
 
                     if (!isISPMode()) {
+                        CommLogger.logv7(TAG, "onCharacteristicChanged !isISPMode()");
                         //// Log.v(TAG,"App Mode!");
                         if (acaiaScale == null) {
+                            CommLogger.logv7(TAG, "onCharacteristicChanged acaiaScale == null");
                             acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
                             acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue(),acaiaScale);
                         } else {
                             ////// Log.v(TAG, "acaia scale not null");
                             // parse packet
-
+                            CommLogger.logv7(TAG, "onCharacteristicChanged acaiaScale == not nulll");
 
                             if(AcaiaUpdater.ispHelper==null){
+                                CommLogger.logv7(TAG, "onCharacteristicChanged  isp nulll");
                                 AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
                             }
 
                             AcaiaUpdater.ispHelper.parseDataPacket(characteristic.getValue());
 
                             if(AcaiaUpdater.ispHelper.isISP!=ISP_CHECK_ISP) {
+                                CommLogger.logv7(TAG, "onCharacteristicChanged  not check isp");
                                 acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue(),acaiaScale);
                             }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
+                                CommLogger.logv7(TAG, "onCharacteristicChanged  set isp");
                                 setIsISP(true);
                                 scaleGetStatue=false;
                             }
@@ -480,6 +486,7 @@ public class ScaleCommunicationService extends Service {
                         }
 
                     }else{
+                        CommLogger.logv7(TAG, "onCharacteristicChanged isISPMode()");
                         //// Log.v(TAG,"ISP Mode!");
                         if(AcaiaUpdater.ispHelper==null){
                             AcaiaUpdater.ispHelper=new IspHelper(getApplicationContext(), self, handler, AcaiaUpdater.currentFirmware);
@@ -487,8 +494,11 @@ public class ScaleCommunicationService extends Service {
                         AcaiaUpdater.ispHelper.parseDataPacket(characteristic.getValue());
                     }
 
+                }else{
+                    CommLogger.logv7(TAG, "onCharacteristicChanged received error 1");
                 }
             } catch (Exception e) {
+                CommLogger.logv7(TAG, "onCharacteristicChanged received error 2");
                 EventBus.getDefault().post(new UpdateErrorEvent(UpdateErrorEvent.error_bluetooth, e.getMessage()));
                 e.printStackTrace();
             }
@@ -639,8 +649,13 @@ public class ScaleCommunicationService extends Service {
 
         }else {
 
-            if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            if (mBluetoothAdapter == null ) {
                 Log.w(TAG, "BluetoothAdapter not initialized");
+                return;
+            }
+
+            if(mBluetoothGatt == null)
+            {
                 return;
             }
 
@@ -691,7 +706,10 @@ public class ScaleCommunicationService extends Service {
         }
 
 
-
+        if(acaiaScale!=null){
+            acaiaScale.release();
+            acaiaScale=null;
+        }
 
     }
 
@@ -1022,7 +1040,7 @@ public class ScaleCommunicationService extends Service {
                         .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 mBluetoothGatt.writeDescriptor(descriptor);
             } else {
-                Log.i(TAG, "Set descriptor failed!");
+                CommLogger.logv(TAG, "Set descriptor failed!");
             }
         }
 

@@ -53,7 +53,7 @@ public class ApplicationUtils {
         ActivityManager activityManager =  (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
         MemoryInfo mi = new MemoryInfo();
         activityManager.getMemoryInfo(mi);
-        Log.i(TAG, "Memory free : " + mi.availMem);
+        CommLogger.logv(TAG, "Memory free : " + mi.availMem);
     }
 
 
@@ -61,7 +61,7 @@ public class ApplicationUtils {
      * Get the device information as device code.
      */
     public static void getDeviceInfo(){
-        Log.i(TAG, "Device Info " + System.getProperty("android.os.Build.DEVICE"));
+        CommLogger.logv(TAG, "Device Info " + System.getProperty("android.os.Build.DEVICE"));
 
     }
 
@@ -184,7 +184,7 @@ public class ApplicationUtils {
                 @Override
                 public void uncaughtException(Thread t, Throwable e) {
                     e.printStackTrace();
-                    Log.i(TAG,
+                    CommLogger.logv(TAG,
                             "Uncaught Exception detected in thread {}"
                                     + t.getName());
                 }

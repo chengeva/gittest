@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.ListFragment;
 
+import co.acaia.acaiaupdater.common.CommLogger;
 import co.acaia.androidupdater.R;
 import co.acaia.communications.scalecommand.ScaleConnectionCommandEvent;
 import co.acaia.communications.scalecommand.ScaleConnectionCommandEventType;
@@ -100,8 +101,8 @@ public class SettingScanScaleFragment extends ListFragment {
     private ScanCallback mScanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            Log.i("callbackType", String.valueOf(callbackType));
-            Log.i("result", result.toString());
+            CommLogger.logv("callbackType", String.valueOf(callbackType));
+            CommLogger.logv("result", result.toString());
             final BluetoothDevice device = result.getDevice();
             if (device != null) {
                 try {
@@ -135,7 +136,7 @@ public class SettingScanScaleFragment extends ListFragment {
         @Override
         public void onBatchScanResults(List<ScanResult> results) {
             for (ScanResult sr : results) {
-                Log.i("ScanResult - Results", sr.toString());
+                CommLogger.logv("ScanResult - Results", sr.toString());
             }
         }
 
@@ -152,7 +153,7 @@ public class SettingScanScaleFragment extends ListFragment {
         @Override
         public void onLeScan(final BluetoothDevice device, int rssi,
                              byte[] scanRecord) {
-            Log.i(TAG, "Scanned scale" + device.getAddress());
+            CommLogger.logv(TAG, "Scanned scale" + device.getAddress());
             // bus.post(new FoundNewScaleEvent(device, device.getAddress(),
             // false, false, ""));
             if (device != null) {
@@ -244,7 +245,7 @@ public class SettingScanScaleFragment extends ListFragment {
 
             final BluetoothDevice device = mLeDevices.get(i);
             if (mCurrentDevice != null) {
-                // Log.i("setting", "setcheck");
+                // CommLogger.logv("setting", "setcheck");
                 if (device.getAddress().equals(mCurrentDevice.getAddress())) {
                     viewHolder.check
                             .setBackgroundResource(R.drawable.icon_selected_device);
