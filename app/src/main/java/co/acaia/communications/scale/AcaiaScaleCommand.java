@@ -5,7 +5,7 @@ package co.acaia.communications.scale;
  */
 public interface AcaiaScaleCommand {
 
-    public void parseDataPacket(byte[] data);
+    public void parseDataPacket(byte[] data, AcaiaScale acaiaScale);
     public void parseDataPacketCinco(byte[] data,  AcaiaScale acaiaScale);
     public boolean connect(final String addr);
 

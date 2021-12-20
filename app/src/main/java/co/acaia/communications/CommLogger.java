@@ -29,4 +29,9 @@ public class CommLogger {
 
         ////// Log.v(tag, what);
     }
+
+    public static void logv7(String tag, String what) {
+
+        Log.v(tag, what);
+    }
 }

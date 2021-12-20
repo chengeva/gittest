@@ -55,8 +55,8 @@ public class AcaiaScale2 extends  AcaiaScale  {
     private void init_scale_command(){
         scaleCommand=new AcaiaScaleCommand() {
             @Override
-            public void parseDataPacket(byte[] data) {
-                DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco,null);
+            public void parseDataPacket(byte[] data, AcaiaScale acaiaScale) {
+                DataPacketParser.ParseData(mo_prsdata,data,context,false,isCinco,acaiaScale);
             }
 
             @Override

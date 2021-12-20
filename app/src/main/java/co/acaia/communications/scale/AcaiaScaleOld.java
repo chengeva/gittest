@@ -72,7 +72,7 @@ public class AcaiaScaleOld extends AcaiaScale {
     private void init_scale_command() {
         scaleCommand = new AcaiaScaleCommand() {
             @Override
-            public void parseDataPacket(byte[] data) {
+            public void parseDataPacket(byte[] data, AcaiaScale acaiaScale) {
                 parsePacket(data);
             }
 

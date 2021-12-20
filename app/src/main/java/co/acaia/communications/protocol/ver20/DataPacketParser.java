@@ -276,7 +276,13 @@ public class DataPacketParser {
             EventBus.getDefault().post(updatedStatusEvent);
             EventBus.getDefault().post(new UpdateISPEvent(scale_info_.n_ISP_version.get()));
             //// Log.v("GOT ISP","isp version="+String.valueOf(scale_info_.n_ISP_version.get()));
-            acaiaScale.startHeartBeat();
+            if(acaiaScale!=null)
+            {
+                acaiaScale.startHeartBeat();
+            }else{
+                CommLogger.logv7(TAG, "Error: acaia scale null");
+            }
+
         }else if(n_event== ScaleProtocol.ECMD.e_cmd_status_a.ordinal()){
             CommLogger.logv(TAG, "n_event=e_cmd_status_a");
             String deb="";

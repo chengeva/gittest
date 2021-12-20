@@ -457,7 +457,7 @@ public class ScaleCommunicationService extends Service {
                         //// Log.v(TAG,"App Mode!");
                         if (acaiaScale == null) {
                             acaiaScale = AcaiaScaleFactory.createAcaiaScale(AcaiaScaleFactory.version_20, getApplicationContext(), self, handler, null, false);
-                            acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
+                            acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue(),acaiaScale);
                         } else {
                             ////// Log.v(TAG, "acaia scale not null");
                             // parse packet
@@ -470,7 +470,7 @@ public class ScaleCommunicationService extends Service {
                             AcaiaUpdater.ispHelper.parseDataPacket(characteristic.getValue());
 
                             if(AcaiaUpdater.ispHelper.isISP!=ISP_CHECK_ISP) {
-                                acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue());
+                                acaiaScale.getScaleCommand().parseDataPacket(characteristic.getValue(),acaiaScale);
                             }else if(AcaiaUpdater.ispHelper.isISP==ISP_CHECK_ISP){
                                 setIsISP(true);
                                 scaleGetStatue=false;
