@@ -24,7 +24,7 @@ public class DistanceConnectHelper {
         distanceMap = new HashMap<>();
         btDevice = new HashMap<>();
 
-        final int secs = 5;
+        final int secs = 0;
         timeUp = false;
         new CountDownTimer((secs + 1) * 1000, 1000) // Wait 5 secs, tick every 1 sec
         {
