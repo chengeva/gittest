@@ -27,6 +27,7 @@ import co.acaia.acaiaupdater.Events.DisconnectDeviceEvent;
 import co.acaia.acaiaupdater.entity.AcaiaFirmware;
 import co.acaia.ble.events.ScaleConnectedEvent;
 import co.acaia.communications.CommLogger;
+import co.acaia.communications.events.ScanTimeoutEvent;
 import co.acaia.communications.events.SendDataEvent;
 import co.acaia.communications.protocol.ScaleGattAttributes;
 import co.acaia.communications.protocol.ver20.DataOutHelper;
@@ -778,6 +779,8 @@ public class ScaleCommunicationService extends Service {
                                 if (distanceConnectHelper.getTargetBluetoothDevice() != null) {
                                     //// Log.v("Distance connect", "Connect to:" + distanceConnectHelper.getTargetBluetoothDevice().getAddress());
                                     connect(distanceConnectHelper.getTargetBluetoothDevice().getAddress());
+                                }else{
+                                    EventBus.getDefault().post(new ScanTimeoutEvent());
                                 }
                                 // Hanjord todo: Work on failure states
                             }

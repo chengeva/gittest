@@ -33,10 +33,12 @@ import co.acaia.acaiaupdater.entity.FirmwareEntityHelper;
 import co.acaia.acaiaupdater.entity.FirmwareFileEntity;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDevice;
 import co.acaia.acaiaupdater.entity.acaiaDevice.AcaiaDeviceFactory;
+import co.acaia.communications.events.ScanTimeoutEvent;
 import co.acaia.communications.events.WeightEvent;
 import co.acaia.communications.scaleService.DistanceConnectEvent;
 import co.acaia.communications.scaleService.ScaleCommunicationService;
 import co.acaia.communications.scaleService.gatt.Log;
+import co.acaia.communications.scaleevent.ScaleConnectionEvent;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEvent;
 import co.acaia.communications.scaleevent.ScaleSettingUpdateEventType;
 import co.acaia.communications.scaleevent.UpdatedStatusEvent;
@@ -80,6 +82,32 @@ public class ConnectScaleActivity extends AppCompatActivity {
         //// Log.v("ConnectScaleActivity","Updating to: "+currentFirmwareFileEntity.detail);
 
 
+    }
+
+    public void onEvent(ScanTimeoutEvent scanTimeoutEvent)
+    {
+        current_connection_state=STATE_DISCONNECTED;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                update_view_status();
+            }
+        });
+    }
+
+    public void onEvent(ScaleConnectionEvent scaleConnectionEvent)
+    {
+        if(scaleConnectionEvent.isConnected()==false)
+        {
+            current_connection_state=STATE_DISCONNECTED;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    update_view_status();
+                }
+            });
+
+        }
     }
 
     /*public void onEvent(UpdateISPEvent updateISPEvent){
